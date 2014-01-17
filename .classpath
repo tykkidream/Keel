@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.7"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/MyBatis-3.1.1"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/MyBatis-3.1.1-Spring"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/MyBatis-3.1.1-Spring$dependency"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/MyBatis-3.1.1$dependency"/>
+	<classpathentry kind="lib" path="F:/Datum/Java_Apache_Struts/struts-2.3.12/lib/struts2-core-2.3.12.jar"/>
+	<classpathentry kind="lib" path="F:/Datum/Java_Apache_Struts/struts-2.3.12/lib/xwork-core-2.3.12.jar"/>
+	<classpathentry kind="lib" path="F:/Program_Files/apache-tomcat-7.0.47-8080/lib/servlet-api.jar"/>
+	<classpathentry kind="lib" path="F:/Datum/Java_Apache_Struts/struts-2.3.12/lib/struts2-json-plugin-2.3.12.jar"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/Apache_Commons_IO"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>
