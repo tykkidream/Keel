@@ -11,5 +11,7 @@
 	<classpathentry kind="lib" path="F:/Program_Files/apache-tomcat-7.0.47-8080/lib/servlet-api.jar"/>
 	<classpathentry kind="lib" path="F:/Datum/Java_Apache_Struts/struts-2.3.12/lib/struts2-json-plugin-2.3.12.jar"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/Apache_Commons_IO"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/4"/>
+	<classpathentry kind="lib" path="F:/Datum/Java_Spring/spring-framework-3.2.6.RELEASE/libs/spring-test-3.2.6.RELEASE.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
