@@ -19,7 +19,7 @@ import java.util.List;
  * @see dream.keel.BaseDaoImpl
  * @see dream.keel.BaseModel
  */
-public interface BaseDao<T extends BaseModel<?>> {
+public interface BaseDao<T> {
 	/* ===================== *
 	 * 增加数据的相关方法。
 	 * ===================== */
