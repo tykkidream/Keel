@@ -1,9 +1,6 @@
 package dream.keel;
 
 import java.io.Serializable;
-import java.util.List;
-
-import org.apache.struts2.json.annotations.JSON;
 
 /**
  * <h2>通用业务类</h2>
@@ -20,157 +17,30 @@ import org.apache.struts2.json.annotations.JSON;
  * @version 1.0，时间：2013-10-18 10：55，修订者：武利庆，内容：创建类。
  * @param <T> 泛型实现，Module层通用类
  */
-public class BaseModel<T extends BaseModel<?>> implements Serializable {
-	
-	private static final long serialVersionUID = 4749253447480228078L;
-	private Long id;
-	private String name;
-	private Long parentId;
-	private T parent;
-	private List<T> children;
-	private String[] path;
+public interface BaseModel<T extends BaseModel<?>> extends Serializable {
 	
 	/**
 	 * 设置整型主键。
 	 * @param id 主键ID
 	 */
-	public void setId(Long id) {
-		this.id = id;
-	}
+	public void setId(Long id);
 
 	/**
 	 * 得到整型主键。
 	 * @return 主键ID
 	 */
-	public Long getId() {
-		return id;
-	}
-
-	/**
-	 * 得到父级对象的整型主键ID。
-	 * @return
-	 */
-	public Long getParentId() {
-		return parentId;
-	}
-
-	/**
-	 * 设置父级对象的整型主键ID。
-	 * @param parentId
-	 */
-	public void setParentId(Long parentId) {
-		this.parentId = parentId;
-	}
+	public Long getId();
 
 	/**
 	 * 
 	 * @return
 	 */
-	public List<T> getChildren() {
-		return children;
-	}
-
-	/**
-	 * 
-	 * @param children
-	 */
-	public void setChildren(List<T> children) {
-		this.children = children;
-	}
-
-	/**
-	 * 
-	 * @return
-	 */
-	public boolean getLeaf() {
-		/*boolean leaf = true;
-		if (this.children != null && this.children.size() > 0) {
-			leaf = false;
-		}
-		return leaf;*/
-		return false;
-	}
-	
-	/**
-	 * 
-	 * @return
-	 */
-	public boolean getLoaded(){
-		boolean loaded = true;
-		/*if (this.children != null && this.children.size() > 0) {
-			loaded = false;
-		}*/
-		return loaded;
-	}
-
-	/**
-	 * 
-	 * @return
-	 */
-	public T getParent() {
-		return parent;
-	}
-
-	/**
-	 * 
-	 * @param parent
-	 */
-	public void setParent(T parent) {
-		this.parent = parent;
-	}
-
-	/**
-	 * 
-	 * @return
-	 */
-	public String[] getPath() {
-		return path;
-	}
-
-	/**
-	 * 
-	 * @param treePath
-	 */
-	public void setPath(String[] treePath) {
-		this.path = treePath;
-	}
-
-	/**
-	 * 
-	 * @return
-	 */
-	@JSON(deserialize=true,serialize = false)
-	public String getPathCode() {
-		if (path != null) {
-			return path.toString();
-		}
-		return null;
-	}
-
-	/**
-	 * 
-	 * @param pathCode
-	 */
-	public void setPathCode(String pathCode) {
-		if (pathCode != null) {
-			this.path = pathCode.split(",");
-		}
-	}
-
-	/**
-	 * 
-	 * @return
-	 */
-	public String getName() {
-		return name;
-	}
+	public String getName();
 
 	/**
 	 * 
 	 * @param name
 	 */
-	public void setName(String name) {
-		this.name = name;
-	}
+	public void setName(String name);
 
 }

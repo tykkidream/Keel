@@ -248,7 +248,7 @@ public class BaseServiceImpl<T extends BaseModel<T>> implements BaseService<T> {
 			while(iterator.hasNext()){
 				T next = iterator.next();
 				map.put(next.getId(), next);
-				if (next.getParentId() == null || next.getId() == next.getParentId() || next.getParentId() <= 0) {
+				/*if (next.getParentId() == null || next.getId() == next.getParentId() || next.getParentId() <= 0) {
 					list.add(next);
 					iterator.remove();
 				} else {
@@ -262,7 +262,7 @@ public class BaseServiceImpl<T extends BaseModel<T>> implements BaseService<T> {
 						parent.getChildren().add(next);
 						iterator.remove();
 					}
-				}
+				}*/
 			}
 		}
 		return list;
