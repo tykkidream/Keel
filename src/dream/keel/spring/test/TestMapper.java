@@ -1,4 +1,4 @@
-package dream.keel.spring;
+package dream.keel.spring.test;
 
 import static org.junit.Assert.*;
 
