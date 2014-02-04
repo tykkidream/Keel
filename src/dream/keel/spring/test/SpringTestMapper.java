@@ -22,7 +22,7 @@ public abstract class SpringTestMapper<T extends BaseModel<?>> extends TestMappe
 	
 	@BeforeClass
 	public static void setUpBeforeClass(){
-		id0 = -1L;
+		id0 = 1L;
 		id1 = 318001L;
 		id2 = 318002L;
 	}

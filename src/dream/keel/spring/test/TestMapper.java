@@ -34,7 +34,7 @@ public abstract class TestMapper<T extends BaseModel<?>>{
 			System.out.println(">>>>>     初始化Spring的Application     <<<<<");
 			applicationContext = new ClassPathXmlApplicationContext("applicationContext.xml");
 		}
-		id0 = -1L;
+		id0 = 1L;
 		id1 = 318001L;
 		id2 = 318002L;
 	}
