@@ -17,7 +17,7 @@ import dream.keel.base.BaseModel;
  */
 public class BaseDaoImpl<T extends BaseModel<?>> extends org.mybatis.spring.support.SqlSessionDaoSupport implements BaseDao<T> {
 	
-	private String mapperNamespace = null;
+	protected String mapperNamespace = null;
 
 	public String getMapperNamespace() {
 			return this.mapperNamespace;
@@ -160,36 +160,4 @@ public class BaseDaoImpl<T extends BaseModel<?>> extends org.mybatis.spring.supp
 	public List<T> selectFullByParameters(Object params) {
 		return selectList(this.mapperNamespace + ".selectFullByParameters", params);
 	}
-
-	@Override
-	public T selectConnectLeaf(Object id) {
-		return selectOne(this.mapperNamespace + ".selectConnectLeafByID", id);
-	}
-
-	@Override
-	public T selectConnectLeafByLeaf(Object id) {
-		return selectOne(this.mapperNamespace + ".selectConnectLeafByLeaf", id);
-	}
-
-	@Override
-	public List<T> selectConnectLeafByParameters(Object params) {
-		return selectList(this.mapperNamespace + ".selectConnectLeafByParameters", params);
-	}
-
-	@Override
-	public T selectConnectRoot(Object id) {
-		return selectOne(this.mapperNamespace + ".selectConnectRootByID", id);
-	}
-
-	@Override
-	public T selectConnectRootByRoot(Object id) {
-		return selectOne(this.mapperNamespace + ".selectConnectRootByRoot", id);
-	}
-
-	@Override
-	public List<T> selectConnectRootByParameters(Object params) {
-		return selectList(this.mapperNamespace + ".selectConnectRootByParameters", params);
-	}
-
-
 }
