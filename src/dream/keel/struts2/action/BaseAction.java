@@ -1,4 +1,4 @@
-package dream.keel;
+package dream.keel.struts2.action;
 
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
@@ -17,8 +17,9 @@ import com.opensymphony.xwork2.Preparable;
 import com.opensymphony.xwork2.config.entities.ActionConfig;
 import com.opensymphony.xwork2.interceptor.ValidationWorkflowAware;
 
+import dream.keel.base.BaseModel;
+import dream.keel.base.BaseService;
 import dream.keel.mybatis.interceptor.Page;
-import dream.keel.struts2.action.HTMLAction;
 import dream.keel.util.HttpURLUtils;
 import dream.keel.util.ReflectUtils;
 import dream.keel.util.StringUtils;

@@ -11,8 +11,8 @@ import org.junit.runners.MethodSorters;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
-import dream.keel.BaseDao;
-import dream.keel.BaseModel;
+import dream.keel.base.BaseDao;
+import dream.keel.base.BaseModel;
 
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 @RunWith(JUnit4.class)

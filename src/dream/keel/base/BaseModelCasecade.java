@@ -1,11 +1,11 @@
-package dream.keel;
+package dream.keel.base;
 
 import java.io.Serializable;
 import java.util.List;
 
 import org.apache.struts2.json.annotations.JSON;
 
-public interface BaseModelCasecade <T> extends Serializable{
+public interface BaseModelCasecade <T extends BaseModelCasecade<?>> extends BaseModel<T>, Serializable{
 
 	/**
 	 * 得到父级对象的整型主键ID。

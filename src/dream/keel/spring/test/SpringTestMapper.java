@@ -7,8 +7,8 @@ import org.junit.runners.MethodSorters;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import dream.keel.BaseDao;
-import dream.keel.BaseModel;
+import dream.keel.base.BaseDao;
+import dream.keel.base.BaseModel;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = "classpath:applicationContext.xml")

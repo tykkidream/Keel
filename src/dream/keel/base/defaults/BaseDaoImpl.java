@@ -1,16 +1,19 @@
-package dream.keel;
+package dream.keel.base.defaults;
 
 import java.util.List;
 
+import dream.keel.base.BaseDao;
+import dream.keel.base.BaseModel;
+
 /**
  * <h2>通用数据操作类</h2>
- * <p>本类为通用架构的一部分，Dao层通用接口{@link dream.keel.BaseDao BaseDao}实现类。</p>
+ * <p>本类为通用架构的一部分，Dao层通用接口{@link dream.keel.base.BaseDao BaseDao}实现类。</p>
  * @author 武利庆
  * @version 1.1，时间：2013-11-0 10：55，修订者：武利庆，内容：重写实现。
  * @version 1.0，时间：2013-10-18 10：55，修订者：武利庆，内容：创建类。
  * @param <T> 泛型实现，Module层通用类
- * @see dream.keel.BaseDao
- * @see dream.keel.BaseModel
+ * @see dream.keel.base.BaseDao
+ * @see dream.keel.base.BaseModel
  */
 public class BaseDaoImpl<T extends BaseModel<?>> extends org.mybatis.spring.support.SqlSessionDaoSupport implements BaseDao<T> {
 	

@@ -1,4 +1,4 @@
-package dream.keel;
+package dream.keel.base;
 
 import java.io.Serializable;
 
