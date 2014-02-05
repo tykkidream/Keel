@@ -5,7 +5,7 @@ import org.apache.struts2.json.annotations.JSON;
 import dream.keel.base.BaseModelCasecade;
 
 @SuppressWarnings("serial")
-public abstract class BaseModel<T extends BaseModel<?>> implements BaseModelCasecade<T>,dream.keel.base.BaseModel<T>{
+public abstract class BaseModel<T extends BaseModel<?>> implements BaseModelCasecade<T>{
 
 	public boolean getLeaf() {
 	     boolean leaf = true;
