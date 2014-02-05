@@ -1,4 +1,4 @@
-package dream.keel.base.defaults;
+package dream.keel.base.mybatis;
 
 import java.util.List;
 

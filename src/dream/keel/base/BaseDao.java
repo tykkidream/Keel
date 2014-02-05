@@ -11,12 +11,12 @@ import java.util.List;
  * <li>ORM框架：MyBatis3.1</li>
  * <li>数据库：Oracle 11g r2</li>
  * </ul>
- * <p>本接口使用了泛型，使用了通用架构的其它部分：Module层通用类{@link dream.keel.base.BaseModel BaseModel}。并有默认的实现{@link dream.keel.base.defaults.BaseDaoImpl BaseDaoImpl}，可直接继承使用。</p>
+ * <p>本接口使用了泛型，使用了通用架构的其它部分：Module层通用类{@link dream.keel.base.BaseModel BaseModel}。并有默认的实现{@link dream.keel.base.mybatis.BaseDaoImpl BaseDaoImpl}，可直接继承使用。</p>
  * <p>本接口的方法包含常见的对数据库执行简单操作的业务方法。涉及到普通的增、删、改、查，以及复杂查询（条件、分页、级联、外键关联）。</p>
  * @author 武利庆
  * @version 1.0，时间：2013-10-18 10：55，修订者：武利庆，内容：创建接口。
  * @param <T> 泛型实现，Module层通用类
- * @see dream.keel.base.defaults.BaseDaoImpl
+ * @see dream.keel.base.mybatis.BaseDaoImpl
  * @see dream.keel.base.BaseModel
  */
 public interface BaseDao<T> {
