@@ -1,4 +1,4 @@
-package dream.keel.mybatis.interceptor;
+package dream.keel.base;
 
 import java.io.Serializable;
 import java.util.HashMap;

@@ -3,8 +3,6 @@ package dream.keel.base;
 import java.util.List;
 import java.util.Map;
 
-import dream.keel.mybatis.interceptor.Page;
-
 public interface BaseServiceCasecade<T> extends BaseService<T>{
 
 	/**

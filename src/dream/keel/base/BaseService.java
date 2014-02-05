@@ -3,8 +3,6 @@ package dream.keel.base;
 import java.util.List;
 import java.util.Map;
 
-import dream.keel.mybatis.interceptor.Page;
-
 /**
  * <h2>通用业务接口</h2>
  * <p>本接口为通用架构的一部分，Service层通用接口。通用架构设计之初的使用的以下方面的技术：</p>

@@ -11,7 +11,7 @@ import dream.keel.base.BaseDao;
 import dream.keel.base.BaseDaoCasecade;
 import dream.keel.base.BaseModelCasecade;
 import dream.keel.base.BaseServiceCasecade;
-import dream.keel.mybatis.interceptor.Page;
+import dream.keel.base.Page;
 
 public class BaseServiceCasecadeImpl<T extends BaseModelCasecade<T>> extends BaseServiceImpl<T> implements BaseServiceCasecade<T> {
 	private BaseDaoCasecade<T> baseDaoCasecade = null;

@@ -19,7 +19,7 @@ import com.opensymphony.xwork2.interceptor.ValidationWorkflowAware;
 
 import dream.keel.base.BaseModel;
 import dream.keel.base.BaseService;
-import dream.keel.mybatis.interceptor.Page;
+import dream.keel.base.Page;
 import dream.keel.util.HttpURLUtils;
 import dream.keel.util.ReflectUtils;
 import dream.keel.util.StringUtils;

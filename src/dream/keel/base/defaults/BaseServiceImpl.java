@@ -7,7 +7,7 @@ import java.util.Map;
 import dream.keel.base.BaseDao;
 import dream.keel.base.BaseModel;
 import dream.keel.base.BaseService;
-import dream.keel.mybatis.interceptor.Page;
+import dream.keel.base.Page;
 
 /**
  * <h2>通用业务类</h2>
