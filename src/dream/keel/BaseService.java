@@ -25,7 +25,7 @@ import dream.keel.mybatis.interceptor.Page;
  * @see dream.keel.BaseDao
  * @see dream.keel.BaseModel
  */
-public interface BaseService<T extends BaseModel<?>> {
+public interface BaseService<T> {
 	/**
 	 * 获取其业务相关数据库操作对象。
 	 * @return 数据库操作对象
@@ -41,7 +41,67 @@ public interface BaseService<T extends BaseModel<?>> {
 	/* ===================== *
 	 * 增加数据和修改数据的相关方法。
 	 * ===================== */
+	
+	/**
+	 * <h3>普通数据处理：创建一个数据。</h3>
+	 * @param record 一个数据
+	 * @return 成功是否
+	 */
+	public boolean create(T record);
+	
+	/**
+	 * <h3>普通数据处理：选择性地创建一个数据。</h3>
+	 * @param record 一个数据
+	 * @return 成功是否
+	 */
+	public boolean createSelective(T record);
+	
+	/**
+	 * <h3>普通数据处理：创建多个数据。</h3>
+	 * @param record 一个数据
+	 * @return 成功是否
+	 */
+	public boolean create(List<T> record);
+	
+	/**
+	 * <h3>普通数据处理：选择性地创建多个数据。</h3>
+	 * @param record 一个数据
+	 * @return 成功是否
+	 */
+	public boolean createSelective(List<T> record);
+	
+	/**
+	 * <h3>普通数据处理：修改一个数据。</h3>
+	 * @param record 一个数据
+	 * @return 成功是否
+	 */
+	public boolean modify(T record);
+	
+	/**
+	 * <h3>普通数据处理：选择性地修改一个数据。</h3>
+	 * @param record 一个数据
+	 * @return 成功是否
+	 */
+	public boolean modifySelective(T record);
+	
+	/**
+	 * <h3>普通数据处理：修改多个数据。</h3>
+	 * @param record 一个数据
+	 * @return 成功是否
+	 */
+	public boolean modify(List<T> record);
+	
+	/**
+	 * <h3>普通数据处理：选择性地修改多个数据。</h3>
+	 * @param record 一个数据
+	 * @return 成功是否
+	 */
+	public boolean modifySelective(List<T> record);
 
+	/* ===================== *
+	 * 保存数据系列方法。
+	 * ===================== */
+	
 	/**
 	 * <h3>普通数据处理：保存一个数据。</h3>
 	 * <p>功能约定为将其所有的属性值保存到数据库，当数据的主键ID不为NULL或为0时执行插入数据库，否则依照ID更新的数据库。
@@ -52,7 +112,7 @@ public interface BaseService<T extends BaseModel<?>> {
 	public int saveOne(T record);
 
 	/**
-	 * <h3>普通数据处理：保存一个数据。</h3>
+	 * <h3>普通数据处理：选择性地保存一个数据。</h3>
 	 * <p>功能约定为将其所有不为NULL的属性值保存到数据库，当数据的主键ID不为NULL或为0时执行插入数据库，否则依照ID更新的数据库。
 	 * 最终功能视具体的实现而定。</p>
 	 * @param record
@@ -70,7 +130,7 @@ public interface BaseService<T extends BaseModel<?>> {
 	public int saveList(List<T> record);
 
 	/**
-	 * <h3>普通数据处理：保存多个数据。</h3>
+	 * <h3>普通数据处理：选择性地保存多个数据。</h3>
 	 * <p>功能约定为将其所有不为NULL的属性值保存到数据库，当数据的主键ID不为NULL或为0时执行插入数据库，否则依照ID更新的数据库。
 	 * 最终功能视具体的实现而定。</p>
 	 * @param record 多个数据集合
@@ -88,7 +148,7 @@ public interface BaseService<T extends BaseModel<?>> {
 	 * @param id 数据的主键ID
 	 * @return 成功次数
 	 */
-	public int deleteOneByID(Object id);
+	public int deleteOne(Object id);
 	
 	/**
 	 * <h3>普通数据处理：删除多个数据。</h3>
@@ -96,7 +156,7 @@ public interface BaseService<T extends BaseModel<?>> {
 	 * @param array 多个数据的主键ID
 	 * @return 成功次数
 	 */
-	public int deleteArrayByID(Object[] array);
+	public int deleteArray(Object[] array);
 	
 	/**
 	 * <h3>普通数据处理：删除多个数据。</h3>
@@ -104,7 +164,7 @@ public interface BaseService<T extends BaseModel<?>> {
 	 * @param list 多个数据
 	 * @return 成功次数
 	 */
-	public int deleteListByID(List<T> list);
+	public int deleteList(List<T> list);
 
 	/* ===================== *
 	 * 查询数据的相关方法。
@@ -116,7 +176,7 @@ public interface BaseService<T extends BaseModel<?>> {
 	 * @param id 数据的主键ID
 	 * @return 单个数据
 	 */
-	public T queryByID(Object id);
+	public T query(Object id);
 	/**
 	 * <h3>普通数据处理：按条件分页查询多个数据。</h3>
 	 * <p>功能约定为根据件条件和分页设置从数据表中按分页查询多个数据。最终功能视具体的实现而定。</p>
@@ -144,7 +204,7 @@ public interface BaseService<T extends BaseModel<?>> {
 	 * @param id 数据的主键ID
 	 * @return 单个数据及其外键数据
 	 */
-	public T queryFullByID(Object id);
+	public T queryFull(Object id);
 	/**
 	 * <h3>关联多种数据处理：按条件分页查询多个数据。</h3>
 	 * <p>功能约定为根据件条件和分页设置从数据表中按分页查询多个数据，包括相关的外键数据。最终功能视具体的实现而定。</p>
@@ -172,7 +232,7 @@ public interface BaseService<T extends BaseModel<?>> {
 	 * @param id 叶子数据的主键ID
 	 * @return 叶子数据及其所有父数据
 	 */
-	public T queryConnectLeafByID(Object id);
+	public T queryConnectLeaf(Object id);
 	/**
 	 * <h3>向上级联数据处理：查询一个数据。</h3>
 	 * <p>功能约定为根据叶子数据的主键ID从级联数据表中查询单个叶子数据，包括其所有父数据。最终功能视具体的实现而定。</p>
@@ -201,7 +261,7 @@ public interface BaseService<T extends BaseModel<?>> {
 	 * @param id 根数据的主键ID
 	 * @return 根数据及其所有子数据
 	 */
-	public T queryConnectRootByID(Object id);
+	public T queryConnectRoot(Object id);
 	/**
 	 * <h3>向下级联数据处理：查询一个数据。</h3>
 	 * <p>功能约定为根据根数据的主键ID从级联数据表中查询单个根数据，包括其所有子数据。最终功能视具体的实现而定。</p>

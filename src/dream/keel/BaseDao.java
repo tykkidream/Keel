@@ -49,7 +49,7 @@ public interface BaseDao<T> {
 	 * @param id 数据的主键ID
 	 * @return 成功次数
 	 */
-	int deleteByID(Object id);
+	int delete(Object id);
 
 	/* ===================== *
 	 * 修改数据的相关方法。
@@ -61,7 +61,7 @@ public interface BaseDao<T> {
 	 * @param record 一个数据
 	 * @return 成功次数
 	 */
-	int updateByID(T record);
+	int update(T record);
 	
 	/**
 	 * <h3>普通数据处理：更新一个数据到数据库。</h3>
@@ -69,7 +69,7 @@ public interface BaseDao<T> {
 	 * @param record 一个数据
 	 * @return 成功次数
 	 */
-	int updateByIDSelective(T record);
+	int updateSelective(T record);
 	
 	/* ===================== *
 	 * 查询数据的相关方法。
@@ -81,7 +81,7 @@ public interface BaseDao<T> {
 	 * @param id 数据的主键ID
 	 * @return 单个数据
 	 */
-	public T selectByID(Object id);
+	public T select(Object id);
 	/**
 	 * <h3>普通数据处理：按条件查询所有数据。</h3>
 	 * <p>功能约定为根据条件设置从数据表中按查询所有数据。最终功能视具体的实现而定。</p>
@@ -96,7 +96,7 @@ public interface BaseDao<T> {
 	 * @param id 数据的主键ID
 	 * @return 单个数据及其外键数据
 	 */
-	public T selectFullByID(Object id);
+	public T selectFull(Object id);
 	/**
 	 * <h3>关联多种数据处理：按条件查询所有数据。</h3>
 	 * <p>功能约定为根据条件设置从数据表中按查询所有数据，包括相关的外键数据。最终功能视具体的实现而定。</p>
@@ -111,7 +111,7 @@ public interface BaseDao<T> {
 	 * @param id 叶子数据的主键ID
 	 * @return 叶子数据及其所有父数据
 	 */
-	public T selectConnectLeafByID(Object id);
+	public T selectConnectLeaf(Object id);
 	/**
 	 * <h3>向上级联数据处理：查询一个数据。</h3>
 	 * <p>功能约定为根据叶子数据的主键ID从级联数据表中查询单个叶子数据，包括其所有父数据。最终功能视具体的实现而定。</p>
@@ -133,7 +133,7 @@ public interface BaseDao<T> {
 	 * @param id 根数据的主键ID
 	 * @return 根数据及其所有子数据
 	 */
-	public T selectConnectRootByID(Object id);
+	public T selectConnectRoot(Object id);
 	/**
 	 * <h3>向下级联数据处理：查询一个数据。</h3>
 	 * <p>功能约定为根据根数据的主键ID从级联数据表中查询单个根数据，包括其所有子数据。最终功能视具体的实现而定。</p>

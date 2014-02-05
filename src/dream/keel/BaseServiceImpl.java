@@ -1,6 +1,5 @@
 package dream.keel;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedList;
@@ -35,6 +34,82 @@ public class BaseServiceImpl<T extends BaseModel<T>> implements BaseService<T> {
 	}
 
 	@Override
+	public boolean create(T record) {
+		int num = this.baseDao.insert(record);
+		return num == 1;
+	}
+
+	@Override
+	public boolean createSelective(T record) {
+		int num = this.baseDao.insertSelective(record);
+		return num == 1;
+	}
+
+	@Override
+	public boolean create(List<T> record) {
+		if(record == null  || record.size() > 0){
+			int num = 0;
+			for (Iterator<T> iterator = record.iterator(); iterator.hasNext();) {
+				T t = iterator.next();
+				num += this.baseDao.insert(t);
+			}
+			return num == record.size();
+		}
+		return false;
+	}
+
+	@Override
+	public boolean createSelective(List<T> record) {
+		if(record == null  || record.size() > 0){
+			int num = 0;
+			for (Iterator<T> iterator = record.iterator(); iterator.hasNext();) {
+				T t = iterator.next();
+				num += this.baseDao.insertSelective(t);
+			}
+			return num == record.size();
+		}
+		return false;
+	}
+
+	@Override
+	public boolean modify(T record) {
+		int num = this.baseDao.update(record);
+		return num == 1;
+	}
+
+	@Override
+	public boolean modifySelective(T record) {
+		int num = this.baseDao.updateSelective(record);
+		return num == 1;
+	}
+
+	@Override
+	public boolean modify(List<T> record) {
+		if(record == null  || record.size() > 0){
+			int num = 0;
+			for (Iterator<T> iterator = record.iterator(); iterator.hasNext();) {
+				T t = iterator.next();
+				num += this.baseDao.update(t);
+			}
+			return num == record.size();
+		}
+		return false;
+	}
+
+	@Override
+	public boolean modifySelective(List<T> record) {
+		if(record == null  || record.size() > 0){
+			int num = 0;
+			for (Iterator<T> iterator = record.iterator(); iterator.hasNext();) {
+				T t = iterator.next();
+				num += this.baseDao.updateSelective(t);
+			}
+			return num == record.size();
+		}
+		return false;
+	}
+
+	@Override
 	public int saveOne(T record) {
 		int num = 0;
 		
@@ -42,7 +117,7 @@ public class BaseServiceImpl<T extends BaseModel<T>> implements BaseService<T> {
 			if (record.getId() == null) {
 				num = this.baseDao.insert(record);
 			} else {
-				num = this.baseDao.updateByID(record);
+				num = this.baseDao.update(record);
 			}
 		}
 		return num;
@@ -56,7 +131,7 @@ public class BaseServiceImpl<T extends BaseModel<T>> implements BaseService<T> {
 			if (record.getId() == null || record.getId()==0) {
 				num = this.baseDao.insertSelective(record);
 			} else {
-				num = this.baseDao.updateByIDSelective(record);
+				num = this.baseDao.updateSelective(record);
 			}
 		}
 		return num;
@@ -67,21 +142,18 @@ public class BaseServiceImpl<T extends BaseModel<T>> implements BaseService<T> {
 		int num = 0;
 
 		if (record != null) {
-			List<T> up = new ArrayList<T>();
-
 			for (int i = 0; i < record.size(); i++) {
 				T obj = record.get(i);
 				
 				if(obj.getId() != null){
 					num += this.baseDao.insert(obj);
-				} else {
-					up.add(obj);
+					record.remove(i);
 				}
 			}
 			
-			for (int i = 0; i < up.size(); i++) {
-				T obj = up.get(i);
-				num += this.baseDao.updateByID(obj);
+			for (int i = 0; i < record.size(); i++) {
+				T obj = record.get(i);
+				num += this.baseDao.update(obj);
 			}
 		}
 		return num;
@@ -92,56 +164,53 @@ public class BaseServiceImpl<T extends BaseModel<T>> implements BaseService<T> {
 		int num = 0;
 		
 		if (record != null) {
-			List<T> up = new ArrayList<T>();
-
 			for (int i = 0; i < record.size(); i++) {
 				T obj = record.get(i);
 				
 				if(obj.getId() != null){
 					num += this.baseDao.insertSelective(obj);
-				} else {
-					up.add(obj);
+					record.remove(i);
 				}
 			}
 			
-			for (int i = 0; i < up.size(); i++) {
-				T obj = up.get(i);
-				num += this.baseDao.updateByIDSelective(obj);
+			for (int i = 0; i < record.size(); i++) {
+				T obj = record.get(i);
+				num += this.baseDao.updateSelective(obj);
 			}
 		}
 		return num;
 	}
 
 	@Override
-	public int deleteOneByID(Object id) {
-		return baseDao.deleteByID(id);
+	public int deleteOne(Object id) {
+		return baseDao.delete(id);
 	}
 
 	@Override
-	public int deleteArrayByID(Object[] list) {
+	public int deleteArray(Object[] list) {
 		int num = 0;
 		if (list != null) {
 			for (int i = 0; i < list.length; i++) {
-				num += deleteOneByID(list[i]);
+				num += deleteOne(list[i]);
 			}
 		}
 		return num;
 	}
 
 	@Override
-	public int deleteListByID(List<T> list) {
+	public int deleteList(List<T> list) {
 		int num = 0;
 		if (list != null) {
 			for (int i = 0; i < list.size(); i++) {
-				num += deleteOneByID(list.get(i).getId());
+				num += deleteOne(list.get(i).getId());
 			}
 		}
 		return num;
 	}
 
 	@Override
-	public T queryByID(Object id) {
-		T obj = baseDao.selectByID(id);
+	public T query(Object id) {
+		T obj = baseDao.select(id);
 		return obj;
 	}
 
@@ -166,8 +235,8 @@ public class BaseServiceImpl<T extends BaseModel<T>> implements BaseService<T> {
 	}
 
 	@Override
-	public T queryFullByID(Object id) {
-		return baseDao.selectFullByID(id);
+	public T queryFull(Object id) {
+		return baseDao.selectFull(id);
 	}
 
 	@Override
@@ -192,8 +261,8 @@ public class BaseServiceImpl<T extends BaseModel<T>> implements BaseService<T> {
 	}
 
 	@Override
-	public T queryConnectLeafByID(Object id) {
-		return baseDao.selectConnectLeafByID(id);
+	public T queryConnectLeaf(Object id) {
+		return baseDao.selectConnectLeaf(id);
 	}
 
 	@Override
@@ -217,8 +286,8 @@ public class BaseServiceImpl<T extends BaseModel<T>> implements BaseService<T> {
 	}
 
 	@Override
-	public T queryConnectRootByID(Object id) {
-		return baseDao.selectConnectRootByID(id);
+	public T queryConnectRoot(Object id) {
+		return baseDao.selectConnectRoot(id);
 	}
 
 	@Override

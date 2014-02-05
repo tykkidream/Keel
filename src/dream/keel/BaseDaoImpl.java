@@ -89,7 +89,7 @@ public class BaseDaoImpl<T extends BaseModel<?>> extends org.mybatis.spring.supp
 	}
 	
 	@Override
-	public int deleteByID(Object id) {
+	public int delete(Object id) {
 		return delete(mapperNamespace + ".deleteByID", id);
 	}
 	
@@ -107,12 +107,12 @@ public class BaseDaoImpl<T extends BaseModel<?>> extends org.mybatis.spring.supp
 	}	
 
 	@Override
-	public int updateByID(T record) {
+	public int update(T record) {
 		return update(mapperNamespace + ".updateByID", record);
 	}
 
 	@Override
-	public int updateByIDSelective(T record) {
+	public int updateSelective(T record) {
 		return update(mapperNamespace + ".updateByIDSelective", record);
 	}
 
@@ -139,7 +139,7 @@ public class BaseDaoImpl<T extends BaseModel<?>> extends org.mybatis.spring.supp
 	}
 
 	@Override
-	public T selectByID(Object id) {
+	public T select(Object id) {
 		return selectOne(this.mapperNamespace + ".selectByID", id);
 	}
 
@@ -149,7 +149,7 @@ public class BaseDaoImpl<T extends BaseModel<?>> extends org.mybatis.spring.supp
 	}
 
 	@Override
-	public T selectFullByID(Object id) {
+	public T selectFull(Object id) {
 		return selectOne(this.mapperNamespace + ".selectFullByID", id);
 	}
 
@@ -159,7 +159,7 @@ public class BaseDaoImpl<T extends BaseModel<?>> extends org.mybatis.spring.supp
 	}
 
 	@Override
-	public T selectConnectLeafByID(Object id) {
+	public T selectConnectLeaf(Object id) {
 		return selectOne(this.mapperNamespace + ".selectConnectLeafByID", id);
 	}
 
@@ -174,7 +174,7 @@ public class BaseDaoImpl<T extends BaseModel<?>> extends org.mybatis.spring.supp
 	}
 
 	@Override
-	public T selectConnectRootByID(Object id) {
+	public T selectConnectRoot(Object id) {
 		return selectOne(this.mapperNamespace + ".selectConnectRootByID", id);
 	}
 

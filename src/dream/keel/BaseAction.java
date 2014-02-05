@@ -311,9 +311,9 @@ public abstract class BaseAction<T extends BaseModel<T>> extends ActionSupport i
 	public String delete() {
 		int num = 0;
 		if (this.getList() != null && this.getList().size() > 0) {
-			num = getBaseService().deleteListByID(this.getList());
+			num = getBaseService().deleteList(this.getList());
 		} else if (this.entity != null && this.entity.getId() != null) {
-			num = getBaseService().deleteOneByID(this.entity.getId());
+			num = getBaseService().deleteOne(this.entity.getId());
 		} else {
 			num = -1;
 		}
@@ -363,7 +363,7 @@ public abstract class BaseAction<T extends BaseModel<T>> extends ActionSupport i
 
 	public String query() {
 		if (this.entity != null && this.entity.getId() != null) {
-			this.entity = getBaseService().queryByID(getEntity().getId());
+			this.entity = getBaseService().query(getEntity().getId());
 		} else {
 			this.page = getBaseService().queryByPage(this.page);
 			this.list = this.page.getResult();

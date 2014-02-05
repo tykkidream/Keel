@@ -62,7 +62,7 @@ public abstract class TestMapper<T extends BaseModel<?>>{
 	
 	@Test
 	public void test01SelectByID(){
-		T t = this.getMapper().selectByID(id0);
+		T t = this.getMapper().select(id0);
 		
 		assertNotNull("无法获取目标数据！没有匹配id0为" + id0 + "的数据！", t);
 		assertSame("获取非目标数据！", id0, t.getId());
@@ -72,7 +72,7 @@ public abstract class TestMapper<T extends BaseModel<?>>{
 	public void test02Insert(){
 		int rs = 0;
 
-		t1 = this.getMapper().selectByID(id1);
+		t1 = this.getMapper().select(id1);
 		assertNull("已存在要保存的数据！", t1);
 		
 		t1 = test02Insert_getModel();
@@ -80,7 +80,7 @@ public abstract class TestMapper<T extends BaseModel<?>>{
 		rs = this.getMapper().insert(t1);
 		assertEquals("保存数据失败！",1, rs);
 		
-		t2 = this.getMapper().selectByID(t1.getId());
+		t2 = this.getMapper().select(t1.getId());
 		assertNotNull("无法获取保存的数据！", t2);
 	}
 	
@@ -90,7 +90,7 @@ public abstract class TestMapper<T extends BaseModel<?>>{
 	public void test03InsertSelective(){
 		int rs = 0;
 
-		t1 = this.getMapper().selectByID(id2);
+		t1 = this.getMapper().select(id2);
 		assertNull("已存在要保存的数据！", t1);
 		
 		t1 = test03InsertSelective_getModel();
@@ -109,15 +109,15 @@ public abstract class TestMapper<T extends BaseModel<?>>{
 	public void test04UpdateByID(){
 		int rs = 0;
 
-		t1 = this.getMapper().selectByID(id1);
+		t1 = this.getMapper().select(id1);
 		assertNotNull("不存在要更新的数据！", t1);
 		
 		t2 = test04UpdateByID_getModel();
 		
-		rs = this.getMapper().updateByID(t2);
+		rs = this.getMapper().update(t2);
 		assertEquals("更新数据失败！",1, rs);
 		
-		t2 = this.getMapper().selectByID(t2.getId());
+		t2 = this.getMapper().select(t2.getId());
 		assertNotNull("无法获取数据的数据！", t2);
 		
 		test04UpdateByID_assert();
@@ -131,15 +131,15 @@ public abstract class TestMapper<T extends BaseModel<?>>{
 	public void test05UpdateByIDSelective(){
 		int rs = 0;
 
-		t1 = this.getMapper().selectByID(id1);
+		t1 = this.getMapper().select(id1);
 		assertNotNull("不存在要更新的数据！", t1);
 		
 		t2 = test05UpdateByIDSelective_getModel();
 		
-		rs = this.getMapper().updateByIDSelective(t2);
+		rs = this.getMapper().updateSelective(t2);
 		assertEquals("更新数据失败！",1, rs);
 		
-		t2 = this.getMapper().selectByID(t2.getId());
+		t2 = this.getMapper().select(t2.getId());
 		assertNotNull("无法获取数据的数据！", t2);
 		
 		test05UpdateByIDSelective_assert();
@@ -153,10 +153,10 @@ public abstract class TestMapper<T extends BaseModel<?>>{
 	public void test06DeleteByID1(){
 		int rs = 0;
 
-		t1 = this.getMapper().selectByID(id1);
+		t1 = this.getMapper().select(id1);
 		assertNotNull("不存在要删除的数据！没有匹配id2为" + id2 + "的数据！", t1);
 
-		rs = this.getMapper().deleteByID(t1.getId());
+		rs = this.getMapper().delete(t1.getId());
 		assertSame("删除数据失败！没有删除匹配id2为" + id2 + "的数据！", 1, rs);
 	}
 	
@@ -164,10 +164,10 @@ public abstract class TestMapper<T extends BaseModel<?>>{
 	public void test07DeleteByID2(){
 		int rs = 0;
 
-		t1 = this.getMapper().selectByID(id2);
+		t1 = this.getMapper().select(id2);
 		assertNotNull("不存在要删除的数据！没有匹配id2为" + id2 + "的数据！", t1);
 
-		rs = this.getMapper().deleteByID(t1.getId());
+		rs = this.getMapper().delete(t1.getId());
 		assertSame("删除数据失败！没有删除匹配id2为" + id2 + "的数据！", 1, rs);
 	}
 
