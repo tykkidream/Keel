@@ -83,6 +83,20 @@ public interface BaseDao<T> {
 	 */
 	public T select(Object id);
 	/**
+	 * <h3>普通数据处理：查询多个数据。</h3>
+	 * <p>功能约定为根据数据的主键ID从数据表中查询多个数据。最终功能视具体的实现而定。</p>
+	 * @param array 多个数据的主键ID
+	 * @return 多个数据
+	 */
+	public List<T> selectByArray(Object[] array);
+	/**
+	 * <h3>普通数据处理：查询多个数据。</h3>
+	 * <p>功能约定为根据数据的主键ID从数据表中查询多个数据。最终功能视具体的实现而定。</p>
+	 * @param list 多个数据的主键ID
+	 * @return 多个数据
+	 */
+	public List<T> selectByList(List<T> list);
+	/**
 	 * <h3>普通数据处理：按条件查询所有数据。</h3>
 	 * <p>功能约定为根据条件设置从数据表中按查询所有数据。最终功能视具体的实现而定。</p>
 	 * @param params 条件

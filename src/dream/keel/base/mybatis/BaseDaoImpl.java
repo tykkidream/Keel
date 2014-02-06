@@ -145,6 +145,16 @@ public class BaseDaoImpl<T extends BaseModel<?>> extends org.mybatis.spring.supp
 	public T select(Object id) {
 		return selectOne(this.mapperNamespace + ".selectByID", id);
 	}
+	
+	@Override
+	public List<T> selectByArray(Object[] array) {
+		return selectList(this.mapperNamespace + ".selectByArray", array);
+	}
+
+	@Override
+	public List<T> selectByList(List<T> list) {
+		return selectList(this.mapperNamespace + ".selectByList", list);
+	}
 
 	@Override
 	public List<T> selectByParameters(Object params) {

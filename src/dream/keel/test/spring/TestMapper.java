@@ -9,17 +9,14 @@ import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
 import org.junit.runners.MethodSorters;
 import org.springframework.context.ApplicationContext;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import dream.keel.base.BaseDao;
 import dream.keel.base.BaseModel;
+import dream.keel.util.TestUtils;
 
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 @RunWith(JUnit4.class)
 public abstract class TestMapper<T extends BaseModel<?>>{
-
-	public static ApplicationContext applicationContext = null;
-	
 	public ApplicationContext context = null;
 	private BaseDao<T> baseMapper = null;
 	public T t1 = null;
@@ -30,10 +27,6 @@ public abstract class TestMapper<T extends BaseModel<?>>{
 	
 	@BeforeClass
 	public static void setUpBeforeClass(){
-		if (applicationContext == null) {
-			System.out.println(">>>>>     初始化Spring的Application     <<<<<");
-			applicationContext = new ClassPathXmlApplicationContext("applicationContext.xml");
-		}
 		id0 = 1L;
 		id1 = 318001L;
 		id2 = 318002L;
@@ -50,7 +43,7 @@ public abstract class TestMapper<T extends BaseModel<?>>{
 	
 	@SuppressWarnings("unchecked")
 	public TestMapper(ApplicationContext context, BaseDao<T> baseMapper){
-		this.context = context == null ? applicationContext : context;
+		this.context = context == null ? TestUtils.getApplicationContext() : context;
 		this.baseMapper = baseMapper == null ? (BaseDao<T>) this.context.getBean(getBeanName()) : baseMapper;;
 	}
 	

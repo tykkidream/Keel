@@ -176,6 +176,20 @@ public interface BaseService<T> {
 	 */
 	public T query(Object id);
 	/**
+	 * <h3>普通数据处理：查询多个数据。</h3>
+	 * <p>功能约定为根据数据的主键ID从数据表中查询多个数据。最终功能视具体的实现而定。</p>
+	 * @param array 数据的主键ID
+	 * @return 多个数据
+	 */
+	public List<T> queryByArray(Object[] array);
+	/**
+	 * <h3>普通数据处理：查询多个数据。</h3>
+	 * <p>功能约定为根据数据的主键ID从数据表中查询多个数据。最终功能视具体的实现而定。</p>
+	 * @param lsit 数据的主键ID
+	 * @return 多个数据
+	 */
+	public List<T> queryByList(List<T> lsit);
+	/**
 	 * <h3>普通数据处理：按条件分页查询多个数据。</h3>
 	 * <p>功能约定为根据件条件和分页设置从数据表中按分页查询多个数据。最终功能视具体的实现而定。</p>
 	 * @param page 分页数据

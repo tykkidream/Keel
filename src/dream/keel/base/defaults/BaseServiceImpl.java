@@ -214,6 +214,18 @@ public class BaseServiceImpl<T extends BaseModel<T>> implements BaseService<T> {
 		T obj = baseDao.select(id);
 		return obj;
 	}
+	
+	@Override
+	public List<T> queryByArray(Object[] array) {
+		List<T> list = baseDao.selectByArray(array);
+		return list;
+	}
+
+	@Override
+	public List<T> queryByList(List<T> list) {
+		list = baseDao.selectByList(list);
+		return list;
+	}
 
 	@Override
 	public Page<T> queryByPage(Page<T> page) {

@@ -32,26 +32,24 @@ import dream.keel.util.ReflectUtils;
  * <h3>利用拦截器实现MyBatis分页的原理：</h3>
  * 
  * <p>
- * 要利用JDBC对数据库进行操作就必须要有一个对应的Statement对象，
- * MyBatis在执行SQL语句前就会产生一个包含SQL语句的Statement对象,
+ * 要利用JDBC对数据库进行操作就必须要有一个对应的Statement对象， MyBatis在执行SQL语句前就会产生一个包含SQL语句的Statement对象,
  * 而且对应的SQL语句是在Statement之前产生的，所以我们就可以在它生成Statement之前对用来生成Statement的SQL语句下手。
  * </p>
  * 
  * <p>
- * 在MyBatis中，Statement语句是通过RoutingStatementHandler对象的prepare方法生成的。
- * 所以利用拦截器实现MyBatis分页的一个思 路就是按照下面的步骤：
+ * 在MyBatis中，Statement语句是通过RoutingStatementHandler对象的prepare方法生成的。 所以利用拦截器实现MyBatis分页的一个思 路就是按照下面的步骤：
  * <ol>
  * <li>拦截StatementHandler接口的prepare方法，执行处理。</li>
  * <li>在执行处理方法中把SQL语句改成对应的分页查询SQL语句。</li>
  * <li>调用StatementHandler对象的prepare方法，即调用invocation.proceed()。</li>
- * <li>对于分页而言，在拦截器里面我们还需要做的一个操作就是统计满足当前条件的记录一共有多少，这是通过获取到了原始的SQL语句后，
- * 把它改为对应的统计语句再利用MyBatis封装好的参数和设置参数的功能把SQL语句中的参数进行替换 ，之后再执行查询记录数的SQL语句进行总记录数的统计。
+ * <li>对于分页而言，在拦截器里面我们还需要做的一个操作就是统计满足当前条件的记录一共有多少，这是通过获取到了原始的SQL语句后， 把它改为对应的统计语句再利用MyBatis封装好的参数和设置参数的功能把SQL语句中的参数进行替换
+ * ，之后再执行查询记录数的SQL语句进行总记录数的统计。
  * </ol>
  */
 @Intercepts({
 /*
- * @Signature(method = "query", type = Executor.class, args = {
- * MappedStatement.class, Object.class, RowBounds.class, ResultHandler.class }),
+ * @Signature(method = "query", type = Executor.class, args = { MappedStatement.class, Object.class, RowBounds.class,
+ * ResultHandler.class }),
  */
 @Signature(method = "prepare", type = StatementHandler.class, args = { Connection.class }) })
 public class PageInterceptor implements Interceptor {
@@ -70,41 +68,33 @@ public class PageInterceptor implements Interceptor {
 		/*
 		 * 说明：
 		 * 
-		 * 对于MyBatis的StatementHandler，其实只有两个实现类，一个是RoutingStatementHandler，
-		 * 另一个是抽象类BaseStatementHandler。
+		 * 对于MyBatis的StatementHandler，其实只有两个实现类，一个是RoutingStatementHandler， 另一个是抽象类BaseStatementHandler。
 		 * 
-		 * BaseStatementHandler有三个子类，分别是SimpleStatementHandler，
-		 * PreparedStatementHandler和CallableStatementHandler。
+		 * BaseStatementHandler有三个子类，分别是SimpleStatementHandler， PreparedStatementHandler和CallableStatementHandler。
 		 * 
-		 * SimpleStatementHandler是用于处理JDBC中的Statement的逻辑，
-		 * PreparedStatementHandler是用于处理JDBC中的PreparedStatement的逻辑，
+		 * SimpleStatementHandler是用于处理JDBC中的Statement的逻辑， PreparedStatementHandler是用于处理JDBC中的PreparedStatement的逻辑，
 		 * CallableStatementHandler是用于处理JDBC中的CallableStatement的逻辑。
 		 * 
 		 * MyBatis在进行SQL语句处理的时候都是建立的RoutingStatementHandler，
 		 * 而在RoutingStatementHandler里面拥有一个StatementHandler类型的delegate属性。
 		 * RoutingStatementHandler会依据Statement的不同建立对应的BaseStatementHandler
-		 * ，即SimpleStatementHandler、PreparedStatementHandler、或
-		 * CallableStatementHandler。
+		 * ，即SimpleStatementHandler、PreparedStatementHandler、或 CallableStatementHandler。
 		 * 
 		 * 在RoutingStatementHandler里面所有StatementHandler接口方法的实现都是调用的delegate对应的方法。
 		 * 
-		 * 我们在拦截器（PageInterceptor类）上已经用@
-		 * Signature标记了该拦截器只拦截StatementHandler接口的prepare方法
-		 * ，又因为MyBatis只有在建立RoutingStatementHandler
-		 * 的时候是通过Interceptor的plugin方法进行包裹的
+		 * 我们在拦截器（PageInterceptor类）上已经用@ Signature标记了该拦截器只拦截StatementHandler接口的prepare方法
+		 * ，又因为MyBatis只有在建立RoutingStatementHandler 的时候是通过Interceptor的plugin方法进行包裹的
 		 * ，所以我们这里拦截到的目标对象肯定是RoutingStatementHandler对象（是invocation.getTarget()）。
 		 */
 
-		RoutingStatementHandler handler = (RoutingStatementHandler) invocation
-				.getTarget();
+		RoutingStatementHandler handler = (RoutingStatementHandler) invocation.getTarget();
 
 		// CachingExecutor executor = (CachingExecutor) invocation.getTarget();
 
 		// Object o0 = handler.getParameterHandler().getParameterObject();
 
 		// 通过反射获取到当前RoutingStatementHandler对象的delegate属性。
-		StatementHandler delegate = (StatementHandler) ReflectUtils
-				.getFieldValue(handler, "delegate");
+		StatementHandler delegate = (StatementHandler) ReflectUtils.getFieldValue(handler, "delegate");
 
 		// 获取到当前StatementHandler的boundSql。
 		// 这里不管是调用handler.getBoundSql()还是直接调用delegate.getBoundSql()结果是一样的。
@@ -119,7 +109,7 @@ public class PageInterceptor implements Interceptor {
 			if (!(obj instanceof Page<?>)) {
 				break;
 			}
-			
+
 			Page<?> page = (Page<?>) obj;
 
 			page.getPageIndex2();
@@ -129,14 +119,12 @@ public class PageInterceptor implements Interceptor {
 			} else if (page.getPageIndex() == 0) {
 				break;
 			}
-			if(page.getPageSize()<1){
+			if (page.getPageSize() < 1) {
 				page.setPageSize(10);
 			}
 
-
 			// 通过反射获取delegate的父类BaseStatementHandler的mappedStatement属性。
-			MappedStatement mappedStatement = (MappedStatement) ReflectUtils
-					.getFieldValue(delegate, "mappedStatement");
+			MappedStatement mappedStatement = (MappedStatement) ReflectUtils.getFieldValue(delegate, "mappedStatement");
 
 			// 拦截到的prepare方法的参数是一个Connection对象。
 			Connection connection = (Connection) invocation.getArgs()[0];
@@ -152,7 +140,7 @@ public class PageInterceptor implements Interceptor {
 
 			// 利用反射设置当前BoundSql对应的sql属性为我们建立好的分页Sql语句
 			ReflectUtils.setFieldValue(boundSql, "sql", pageSql);
-			
+
 		} while (false);
 
 		return invocation.proceed();
@@ -189,8 +177,7 @@ public class PageInterceptor implements Interceptor {
 	 * @param connection
 	 *            当前的数据库连接
 	 */
-	private void setTotalRecord(Page<?> page, MappedStatement mappedStatement,
-			Connection connection) {
+	private void setTotalRecord(Page<?> page, MappedStatement mappedStatement, Connection connection) {
 		// 获取对应的BoundSql，这个BoundSql其实跟我们利用StatementHandler获取到的BoundSql是同一个对象。
 		// delegate里面的boundSql也是通过mappedStatement.getBoundSql(paramObj)方法获取到的。
 		BoundSql boundSql = mappedStatement.getBoundSql(page);
@@ -206,8 +193,7 @@ public class PageInterceptor implements Interceptor {
 		// BoundSql(mappedStatement.getConfiguration(), countSql,
 		// parameterMappings, page);
 		// 通过mappedStatement、参数对象page和BoundSql对象countBoundSql建立一个用于设定参数的ParameterHandler对象
-		ParameterHandler parameterHandler = new DefaultParameterHandler(
-				mappedStatement, page, boundSql);
+		ParameterHandler parameterHandler = new DefaultParameterHandler(mappedStatement, page, boundSql);
 		// 通过connection建立一个countSql对应的PreparedStatement对象。
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -271,8 +257,7 @@ public class PageInterceptor implements Interceptor {
 		int offset = (page.getPageIndex() - 1) * page.getPageSize();
 
 		// 组织SQL语句。
-		sqlBuffer.append(" limit ").append(offset).append(",")
-				.append(page.getPageSize());
+		sqlBuffer.append(" limit ").append(offset).append(",").append(page.getPageSize());
 
 		return sqlBuffer.toString();
 	}
@@ -294,17 +279,13 @@ public class PageInterceptor implements Interceptor {
 		int offset = (a - 1) * b + 1;
 
 		// 组织SQL语句。
-		sqlBuffer
-				.insert(0, "select page_table_201309031842.*, ROWNUM r from (")
-				.append(") page_table_201309031842 where ROWNUM < ")
-				.append(offset + b);
-		sqlBuffer.insert(0, "select * from (").append(") where r >= ")
-				.append(offset);
+		sqlBuffer.insert(0, "select page_table_201309031842.*, ROWNUM r from (")
+				.append(") page_table_201309031842 where ROWNUM < ").append(offset + b);
+		sqlBuffer.insert(0, "select * from (").append(") where r >= ").append(offset);
 
 		/*
-		 * 上面的SQL语句拼接之后大概是这个样子： select * from (select page_table_201309031842.*,
-		 * ROWNUM r from (select * from t_user) page_table_201309031842 where
-		 * ROWNUM < 31) where r >= 16
+		 * 上面的SQL语句拼接之后大概是这个样子： select * from (select page_table_201309031842.*, ROWNUM r from (select * from t_user)
+		 * page_table_201309031842 where ROWNUM < 31) where r >= 16
 		 */
 
 		return sqlBuffer.toString();
@@ -343,8 +324,7 @@ public class PageInterceptor implements Interceptor {
 
 			String column = sqlString.substring(begin, end).trim();
 
-			return "select count(" + column + ") "
-					+ sqlString.substring(index_form);
+			return "select count(" + column + ") " + sqlString.substring(index_form);
 		}
 
 		return null;
