@@ -1,16 +1,19 @@
 package dream.keel.test.spring;
 
+import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.FixMethodOrder;
 import org.junit.runner.RunWith;
 import org.junit.runners.MethodSorters;
+import org.junit.runners.Parameterized;
 import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.test.context.TestContextManager;
 
 import dream.keel.base.BaseDao;
 import dream.keel.base.BaseModel;
 
-@RunWith(SpringJUnit4ClassRunner.class)
+//@RunWith(SpringJUnit4ClassRunner.class)
+@RunWith(Parameterized.class)
 @ContextConfiguration(locations = "classpath:applicationContext.xml")
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public abstract class SpringTestMapper<T extends BaseModel<?>> extends TestMapper<T>{
@@ -18,6 +21,13 @@ public abstract class SpringTestMapper<T extends BaseModel<?>> extends TestMappe
 	public SpringTestMapper(){
 		super(null);
 		System.out.println(">>>>>     一个新的SpringTestMapper实例     <<<<<");
+	}
+	private TestContextManager testContextManager;
+
+	@Before
+	public void setUpContext() throws Exception {
+		this.testContextManager = new TestContextManager(getClass());
+		this.testContextManager.prepareTestInstance(this);
 	}
 	
 	@BeforeClass

@@ -1,5 +1,6 @@
 package dream.keel.base.defaults;
 
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -143,17 +144,20 @@ public class BaseServiceImpl<T extends BaseModel<T>> implements BaseService<T> {
 		int num = 0;
 
 		if (record != null) {
+			List<T> up = new ArrayList<T>();
+
 			for (int i = 0; i < record.size(); i++) {
 				T obj = record.get(i);
 				
-				if(obj.getId() != null){
+				if(obj.getId() == null){
 					num += this.baseDao.insert(obj);
-					record.remove(i);
+				} else {
+					up.add(obj);
 				}
 			}
 			
-			for (int i = 0; i < record.size(); i++) {
-				T obj = record.get(i);
+			for (int i = 0; i < up.size(); i++) {
+				T obj = up.get(i);
 				num += this.baseDao.update(obj);
 			}
 		}
@@ -165,17 +169,20 @@ public class BaseServiceImpl<T extends BaseModel<T>> implements BaseService<T> {
 		int num = 0;
 		
 		if (record != null) {
+			List<T> up = new ArrayList<T>();
+
 			for (int i = 0; i < record.size(); i++) {
 				T obj = record.get(i);
 				
-				if(obj.getId() != null){
+				if(obj.getId() == null){
 					num += this.baseDao.insertSelective(obj);
-					record.remove(i);
+				} else {
+					up.add(obj);
 				}
 			}
 			
-			for (int i = 0; i < record.size(); i++) {
-				T obj = record.get(i);
+			for (int i = 0; i < up.size(); i++) {
+				T obj = up.get(i);
 				num += this.baseDao.updateSelective(obj);
 			}
 		}
@@ -223,8 +230,8 @@ public class BaseServiceImpl<T extends BaseModel<T>> implements BaseService<T> {
 
 	@Override
 	public List<T> queryByList(List<T> list) {
-		list = baseDao.selectByList(list);
-		return list;
+		List<T> list_ = baseDao.selectByList(list);
+		return list_;
 	}
 
 	@Override
