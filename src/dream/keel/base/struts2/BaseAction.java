@@ -269,7 +269,9 @@ public abstract class BaseAction<T extends BaseModel<T>> extends ActionSupport i
 		try {
 			if(this.entity == null && this.classs != null)
 				return this.entity = (T)this.classs.newInstance();
-		} catch (InstantiationException | IllegalAccessException e) {
+		} catch (InstantiationException e) {
+			e.printStackTrace();
+		} catch (IllegalAccessException e) {
 			e.printStackTrace();
 		}
 		return this.entity;
@@ -327,7 +329,9 @@ public abstract class BaseAction<T extends BaseModel<T>> extends ActionSupport i
 			if(this.entity == null){
 				return this.entity = (T)this.classs.newInstance();
 			}
-		} catch (InstantiationException | IllegalAccessException e) {
+		} catch (InstantiationException e) {
+			e.printStackTrace();
+		} catch (IllegalAccessException e) {
 			e.printStackTrace();
 		}
 		return this.entity;
