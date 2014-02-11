@@ -68,11 +68,7 @@ public class Page<T> extends HashMap<String, Object> implements Serializable {
 			return;
 		}
 		this.pageIndex = pageIndex;
-		this.put("pageIndex", this.pageIndex);
-	}
-	
-	public void setPI(Integer pageIndex) {
-		this.setPageIndex(pageIndex);
+		//super.put("pageIndex", this.pageIndex);
 	}
 
 	/**
@@ -119,11 +115,7 @@ public class Page<T> extends HashMap<String, Object> implements Serializable {
 			return;
 		}
 		this.pageSize = pageSize;
-		this.put("pageSize",this.pageSize);
-	}
-	
-	public void setPs(Integer pageSize) {
-		this.setPageSize(pageSize);
+		//super.put("pageSize",this.pageSize);
 	}
 
 	/**
@@ -146,7 +138,7 @@ public class Page<T> extends HashMap<String, Object> implements Serializable {
 		int totalPage = totalRecord % pageSize == 0 ? totalRecord / pageSize
 				: totalRecord / pageSize + 1;
 		this.setTotalPage(totalPage);
-		this.put("totalRecord", totalRecord);
+		//super.put("totalRecord", totalRecord);
 		if(this.getPageIndex() > this.getTotalPage()){
 			this.setPageIndex(this.getTotalPage());
 		}
@@ -168,7 +160,7 @@ public class Page<T> extends HashMap<String, Object> implements Serializable {
 	 */
 	public void setTotalPage(Integer totalPage) {
 		this.totalPage = totalPage;
-		this.put("totalPage", totalPage);
+		//super.put("totalPage", totalPage);
 	}
 
 	/**
@@ -216,7 +208,7 @@ public class Page<T> extends HashMap<String, Object> implements Serializable {
 	 */
 	public void setPageStart(Integer pageStart) {
 		this.pageStart = pageStart;
-		this.put("pageStart", pageStart);
+		//super.put("pageStart", pageStart);
 	}
 
 	/**
@@ -236,5 +228,49 @@ public class Page<T> extends HashMap<String, Object> implements Serializable {
 	 */
 	public void setResult(List<T> result) {
 		this.result = result;
+	}
+	
+	@Override
+	public Object get(Object key) {
+		if (null != key && key instanceof String) {
+			if ("result".equals(key)) {
+				return this.getResult();
+			} else if ("pageIndex".equals(key)) {
+				return this.getPageIndex();
+			} else if ("pageSize".equals(key)) {
+				return this.getPageSize();
+			} else if ("pageStart".equals(key)) {
+				return this.getPageStart();
+			} else if ("totalPage".equals(key)) {
+				return this.getTotalPage();
+			} else if ("totalRecord".equals(key)) {
+				return this.getTotalRecord();
+			}
+		}
+		return super.get(key);
+	}
+	
+	@SuppressWarnings("unchecked")
+	@Override
+	public Object put(String key, Object value) {
+		if (null != key && key instanceof String) {
+			if (null != value && value instanceof List &&"result".equals(key)) {
+				this.setResult((List<T>) value);
+			} else if (null != value && value instanceof Integer) {
+				Integer v = (Integer)value;
+				if ("pageIndex".equals(key)) {
+					this.setPageIndex(v);
+				} else if ("pageSize".equals(key)) {
+					this.setPageSize(v);
+				} else if ("pageStart".equals(key)) {
+					this.setPageStart(v);
+				} else if ("totalPage".equals(key)) {
+					this.setTotalPage(v);
+				} else if ("totalRecord".equals(key)) {
+					this.setTotalRecord(v);
+				}
+			}
+		}
+		return super.put(key, value);
 	}
 }
