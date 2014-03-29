@@ -1,4 +1,4 @@
-package tykkidream.keel.mybatis.interceptor;
+package tykkidream.keel.mybatis;
 
 import java.util.List;
 
