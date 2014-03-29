@@ -14,10 +14,6 @@ import dream.keel.base.Page;
  * <h2>通用业务类</h2>
  * <p>本类为通用架构的一部分，Service层通用接口{@link dream.keel.base.BaseService BaseService}实现类。</p>
  * @author 武利庆
- * @version 1.3，时间：2013-10-25 10：55，修订者：武利庆，内容：由于创建之初失误，个别方法参数和返回类型不符合设计的通用规则。
- * @version 1.2，时间：2013-10-24 15：55，修订者：陈&nbsp;&nbsp;周，内容：为保存方法的插入数据操作增加条件，使当主键值为0时也可插入数据操作。
- * @version 1.1，时间：2013-10-21 10：55，修订者：武利庆，内容：由于业务或框架使用了反射无法获取多态方法，所以取消了多态方法，使用各自的名称。
- * @version 1.0，时间：2013-10-18 10：55，修订者：武利庆，内容：创建类。
  * @param <T> 泛型实现，Module层通用类
  * @see dream.keel.base.BaseService
  * @see dream.keel.base.BaseDao
@@ -191,7 +187,7 @@ public class BaseServiceImpl<T extends BaseModel<T>> implements BaseService<T> {
 
 	@Override
 	public int deleteOne(Object id) {
-		return baseDao.delete(id);
+		return baseDao.deleteByKey(id);
 	}
 
 	@Override
@@ -218,7 +214,7 @@ public class BaseServiceImpl<T extends BaseModel<T>> implements BaseService<T> {
 
 	@Override
 	public T query(Object id) {
-		T obj = baseDao.select(id);
+		T obj = baseDao.selectByKey(id);
 		return obj;
 	}
 	
@@ -256,7 +252,7 @@ public class BaseServiceImpl<T extends BaseModel<T>> implements BaseService<T> {
 
 	@Override
 	public T queryFull(Object id) {
-		return baseDao.selectFull(id);
+		return baseDao.selectFullByKey(id);
 	}
 
 	@Override

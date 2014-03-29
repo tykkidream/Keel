@@ -26,7 +26,7 @@ public interface BaseDao<T> {
 	/**
 	 * <h3>普通数据处理：插入一个数据到数据库。</h3>
 	 * <p>功能约定为将其所有的（包含为NULL的）属性值插入到数据库。最终功能视具体的实现而定。</p>
-	 * @param record 一个数据
+	 * @param record 一个数据对象
 	 * @return 成功次数
 	 */
 	int insert(T record);
@@ -34,7 +34,7 @@ public interface BaseDao<T> {
 	/**
 	 * <h3>普通数据处理：插入一个数据到数据库。</h3>
 	 * <p>功能约定为将其所有不为NULL的属性属性值插入到数据库。最终功能视具体的实现而定。</p>
-	 * @param record 一个数据
+	 * @param record 一个数据对象
 	 * @return 成功次数
 	 */
 	int insertSelective(T record);
@@ -45,11 +45,19 @@ public interface BaseDao<T> {
 	
 	/**
 	 * <h3>普通数据处理：从数据删除一个数据。</h3>
+	 * <p>功能约定为根据数据对象从数据表中删除。最终功能视具体的实现而定。</p>
+	 * @param id 一个数据
+	 * @return 成功次数
+	 */
+	int delete(T record);
+	
+	/**
+	 * <h3>普通数据处理：从数据删除一个数据。</h3>
 	 * <p>功能约定为根据数据的主键ID从数据表中删除。最终功能视具体的实现而定。</p>
 	 * @param id 数据的主键ID
 	 * @return 成功次数
 	 */
-	int delete(Object id);
+	int deleteByKey(Object id);
 
 	/* ===================== *
 	 * 修改数据的相关方法。
@@ -81,7 +89,7 @@ public interface BaseDao<T> {
 	 * @param id 数据的主键ID
 	 * @return 单个数据
 	 */
-	public T select(Object id);
+	public T selectByKey(Object id);
 	/**
 	 * <h3>普通数据处理：查询多个数据。</h3>
 	 * <p>功能约定为根据数据的主键ID从数据表中查询多个数据。最终功能视具体的实现而定。</p>
@@ -110,7 +118,7 @@ public interface BaseDao<T> {
 	 * @param id 数据的主键ID
 	 * @return 单个数据及其外键数据
 	 */
-	public T selectFull(Object id);
+	public T selectFullByKey(Object id);
 	/**
 	 * <h3>关联多种数据处理：按条件查询所有数据。</h3>
 	 * <p>功能约定为根据条件设置从数据表中按查询所有数据，包括相关的外键数据。最终功能视具体的实现而定。</p>

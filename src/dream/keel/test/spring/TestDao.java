@@ -43,7 +43,7 @@ public abstract class TestDao<T extends BaseModel<?>>{
 	
 	@Test
 	public void test01SelectByID(){
-		T t = this.getBaseDao().select(id);
+		T t = this.getBaseDao().selectByKey(id);
 		
 		assertNotNull("无法获取目标数据！没有匹配id0为" + id + "的数据！", t);
 		assertSame("获取非目标数据！", id, t.getId());
@@ -68,7 +68,7 @@ public abstract class TestDao<T extends BaseModel<?>>{
 		rs = this.getBaseDao().update(t2);
 		assertEquals("更新数据失败！",1, rs);
 		
-		t2 = this.getBaseDao().select(t2.getId());
+		t2 = this.getBaseDao().selectByKey(t2.getId());
 		assertNotNull("无法获取数据的数据！", t2);
 		
 		test04UpdateByID_assert();
@@ -91,8 +91,8 @@ public abstract class TestDao<T extends BaseModel<?>>{
 	public void test06DeleteByID(){
 		int rs = 0;
 
-		rs += this.getBaseDao().delete(t1.getId());
-		rs += this.getBaseDao().delete(t2.getId());
+		rs += this.getBaseDao().deleteByKey(t1.getId());
+		rs += this.getBaseDao().deleteByKey(t2.getId());
 		assertSame("删除数据失败！", 2, rs);
 	}
 }

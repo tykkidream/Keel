@@ -9,8 +9,6 @@ import dream.keel.base.BaseModel;
  * <h2>通用数据操作类</h2>
  * <p>本类为通用架构的一部分，Dao层通用接口{@link dream.keel.base.BaseDao BaseDao}实现类。</p>
  * @author 武利庆
- * @version 1.1，时间：2013-11-0 10：55，修订者：武利庆，内容：重写实现。
- * @version 1.0，时间：2013-10-18 10：55，修订者：武利庆，内容：创建类。
  * @param <T> 泛型实现，Module层通用类
  * @see dream.keel.base.BaseDao
  * @see dream.keel.base.BaseModel
@@ -54,12 +52,7 @@ public class BaseDaoImpl<T extends BaseModel<?>> extends org.mybatis.spring.supp
 	 * @return 受影响的行数
 	 */
 	public int insert(String sqlId, T record) {
-		try {
-			return getSqlSession().insert(sqlId, record);
-		} catch (Exception ex) {
-			ex.printStackTrace();
-		}
-		return 0;
+		return getSqlSession().insert(sqlId, record);
 	}
 	
 	@Override
@@ -83,30 +76,27 @@ public class BaseDaoImpl<T extends BaseModel<?>> extends org.mybatis.spring.supp
 	 * @return 受影响的行数
 	 */
 	public int delete(String sqlId, Object id) {
-		try {
-			return getSqlSession().delete(sqlId, id);
-		} catch (Exception ex) {
-			ex.printStackTrace();
-		}
-		return 0;
+		return getSqlSession().delete(sqlId, id);
 	}
 	
 	@Override
-	public int delete(Object id) {
+	public int delete(T record) {
+		return delete(mapperNamespace + ".delete", record);
+	}
+	
+	@Override
+	public int deleteByKey(Object id) {
 		return delete(mapperNamespace + ".deleteByID", id);
 	}
+	
+
 	
 	/* ===================== *
 	 * 修改数据的相关方法。
 	 * ===================== */
 	
 	public int update(String sqlId,T record) {
-		try {
-			return getSqlSession().update(sqlId, record);
-		} catch (Exception ex) {
-			ex.printStackTrace();
-		}
-		return 0;
+		return getSqlSession().update(sqlId, record);
 	}	
 
 	@Override
@@ -133,17 +123,12 @@ public class BaseDaoImpl<T extends BaseModel<?>> extends org.mybatis.spring.supp
 	}
 	
 	public List<T> selectList(String sqlId, Object params) {
-		try {
-			return getSqlSession().selectList(sqlId, params);
-		} catch (Exception ex) {
-			ex.printStackTrace();
-		}
-		return null;
+		return getSqlSession().selectList(sqlId, params);
 	}
 
 	@Override
-	public T select(Object id) {
-		return selectOne(this.mapperNamespace + ".selectByID", id);
+	public T selectByKey(Object id) {
+		return selectOne(this.mapperNamespace + ".selectByKey", id);
 	}
 	
 	@Override
@@ -162,7 +147,7 @@ public class BaseDaoImpl<T extends BaseModel<?>> extends org.mybatis.spring.supp
 	}
 
 	@Override
-	public T selectFull(Object id) {
+	public T selectFullByKey(Object id) {
 		return selectOne(this.mapperNamespace + ".selectFullByID", id);
 	}
 
