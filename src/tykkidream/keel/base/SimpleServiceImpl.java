@@ -14,7 +14,7 @@ import java.util.Map;
  * @see tykkidream.keel.base.BaseDao
  * @see tykkidream.keel.base.BaseModel
  */
-public class BaseServiceImpl<T extends BaseModel<T>> implements BaseService<T> {
+public class SimpleServiceImpl<T extends BaseModel<T>> implements BaseService<T> {
 
 	private BaseDao<T> baseDao = null;
 

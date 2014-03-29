@@ -7,7 +7,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
-public class BaseServiceCasecadeImpl<T extends BaseModelCasecade<T>> extends BaseServiceImpl<T> implements BaseServiceCasecade<T> {
+public class SimpleServiceCasecadeImpl<T extends BaseModelCasecade<T>> extends SimpleServiceImpl<T> implements BaseServiceCasecade<T> {
 	private BaseDaoCasecade<T> baseDaoCasecade = null;
 
 	public BaseDaoCasecade<T> getBaseDaoCasecade() {
