@@ -12,14 +12,14 @@ import java.util.Map;
  * <li>ORM框架：MyBatis3.1</li>
  * <li>数据库：Oracle 11g r2</li>
  * </ul>
- * <p>本接口使用了泛型，使用了通用架构的其它部分：Dao层通用接口{@link tykkidream.keel.base.BaseDao BaseDao}和Module层通用类{@link tykkidream.keel.base.BaseModel BaseModel}。并有默认的实现{@link tykkidream.keel.base.SimpleServiceImpl BaseServiceImpl}，可直接继承使用。</p>
+ * <p>本接口使用了泛型，使用了通用架构的其它部分：Dao层通用接口{@link tykkidream.keel.base.BaseDao BaseDao}和Module层通用类{@link tykkidream.keel.base.BaseModel BaseModel}。并有默认的实现{@link tykkidream.keel.base.SimpleService BaseServiceImpl}，可直接继承使用。</p>
  * <p>本接口的方法包含常见的对数据库执行简单操作的业务方法。涉及到普通的增、删、改、查，以及复杂查询（条件、分页、级联、外键关联）。</p>
  * @author 武利庆
  * @version 1.2，时间：2013-10-25 10：55，修订者：武利庆，内容：由于创建之初失误，个别方法参数和返回类型不符合设计的通用规则。
  * @version 1.1，时间：2013-10-21 10：55，修订者：武利庆，内容：由于业务或框架使用了反射无法获取多态方法，所以取消了多态方法，使用各自的名称。
  * @version 1.0，时间：2013-10-18 10：55，修订者：武利庆，内容：创建接口。
  * @param <T> 泛型实现，Module层通用类
- * @see tykkidream.keel.base.SimpleServiceImpl
+ * @see tykkidream.keel.base.SimpleService
  * @see tykkidream.keel.base.BaseDao
  * @see tykkidream.keel.base.BaseModel
  */
