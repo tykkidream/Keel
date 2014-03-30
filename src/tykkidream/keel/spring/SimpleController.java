@@ -1,6 +1,7 @@
 package tykkidream.keel.spring;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 import tykkidream.keel.base.BaseController;
 import tykkidream.keel.base.BaseModel;
@@ -8,7 +9,7 @@ import tykkidream.keel.base.BaseModel;
 @Controller
 public class SimpleController<T extends BaseModel<?>> extends WebController<T> implements BaseController<T> {
 
-	private String basepath = "";
+	protected String basepath = "";
 	
 	public void setBasepath(String basepath) {
 		this.basepath = basepath;
@@ -52,5 +53,10 @@ public class SimpleController<T extends BaseModel<?>> extends WebController<T> i
 	@Override
 	protected String viewNameForManage() {
 		return basepath + "/manage";
+	}
+	
+	@RequestMapping("/")
+	public String home() {
+		return basepath + "/home";
 	}
 }
