@@ -131,7 +131,6 @@ public class SimpleController<T extends BaseModel<?>> extends AbstractController
 
 	@Override
 	public Object doEdit(T t) {
-		// TODO Auto-generated method stub
 		return null;
 	}
 }
