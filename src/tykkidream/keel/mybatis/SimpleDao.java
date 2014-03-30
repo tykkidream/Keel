@@ -2,6 +2,8 @@ package tykkidream.keel.mybatis;
 
 import java.util.List;
 
+import org.mybatis.spring.support.SqlSessionDaoSupport;
+
 import tykkidream.keel.base.BaseDao;
 import tykkidream.keel.base.BaseModel;
 
@@ -13,7 +15,7 @@ import tykkidream.keel.base.BaseModel;
  * @see tykkidream.keel.base.BaseDao
  * @see tykkidream.keel.base.BaseModel
  */
-public class BaseDaoImpl<T extends BaseModel<?>> extends org.mybatis.spring.support.SqlSessionDaoSupport implements BaseDao<T> {
+public class SimpleDao<T extends BaseModel<?>> extends SqlSessionDaoSupport implements BaseDao<T> {
 	
 	protected String mapperNamespace = null;
 
@@ -25,7 +27,7 @@ public class BaseDaoImpl<T extends BaseModel<?>> extends org.mybatis.spring.supp
 			this.mapperNamespace = mapperNamespace;
 	}
 	
-	public BaseDaoImpl(){
+	public SimpleDao(){
 		if(this.mapperNamespace == null){
 			mapperNamespace = this.getClass().getName();
 		}

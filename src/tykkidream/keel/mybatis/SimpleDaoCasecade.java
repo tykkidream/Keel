@@ -5,7 +5,7 @@ import java.util.List;
 import tykkidream.keel.base.BaseDaoCasecade;
 import tykkidream.keel.base.BaseModelCasecade;
 
-public class BaseDaoCasecadeImpl <T extends BaseModelCasecade<?>> extends BaseDaoImpl<T> implements BaseDaoCasecade<T>{
+public class SimpleDaoCasecade <T extends BaseModelCasecade<?>> extends SimpleDao<T> implements BaseDaoCasecade<T>{
 
 	@Override
 	public T selectConnectLeaf(Object id) {
