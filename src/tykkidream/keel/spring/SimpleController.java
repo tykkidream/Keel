@@ -16,17 +16,17 @@ public class SimpleController<T extends BaseModel<?>> extends WebController<T> i
 
 	@Override
 	protected String viewNameForDoDelete() {
-		return "redirect:" + basepath + "/";
+		return "redirect:/";
 	}
 
 	@Override
 	protected String viewNameForDoEdit(Long id) {
-		return "redirect:" + basepath + "/detail/" + id;
+		return "redirect:/detail/" + id;
 	}
 
 	@Override
 	protected String viewNameForDoNew(Long id) {
-		return "redirect:" + basepath + "/" + id;
+		return "redirect:/" + id;
 	}
 
 	@Override
