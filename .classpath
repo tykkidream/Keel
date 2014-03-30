@@ -13,5 +13,14 @@
 	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/Apache_Commons_IO"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/4"/>
 	<classpathentry kind="lib" path="F:/Datum/Java_Spring/spring-framework-3.2.6.RELEASE/libs/spring-test-3.2.6.RELEASE.jar"/>
+	<classpathentry kind="lib" path="F:/Datum/Java_Spring/spring-framework-3.2.6.RELEASE/libs/spring-web-3.2.6.RELEASE.jar"/>
+	<classpathentry kind="lib" path="F:/Datum/Java_Spring/spring-framework-3.2.6.RELEASE/libs/spring-webmvc-3.2.6.RELEASE.jar"/>
+	<classpathentry kind="lib" path="F:/Datum/Java_Spring/spring-framework-3.2.6.RELEASE/libs/spring-aop-3.2.6.RELEASE.jar"/>
+	<classpathentry kind="lib" path="F:/Datum/Java_Spring/spring-framework-3.2.6.RELEASE/libs/spring-aspects-3.2.6.RELEASE.jar"/>
+	<classpathentry kind="lib" path="F:/Datum/Java_Spring/spring-framework-3.2.6.RELEASE/libs/spring-beans-3.2.6.RELEASE.jar"/>
+	<classpathentry kind="lib" path="F:/Datum/Java_Spring/spring-framework-3.2.6.RELEASE/libs/spring-context-3.2.6.RELEASE.jar"/>
+	<classpathentry kind="lib" path="F:/Datum/Java_Spring/spring-framework-3.2.6.RELEASE/libs/spring-context-support-3.2.6.RELEASE.jar"/>
+	<classpathentry kind="lib" path="F:/Datum/Java_Spring/spring-framework-3.2.6.RELEASE/libs/spring-core-3.2.6.RELEASE.jar"/>
+	<classpathentry kind="lib" path="/Le02/WebContent/WEB-INF/lib/validation-api-1.1.0.Final.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
