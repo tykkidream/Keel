@@ -1,41 +1,60 @@
 package tykkidream.keel.base;
 
+import java.util.List;
 import java.util.Map;
 
-public class SimpleController<T> implements BaseController<T> {
+public class SimpleController<T> extends AbstractController<T> implements BaseController<T> {
 
 	@Override
-	public Object doDelete(Long t) {
+	public Integer doDelete(Long t) {
+		if (t != null) {
+			return getBaseService().deleteOne(t);
+		}
 		return null;
 	}
 
 	@Override
-	public Object doEdit(T t) {
+	public Boolean doEdit(T t) {
+		if (t != null) {
+			return getBaseService().modifySelective(t);
+		}
 		return null;
 	}
 
 	@Override
-	public Object doNew(T t) {
+	public Boolean doNew(T t) {
+		if (t != null) {
+			return getBaseService().create(t);
+		}
 		return null;
 	}
 
 	@Override
-	public Object edit(Long t) {
+	public T edit(Long t) {
+		if (t != null) {
+			return getBaseService().query(t);
+		}
 		return null;
 	}
 
 	@Override
-	public Object new$(T t) {
-		return null;
+	public T new$(T t) {
+		if (t== null) {
+			t = createEntity(t);
+		}
+		return t;
 	}
 
 	@Override
-	public Object search(Map<String, Object> t) {
-		return null;
+	public List<T> search(Map<String, Object> t) {
+		return getBaseService().queryByParameters(t);
 	}
 
 	@Override
-	public Object view(Long t) {
+	public T view(Long t) {
+		if (t != null) {
+			return getBaseService().query(t);
+		}
 		return null;
 	}
 

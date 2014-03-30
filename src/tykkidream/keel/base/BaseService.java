@@ -24,17 +24,6 @@ import java.util.Map;
  * @see tykkidream.keel.base.BaseModel
  */
 public interface BaseService<T> {
-	/**
-	 * 获取其业务相关数据库操作对象。
-	 * @return 数据库操作对象
-	 */
-	public BaseDao<T> getBaseDao();
-
-	/**
-	 * 设置其业务相关数据库操作对象。
-	 * @param baseDao 数据库操作对象
-	 */
-	public void setBaseDao(BaseDao<T> baseDao);
 	
 	/* ===================== *
 	 * 增加数据和修改数据的相关方法。

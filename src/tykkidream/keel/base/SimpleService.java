@@ -14,27 +14,17 @@ import java.util.Map;
  * @see tykkidream.keel.base.BaseDao
  * @see tykkidream.keel.base.BaseModel
  */
-public class SimpleService<T extends BaseModel<T>> implements BaseService<T> {
-
-	private BaseDao<T> baseDao = null;
-
-	public BaseDao<T> getBaseDao() {
-		return baseDao;
-	}
-
-	public void setBaseDao(BaseDao<T> baseDao) {
-		this.baseDao = baseDao;
-	}
+public class SimpleService<T extends BaseModel<T>> extends AbstractService<T> {
 
 	@Override
 	public boolean create(T record) {
-		int num = this.baseDao.insert(record);
+		int num = getBaseDao().insert(record);
 		return num == 1;
 	}
 
 	@Override
 	public boolean createSelective(T record) {
-		int num = this.baseDao.insertSelective(record);
+		int num = getBaseDao().insertSelective(record);
 		return num == 1;
 	}
 
@@ -44,7 +34,7 @@ public class SimpleService<T extends BaseModel<T>> implements BaseService<T> {
 			int num = 0;
 			for (Iterator<T> iterator = record.iterator(); iterator.hasNext();) {
 				T t = iterator.next();
-				num += this.baseDao.insert(t);
+				num += getBaseDao().insert(t);
 			}
 			return num == record.size();
 		}
@@ -57,7 +47,7 @@ public class SimpleService<T extends BaseModel<T>> implements BaseService<T> {
 			int num = 0;
 			for (Iterator<T> iterator = record.iterator(); iterator.hasNext();) {
 				T t = iterator.next();
-				num += this.baseDao.insertSelective(t);
+				num += getBaseDao().insertSelective(t);
 			}
 			return num == record.size();
 		}
@@ -66,13 +56,13 @@ public class SimpleService<T extends BaseModel<T>> implements BaseService<T> {
 
 	@Override
 	public boolean modify(T record) {
-		int num = this.baseDao.update(record);
+		int num = getBaseDao().update(record);
 		return num == 1;
 	}
 
 	@Override
 	public boolean modifySelective(T record) {
-		int num = this.baseDao.updateSelective(record);
+		int num = getBaseDao().updateSelective(record);
 		return num == 1;
 	}
 
@@ -82,7 +72,7 @@ public class SimpleService<T extends BaseModel<T>> implements BaseService<T> {
 			int num = 0;
 			for (Iterator<T> iterator = record.iterator(); iterator.hasNext();) {
 				T t = iterator.next();
-				num += this.baseDao.update(t);
+				num += getBaseDao().update(t);
 			}
 			return num == record.size();
 		}
@@ -95,7 +85,7 @@ public class SimpleService<T extends BaseModel<T>> implements BaseService<T> {
 			int num = 0;
 			for (Iterator<T> iterator = record.iterator(); iterator.hasNext();) {
 				T t = iterator.next();
-				num += this.baseDao.updateSelective(t);
+				num += getBaseDao().updateSelective(t);
 			}
 			return num == record.size();
 		}
@@ -108,9 +98,9 @@ public class SimpleService<T extends BaseModel<T>> implements BaseService<T> {
 		
 		if (record != null) {
 			if (record.getId() == null) {
-				num = this.baseDao.insert(record);
+				num = getBaseDao().insert(record);
 			} else {
-				num = this.baseDao.update(record);
+				num = getBaseDao().update(record);
 			}
 		}
 		return num;
@@ -122,9 +112,9 @@ public class SimpleService<T extends BaseModel<T>> implements BaseService<T> {
 		
 		if (record != null) {
 			if (record.getId() == null || record.getId()==0) {
-				num = this.baseDao.insertSelective(record);
+				num = getBaseDao().insertSelective(record);
 			} else {
-				num = this.baseDao.updateSelective(record);
+				num = getBaseDao().updateSelective(record);
 			}
 		}
 		return num;
@@ -141,7 +131,7 @@ public class SimpleService<T extends BaseModel<T>> implements BaseService<T> {
 				T obj = record.get(i);
 				
 				if(obj.getId() == null){
-					num += this.baseDao.insert(obj);
+					num += getBaseDao().insert(obj);
 				} else {
 					up.add(obj);
 				}
@@ -149,7 +139,7 @@ public class SimpleService<T extends BaseModel<T>> implements BaseService<T> {
 			
 			for (int i = 0; i < up.size(); i++) {
 				T obj = up.get(i);
-				num += this.baseDao.update(obj);
+				num += getBaseDao().update(obj);
 			}
 		}
 		return num;
@@ -166,7 +156,7 @@ public class SimpleService<T extends BaseModel<T>> implements BaseService<T> {
 				T obj = record.get(i);
 				
 				if(obj.getId() == null){
-					num += this.baseDao.insertSelective(obj);
+					num += getBaseDao().insertSelective(obj);
 				} else {
 					up.add(obj);
 				}
@@ -174,7 +164,7 @@ public class SimpleService<T extends BaseModel<T>> implements BaseService<T> {
 			
 			for (int i = 0; i < up.size(); i++) {
 				T obj = up.get(i);
-				num += this.baseDao.updateSelective(obj);
+				num += getBaseDao().updateSelective(obj);
 			}
 		}
 		return num;
@@ -182,7 +172,7 @@ public class SimpleService<T extends BaseModel<T>> implements BaseService<T> {
 
 	@Override
 	public int deleteOne(Object id) {
-		return baseDao.deleteByKey(id);
+		return getBaseDao().deleteByKey(id);
 	}
 
 	@Override
@@ -209,19 +199,19 @@ public class SimpleService<T extends BaseModel<T>> implements BaseService<T> {
 
 	@Override
 	public T query(Object id) {
-		T obj = baseDao.selectByKey(id);
+		T obj = getBaseDao().selectByKey(id);
 		return obj;
 	}
 	
 	@Override
 	public List<T> queryByArray(Object[] array) {
-		List<T> list = baseDao.selectByArray(array);
+		List<T> list = getBaseDao().selectByArray(array);
 		return list;
 	}
 
 	@Override
 	public List<T> queryByList(List<T> list) {
-		List<T> list_ = baseDao.selectByList(list);
+		List<T> list_ = getBaseDao().selectByList(list);
 		return list_;
 	}
 
@@ -230,14 +220,14 @@ public class SimpleService<T extends BaseModel<T>> implements BaseService<T> {
 		if (page == null) {
 			page = new Page<T>();
 		}
-		List<T> list = baseDao.selectByParameters(page);
+		List<T> list = getBaseDao().selectByParameters(page);
 		page.setResult(list);
 		return page;
 	}
 
 	@Override
 	public List<T> queryByParameters(Map<String, Object> params) {
-		return baseDao.selectByParameters(params);
+		return getBaseDao().selectByParameters(params);
 	}
 
 	@Override
@@ -247,7 +237,7 @@ public class SimpleService<T extends BaseModel<T>> implements BaseService<T> {
 
 	@Override
 	public T queryFull(Object id) {
-		return baseDao.selectFullByKey(id);
+		return getBaseDao().selectFullByKey(id);
 	}
 
 	@Override
@@ -255,19 +245,19 @@ public class SimpleService<T extends BaseModel<T>> implements BaseService<T> {
 		if (page == null) {
 			page = new Page<T>();
 		}
-		List<T> list = baseDao.selectFullByParameters(page);
+		List<T> list = getBaseDao().selectFullByParameters(page);
 		page.setResult(list);
 		return page;
 	}
 
 	@Override
 	public List<T> queryFullByParameters(Map<String, Object> params) {
-		return baseDao.selectFullByParameters(params);
+		return getBaseDao().selectFullByParameters(params);
 	}
 
 	@Override
 	public List<T> queryFullAll() {
-		List<T> list =  baseDao.selectFullByParameters(null);
+		List<T> list =  getBaseDao().selectFullByParameters(null);
 		return list;
 	}
 

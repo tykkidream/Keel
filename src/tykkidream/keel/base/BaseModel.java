@@ -18,7 +18,6 @@ import java.io.Serializable;
  * @param <T> 泛型实现，Module层通用类
  */
 public interface BaseModel<T extends BaseModel<?>> extends Serializable {
-	
 	/**
 	 * 设置整型主键。
 	 * @param id 主键ID
