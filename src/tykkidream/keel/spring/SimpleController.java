@@ -18,7 +18,7 @@ import tykkidream.keel.base.AbstractController;
 import tykkidream.keel.base.BaseModel;
 
 @Controller
-public class BaseController<T extends BaseModel<?>> extends AbstractController<T> implements
+public class SimpleController<T extends BaseModel<?>> extends AbstractController<T> implements
 		tykkidream.keel.base.BaseController<T> {
 	@Autowired
 	private ServletContext servletContext;
