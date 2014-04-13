@@ -179,19 +179,19 @@ public interface BaseService<T> {
 	 */
 	public List<T> queryByList(List<T> lsit);
 	/**
-	 * <h3>普通数据处理：按条件分页查询多个数据。</h3>
-	 * <p>功能约定为根据件条件和分页设置从数据表中按分页查询多个数据。最终功能视具体的实现而定。</p>
-	 * @param page 分页数据
-	 * @return 分页数据
-	 */
-	public Page<T> queryByPage(Page<T> page);
-	/**
 	 * <h3>普通数据处理：按条件查询所有数据。</h3>
 	 * <p>功能约定为根据条件设置从数据表中按查询所有数据。最终功能视具体的实现而定。</p>
 	 * @param params 条件
 	 * @return 数据集合
 	 */
 	public List<T> queryByParameters(Map<String, Object> params);
+	/**
+	 * <h3>普通数据处理：按条件分页查询多个数据。</h3>
+	 * <p>功能约定为根据件条件和分页设置从数据表中按分页查询多个数据。最终功能视具体的实现而定。</p>
+	 * @param page 分页数据
+	 * @return 分页数据
+	 */
+	public List<T> queryByPage(Map<String, Object> params,Page page);
 	/**
 	 * <h3>普通数据处理：查询所有数据。</h3>
 	 * <p>功能约定为无条件从数据表中按查询表所有数据。最终功能视具体的实现而定。</p>
@@ -207,19 +207,19 @@ public interface BaseService<T> {
 	 */
 	public T queryFull(Object id);
 	/**
-	 * <h3>关联多种数据处理：按条件分页查询多个数据。</h3>
-	 * <p>功能约定为根据件条件和分页设置从数据表中按分页查询多个数据，包括相关的外键数据。最终功能视具体的实现而定。</p>
-	 * @param page 分页数据
-	 * @return 分页数据
-	 */
-	public Page<T> queryFullByPage(Page<T> page);
-	/**
 	 * <h3>关联多种数据处理：按条件查询所有数据。</h3>
 	 * <p>功能约定为根据条件设置从数据表中按查询所有数据，包括相关的外键数据。最终功能视具体的实现而定。</p>
 	 * @param params 条件
 	 * @return 数据集合
 	 */
 	public List<T> queryFullByParameters(Map<String, Object> params);
+	/**
+	 * <h3>关联多种数据处理：按条件分页查询多个数据。</h3>
+	 * <p>功能约定为根据件条件和分页设置从数据表中按分页查询多个数据，包括相关的外键数据。最终功能视具体的实现而定。</p>
+	 * @param page 分页数据
+	 * @return 分页数据
+	 */
+	public List<T> queryFullByPage(Map<String, Object> params, Page page);
 	/**
 	 * <h3>关联多种数据处理：查询所有数据。</h3>
 	 * <p>功能约定为无条件从数据表中按查询表所有数据，包括相关的外键数据。最终功能视具体的实现而定。</p>

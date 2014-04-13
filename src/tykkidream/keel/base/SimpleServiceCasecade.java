@@ -41,13 +41,9 @@ public class SimpleServiceCasecade<T extends BaseModelCasecade<T>> extends Simpl
 	}
 
 	@Override
-	public Page<T> queryConnectLeafByPage(Page<T> page) {
-		if (page == null) {
-			page = new Page<T>();
-		}
+	public List<T> queryConnectLeafByPage(Map<String, Object> params, Page page) {
 		List<T> list = this.baseDaoCasecade.selectConnectLeafByParameters(page);
-		page.setResult(list);
-		return page;
+		return list;
 	}
 
 	@Override
@@ -66,13 +62,9 @@ public class SimpleServiceCasecade<T extends BaseModelCasecade<T>> extends Simpl
 	}
 
 	@Override
-	public Page<T> queryConnectRootByPage(Page<T> page) {
-		if (page == null) {
-			page = new Page<T>();
-		}
+	public List<T> queryConnectRootByPage(Map<String, Object> params, Page page) {
 		List<T> list = this.baseDaoCasecade.selectConnectRootByParameters(page);
-		page.setResult(list);
-		return page;
+		return list;
 	}
 
 	@Override

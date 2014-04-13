@@ -8,7 +8,6 @@ import java.util.Properties;
 
 import org.apache.ibatis.executor.parameter.DefaultParameterHandler;
 import org.apache.ibatis.executor.parameter.ParameterHandler;
-import org.apache.ibatis.executor.statement.RoutingStatementHandler;
 import org.apache.ibatis.executor.statement.StatementHandler;
 import org.apache.ibatis.mapping.BoundSql;
 import org.apache.ibatis.mapping.MappedStatement;
@@ -18,6 +17,11 @@ import org.apache.ibatis.plugin.Intercepts;
 import org.apache.ibatis.plugin.Invocation;
 import org.apache.ibatis.plugin.Plugin;
 import org.apache.ibatis.plugin.Signature;
+import org.apache.ibatis.reflection.MetaObject;
+import org.apache.ibatis.reflection.factory.DefaultObjectFactory;
+import org.apache.ibatis.reflection.factory.ObjectFactory;
+import org.apache.ibatis.reflection.wrapper.DefaultObjectWrapperFactory;
+import org.apache.ibatis.reflection.wrapper.ObjectWrapperFactory;
 
 import tykkidream.keel.base.Page;
 import tykkidream.keel.util.ReflectUtils;
@@ -53,6 +57,10 @@ import tykkidream.keel.util.ReflectUtils;
  */
 @Signature(method = "prepare", type = StatementHandler.class, args = { Connection.class }) })
 public class PageInterceptor implements Interceptor {
+
+	private static final ObjectFactory DEFAULT_OBJECT_FACTORY = new DefaultObjectFactory();
+	private static final ObjectWrapperFactory DEFAULT_OBJECT_WRAPPER_FACTORY = new DefaultObjectWrapperFactory();
+
 	/**
 	 * <h2>数据库类型</h2> <br>
 	 * 会影响到数据库的分页语句。
@@ -62,7 +70,6 @@ public class PageInterceptor implements Interceptor {
 	/**
 	 * 拦截后要执行的方法。
 	 */
-	@Override
 	public Object intercept(Invocation invocation) throws Throwable {
 
 		/*
@@ -87,14 +94,26 @@ public class PageInterceptor implements Interceptor {
 		 * ，所以我们这里拦截到的目标对象肯定是RoutingStatementHandler对象（是invocation.getTarget()）。
 		 */
 
-		RoutingStatementHandler handler = (RoutingStatementHandler) invocation.getTarget();
+		StatementHandler statementHandler = (StatementHandler) invocation.getTarget();
 
-		// CachingExecutor executor = (CachingExecutor) invocation.getTarget();
+		// 分离代理对象链(由于目标类可能被多个拦截器拦截，从而形成多次代理，通过下面的两次循环可以分离出最原始的的目标类)
+		MetaObject metaStatementHandler = MetaObject.forObject(statementHandler, DEFAULT_OBJECT_FACTORY,
+				DEFAULT_OBJECT_WRAPPER_FACTORY);
+		while (metaStatementHandler.hasGetter("h")) {
+			Object object = metaStatementHandler.getValue("h");
+			metaStatementHandler = MetaObject.forObject(object, DEFAULT_OBJECT_FACTORY, DEFAULT_OBJECT_WRAPPER_FACTORY);
+		}
+		// 分离最后一个代理对象的目标类
+		while (metaStatementHandler.hasGetter("target")) {
+			Object object = metaStatementHandler.getValue("target");
+			metaStatementHandler = MetaObject.forObject(object, DEFAULT_OBJECT_FACTORY, DEFAULT_OBJECT_WRAPPER_FACTORY);
+		}
 
 		// Object o0 = handler.getParameterHandler().getParameterObject();
 
 		// 通过反射获取到当前RoutingStatementHandler对象的delegate属性。
-		StatementHandler delegate = (StatementHandler) ReflectUtils.getFieldValue(handler, "delegate");
+		// StatementHandler delegate = (StatementHandler) ReflectUtils.getFieldValue(statementHandler, "delegate");
+		StatementHandler delegate = (StatementHandler) metaStatementHandler.getValue("delegate");
 
 		// 获取到当前StatementHandler的boundSql。
 		// 这里不管是调用handler.getBoundSql()还是直接调用delegate.getBoundSql()结果是一样的。
@@ -102,18 +121,19 @@ public class PageInterceptor implements Interceptor {
 		BoundSql boundSql = delegate.getBoundSql();
 
 		// 拿到当前绑定SQL的参数对象，就是我们在调用对应的Mapper映射语句时所传入的参数对象。
-		Object obj = boundSql.getParameterObject();
-
+		// Object obj = boundSql.getParameterObject();
+		metaStatementHandler = MetaObject.forObject(delegate, DEFAULT_OBJECT_FACTORY, DEFAULT_OBJECT_WRAPPER_FACTORY);
+		Object obj = metaStatementHandler.getValue("rowBounds");
+		//ReflectUtils.getFieldValue(delegate, "rowBounds");
 		do {
 			// 这里我们简单的通过传入的是Page对象就认定它是需要进行分页操作的。
-			if (!(obj instanceof Page<?>)) {
+			if (!(obj instanceof Page)) {
 				break;
 			}
 
-			Page<?> page = (Page<?>) obj;
+			Page page = (Page) obj;
 
-			page.getPageIndex2();
-			page.getPageSize2();
+			page.setPageStart(0);
 			if (page.getPageIndex() < 0) {
 				page.setPageIndex(1);
 			} else if (page.getPageIndex() == 0) {
@@ -149,7 +169,6 @@ public class PageInterceptor implements Interceptor {
 	/**
 	 * 拦截器对应的封装原始对象的方法。
 	 */
-	@Override
 	public Object plugin(Object target) {
 		return Plugin.wrap(target, this);
 	}
@@ -157,7 +176,6 @@ public class PageInterceptor implements Interceptor {
 	/**
 	 * 设置注册拦截器时设定的属性。
 	 */
-	@Override
 	public void setProperties(Properties properties) {
 		String type = properties.getProperty("databaseType");
 		if (type == null) {
@@ -177,7 +195,7 @@ public class PageInterceptor implements Interceptor {
 	 * @param connection
 	 *            当前的数据库连接
 	 */
-	private void setTotalRecord(Page<?> page, MappedStatement mappedStatement, Connection connection) {
+	private void setTotalRecord(Page page, MappedStatement mappedStatement, Connection connection) {
 		// 获取对应的BoundSql，这个BoundSql其实跟我们利用StatementHandler获取到的BoundSql是同一个对象。
 		// delegate里面的boundSql也是通过mappedStatement.getBoundSql(paramObj)方法获取到的。
 		BoundSql boundSql = mappedStatement.getBoundSql(page);
@@ -232,7 +250,7 @@ public class PageInterceptor implements Interceptor {
 	 *            原sql语句，为用户最初调用的SQL。
 	 * @return 分页查询所有数据的SQL语句。
 	 */
-	private String getPageSql(Page<?> page, String sql) {
+	private String getPageSql(Page page, String sql) {
 		if ("mysql".equals(databaseType)) {
 			return getPageSqlOfMySQL(page, sql);
 		} else if ("oracle".equals(databaseType)) {
@@ -250,7 +268,7 @@ public class PageInterceptor implements Interceptor {
 	 *            sql语句。
 	 * @return MySQL数据库的分页查询语句。
 	 */
-	private String getPageSqlOfMySQL(Page<?> page, String sql) {
+	private String getPageSqlOfMySQL(Page page, String sql) {
 		StringBuffer sqlBuffer = new StringBuffer(sql);
 
 		// 计算第一条记录的位置，MySQL中记录的位置是从0开始的。
@@ -271,7 +289,7 @@ public class PageInterceptor implements Interceptor {
 	 *            包含原sql语句的StringBuffer对象
 	 * @return Oracle数据库的分页查询语句
 	 */
-	private String getPageSqlOfOracle(Page<?> page, String sql) {
+	private String getPageSqlOfOracle(Page page, String sql) {
 		StringBuffer sqlBuffer = new StringBuffer(sql);
 		int a = page.getPageIndex();
 		int b = page.getPageSize();

@@ -11,6 +11,7 @@ import org.apache.struts2.ServletActionContext;
 import tykkidream.keel.base.BaseModel;
 import tykkidream.keel.base.BaseService;
 import tykkidream.keel.base.Page;
+import tykkidream.keel.mybatis.interceptor.PageBounds;
 import tykkidream.keel.util.HttpURLUtils;
 import tykkidream.keel.util.ReflectUtils;
 import tykkidream.keel.util.StringUtils;
@@ -196,18 +197,18 @@ public abstract class BaseAction<T extends BaseModel<T>> extends ActionSupport i
 	/**
 	 * 
 	 */
-	protected Page<T> page = null;
+	protected Page page = null;
 
 	/**
 	 * 
 	 */
 	protected List<T> list = null;
 
-	public Page<T> getPage() {
+	public Page getPage() {
 		return page;
 	}
 
-	public void setPage(Page<T> page) {
+	public void setPage(Page page) {
 		this.page = page;
 	}
 
@@ -370,8 +371,7 @@ public abstract class BaseAction<T extends BaseModel<T>> extends ActionSupport i
 		if (this.entity != null && this.entity.getId() != null) {
 			this.entity = getBaseService().query(getEntity().getId());
 		} else {
-			this.page = getBaseService().queryByPage(this.page);
-			this.list = this.page.getResult();
+			this.list = getBaseService().queryByPage(null, this.page);
 		}
 		return windUp("success");
 	}
@@ -379,7 +379,7 @@ public abstract class BaseAction<T extends BaseModel<T>> extends ActionSupport i
 	@SuppressWarnings("unused")
 	private Object getQueryModel() {
 		if(this.page == null){
-			return this.page = new Page<T>();
+			return this.page = new PageBounds();
 		}
 		return  this.page;
 	}

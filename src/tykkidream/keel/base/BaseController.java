@@ -22,7 +22,7 @@ public interface BaseController<T> extends BaseRequest<Long, T, Map<String,Objec
 	public Object new$(T t);
 
 	@Override
-	public Object search(Map<String, Object> t);
+	public Object search(Map<String, Object> t , Page page);
 
 	@Override
 	public Object view(Long t);

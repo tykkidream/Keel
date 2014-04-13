@@ -111,6 +111,7 @@ public interface BaseDao<T> {
 	 * @return 数据集合
 	 */
 	public List<T> selectByParameters(Object params);
+	public List<T> selectByParameters(Object params, Page page);
 	
 	/**
 	 * <h3>关联多种数据处理：查询一个数据。</h3>
@@ -126,6 +127,6 @@ public interface BaseDao<T> {
 	 * @return 数据集合
 	 */
 	public List<T> selectFullByParameters(Object params);
-	
+	public List<T> selectFullByParameters(Object params, Page page);
 
 }

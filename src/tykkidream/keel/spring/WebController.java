@@ -1,5 +1,6 @@
 package tykkidream.keel.spring;
 
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.ServletContext;
@@ -15,6 +16,8 @@ import org.springframework.web.servlet.ModelAndView;
 
 import tykkidream.keel.base.AbstractController;
 import tykkidream.keel.base.BaseModel;
+import tykkidream.keel.base.Page;
+import tykkidream.keel.mybatis.interceptor.PageBounds;
 
 public abstract class WebController<T extends BaseModel<?>> extends AbstractController<T>{
 	
@@ -123,25 +126,28 @@ public abstract class WebController<T extends BaseModel<?>> extends AbstractCont
 		return mv;
 	}
 
-	@RequestMapping(value = { "/browse" }, method = RequestMethod.GET)
 	@Override
-	public ModelAndView search(Map<String, Object> t) {
+	public ModelAndView search(Map<String, Object> t, Page page) {
 		ModelAndView mv = new ModelAndView();
-
-		mv.addObject(getBaseService().queryByParameters(t));
+		List<T> list = getBaseService().queryByPage(t,page);
+		mv.addObject(list);
 		mv.setViewName(viewNameForSearch());
 
-		return null;
+		return mv;
+	}
+
+	@RequestMapping(value = { "/browse" }, method = RequestMethod.GET)
+	public ModelAndView search$(Map<String, Object> t, PageBounds page) {
+		if (page == null) {
+			page =new PageBounds();
+		}
+
+		return search(t, page);
 	}
 
 	@RequestMapping(value = { "/manage" }, method = RequestMethod.GET)
-	public ModelAndView manage(Map<String, Object> t) {
-		ModelAndView mv = new ModelAndView();
-
-		mv.addObject(getBaseService().queryByParameters(t));
-		mv.setViewName(viewNameForManage());
-
-		return null;
+	public ModelAndView manage(Map<String, Object> t,PageBounds page) {
+		return search$(t, page);
 	}
 
 	@Override

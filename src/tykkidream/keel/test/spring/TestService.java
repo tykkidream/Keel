@@ -31,7 +31,7 @@ public abstract class TestService<T extends BaseModel<?>> {
 	@Parameter(3)
 	public List<T> lt2 = null;
 	@Parameter(4)
-	public Page<T> p = null;
+	public Page p = null;
 
 	public abstract BaseService<T> getBaseService();
 
@@ -187,13 +187,13 @@ public abstract class TestService<T extends BaseModel<?>> {
 
 	@Test
 	public void test10QueryByPage() {
-		this.getBaseService().queryByPage(p);
-		assertNotNull("无法获取目标数据！", p.getResult());
+		List<T> list = this.getBaseService().queryByPage(null,p);
+		assertNotNull("无法获取目标数据！", list);
 		
 		if (p.getTotalPage() > 1) {
-			assertSame("分页数据数量不正确！",p.getPageSize(),p.getResult().size());
+			assertSame("分页数据数量不正确！",p.getPageSize(), list.size());
 		} else {
-			assertSame("分页数据数量不正确！",p.getTotalRecord(),p.getResult().size());
+			assertSame("分页数据数量不正确！",p.getTotalRecord(), list.size());
 		}
 	}
 

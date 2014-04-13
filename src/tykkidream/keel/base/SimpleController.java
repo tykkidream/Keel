@@ -46,8 +46,8 @@ public class SimpleController<T> extends AbstractController<T> implements BaseCo
 	}
 
 	@Override
-	public List<T> search(Map<String, Object> t) {
-		return getBaseService().queryByParameters(t);
+	public List<T> search(Map<String, Object> t, Page page) {
+		return getBaseService().queryByPage(t, page);
 	}
 
 	@Override

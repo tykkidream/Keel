@@ -216,13 +216,9 @@ public class SimpleService<T extends BaseModel<T>> extends AbstractService<T> {
 	}
 
 	@Override
-	public Page<T> queryByPage(Page<T> page) {
-		if (page == null) {
-			page = new Page<T>();
-		}
+	public List<T> queryByPage(Map<String, Object> params,Page page) {
 		List<T> list = getBaseDao().selectByParameters(page);
-		page.setResult(list);
-		return page;
+		return list;
 	}
 
 	@Override
@@ -241,13 +237,9 @@ public class SimpleService<T extends BaseModel<T>> extends AbstractService<T> {
 	}
 
 	@Override
-	public Page<T> queryFullByPage(Page<T> page) {
-		if (page == null) {
-			page = new Page<T>();
-		}
+	public List<T> queryFullByPage(Map<String, Object> params, Page page) { 
 		List<T> list = getBaseDao().selectFullByParameters(page);
-		page.setResult(list);
-		return page;
+		return list;
 	}
 
 	@Override

@@ -6,6 +6,8 @@ import org.mybatis.spring.support.SqlSessionDaoSupport;
 
 import tykkidream.keel.base.BaseDao;
 import tykkidream.keel.base.BaseModel;
+import tykkidream.keel.base.Page;
+import tykkidream.keel.mybatis.interceptor.PageBounds;
 
 /**
  * <h2>通用数据操作类</h2>
@@ -127,6 +129,18 @@ public class SimpleDao<T extends BaseModel<?>> extends SqlSessionDaoSupport impl
 	public List<T> selectList(String sqlId, Object params) {
 		return getSqlSession().selectList(sqlId, params);
 	}
+	
+	public List<T> selectList(String sqlId, Object params, Page page) {
+		PageBounds pb = null;
+		
+		if (page instanceof PageBounds) {
+			pb = (PageBounds)page;
+		} else {
+			pb = new PageBounds(page.getPageIndex(), page.getPageSize());
+		}
+		
+		return getSqlSession().selectList(sqlId, params, pb);
+	}
 
 	@Override
 	public T selectByKey(Object id) {
@@ -147,6 +161,11 @@ public class SimpleDao<T extends BaseModel<?>> extends SqlSessionDaoSupport impl
 	public List<T> selectByParameters(Object params) {
 		return selectList(this.mapperNamespace + ".selectByParameters", params);
 	}
+	
+	@Override
+	public List<T> selectByParameters(Object params, Page page) {
+		return selectList(this.mapperNamespace + ".selectByParameters", params, page);
+	}
 
 	@Override
 	public T selectFullByKey(Object id) {
@@ -156,5 +175,11 @@ public class SimpleDao<T extends BaseModel<?>> extends SqlSessionDaoSupport impl
 	@Override
 	public List<T> selectFullByParameters(Object params) {
 		return selectList(this.mapperNamespace + ".selectFullByParameters", params);
+	}
+
+
+	@Override
+	public List<T> selectFullByParameters(Object params, Page page) {
+		return selectList(this.mapperNamespace + ".selectFullByParameters", params, page);
 	}
 }
