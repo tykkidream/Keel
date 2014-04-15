@@ -1,26 +1,26 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
-	<classpathentry kind="src" path="src"/>
-	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.7"/>
-	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/MyBatis-3.1.1"/>
-	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/MyBatis-3.1.1-Spring"/>
-	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/MyBatis-3.1.1-Spring$dependency"/>
-	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/MyBatis-3.1.1$dependency"/>
-	<classpathentry kind="lib" path="F:/Datum/Java_Apache_Struts/struts-2.3.12/lib/struts2-core-2.3.12.jar"/>
-	<classpathentry kind="lib" path="F:/Datum/Java_Apache_Struts/struts-2.3.12/lib/xwork-core-2.3.12.jar"/>
-	<classpathentry kind="lib" path="F:/Program_Files/apache-tomcat-7.0.47-8080/lib/servlet-api.jar"/>
-	<classpathentry kind="lib" path="F:/Datum/Java_Apache_Struts/struts-2.3.12/lib/struts2-json-plugin-2.3.12.jar"/>
-	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/Apache_Commons_IO"/>
-	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/4"/>
-	<classpathentry kind="lib" path="F:/Datum/Java_Spring/spring-framework-3.2.6.RELEASE/libs/spring-test-3.2.6.RELEASE.jar"/>
-	<classpathentry kind="lib" path="F:/Datum/Java_Spring/spring-framework-3.2.6.RELEASE/libs/spring-web-3.2.6.RELEASE.jar"/>
-	<classpathentry kind="lib" path="F:/Datum/Java_Spring/spring-framework-3.2.6.RELEASE/libs/spring-webmvc-3.2.6.RELEASE.jar"/>
-	<classpathentry kind="lib" path="F:/Datum/Java_Spring/spring-framework-3.2.6.RELEASE/libs/spring-aop-3.2.6.RELEASE.jar"/>
-	<classpathentry kind="lib" path="F:/Datum/Java_Spring/spring-framework-3.2.6.RELEASE/libs/spring-aspects-3.2.6.RELEASE.jar"/>
-	<classpathentry kind="lib" path="F:/Datum/Java_Spring/spring-framework-3.2.6.RELEASE/libs/spring-beans-3.2.6.RELEASE.jar"/>
-	<classpathentry kind="lib" path="F:/Datum/Java_Spring/spring-framework-3.2.6.RELEASE/libs/spring-context-3.2.6.RELEASE.jar"/>
-	<classpathentry kind="lib" path="F:/Datum/Java_Spring/spring-framework-3.2.6.RELEASE/libs/spring-context-support-3.2.6.RELEASE.jar"/>
-	<classpathentry kind="lib" path="F:/Datum/Java_Spring/spring-framework-3.2.6.RELEASE/libs/spring-core-3.2.6.RELEASE.jar"/>
-	<classpathentry kind="lib" path="/Le02/WebContent/WEB-INF/lib/validation-api-1.1.0.Final.jar"/>
-	<classpathentry kind="output" path="bin"/>
+	<classpathentry kind="src" output="target/classes" path="src/main/java">
+		<attributes>
+			<attribute name="optional" value="true"/>
+			<attribute name="maven.pomderived" value="true"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="src" output="target/test-classes" path="src/test/java">
+		<attributes>
+			<attribute name="optional" value="true"/>
+			<attribute name="maven.pomderived" value="true"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/J2SE-1.5">
+		<attributes>
+			<attribute name="maven.pomderived" value="true"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="con" path="org.eclipse.m2e.MAVEN2_CLASSPATH_CONTAINER">
+		<attributes>
+			<attribute name="maven.pomderived" value="true"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="output" path="target/classes"/>
 </classpath>

@@ -25,6 +25,8 @@ public interface BaseDaoCasecade<T> extends BaseDao<T> {
 	 */
 	public List<T> selectConnectLeafByParameters(Object params);
 	
+	public List<T> selectConnectLeafByParameters(Object params,Page page);
+	
 	/**
 	 * <h3>向下级联数据处理：查询一个数据。</h3>
 	 * <p>功能约定为根据根数据的主键ID从级联数据表中查询单个根数据，包括其所有子数据。最终功能视具体的实现而定。</p>
@@ -46,4 +48,6 @@ public interface BaseDaoCasecade<T> extends BaseDao<T> {
 	 * @return 根数据集合及其所有子数据
 	 */
 	public List<T> selectConnectRootByParameters(Object params);
+	
+	public List<T> selectConnectRootByParameters(Object params, Page page);
 }

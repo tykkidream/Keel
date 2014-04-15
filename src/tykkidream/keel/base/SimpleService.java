@@ -14,7 +14,16 @@ import java.util.Map;
  * @see tykkidream.keel.base.BaseDao
  * @see tykkidream.keel.base.BaseModel
  */
-public class SimpleService<T extends BaseModel<T>> extends AbstractService<T> {
+public class SimpleService<T extends BaseModel<T>> implements BaseService<T> {
+	private BaseDao<T> baseDao = null;
+
+	public BaseDao<T> getBaseDao() {
+		return baseDao;
+	}
+
+	public void setBaseDao(BaseDao<T> baseDao) {
+		this.baseDao = baseDao;
+	}
 
 	@Override
 	public boolean create(T record) {

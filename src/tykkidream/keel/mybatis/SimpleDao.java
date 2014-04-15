@@ -2,9 +2,9 @@ package tykkidream.keel.mybatis;
 
 import java.util.List;
 
+import org.apache.ibatis.session.RowBounds;
 import org.mybatis.spring.support.SqlSessionDaoSupport;
 
-import tykkidream.keel.base.BaseDao;
 import tykkidream.keel.base.BaseModel;
 import tykkidream.keel.base.Page;
 import tykkidream.keel.mybatis.interceptor.PageBounds;
@@ -130,13 +130,13 @@ public class SimpleDao<T extends BaseModel<?>> extends SqlSessionDaoSupport impl
 		return getSqlSession().selectList(sqlId, params);
 	}
 	
-	public List<T> selectList(String sqlId, Object params, Page page) {
+	public List<T> selectList(String sqlId, Object params, RowBounds bounds) {
 		PageBounds pb = null;
 		
-		if (page instanceof PageBounds) {
-			pb = (PageBounds)page;
+		if (bounds instanceof PageBounds) {
+			pb = (PageBounds)bounds;
 		} else {
-			pb = new PageBounds(page.getPageIndex(), page.getPageSize());
+			pb = new PageBounds(bounds.getOffset() / bounds.getLimit() + 1, bounds.getLimit());
 		}
 		
 		return getSqlSession().selectList(sqlId, params, pb);
@@ -163,7 +163,7 @@ public class SimpleDao<T extends BaseModel<?>> extends SqlSessionDaoSupport impl
 	}
 	
 	@Override
-	public List<T> selectByParameters(Object params, Page page) {
+	public List<T> selectByParameters(Object params, RowBounds page) {
 		return selectList(this.mapperNamespace + ".selectByParameters", params, page);
 	}
 
@@ -179,7 +179,29 @@ public class SimpleDao<T extends BaseModel<?>> extends SqlSessionDaoSupport impl
 
 
 	@Override
-	public List<T> selectFullByParameters(Object params, Page page) {
+	public List<T> selectFullByParameters(Object params, RowBounds page) {
 		return selectList(this.mapperNamespace + ".selectFullByParameters", params, page);
+	}
+
+	@Override
+	public List<T> selectByParameters(Object params, Page page) {
+		RowBounds rb = null;
+		if (page instanceof RowBounds) {
+			rb = (RowBounds)page;
+		} else {
+			rb = new PageBounds(page.getPageIndex(), page.getPageSize());
+		}
+		return selectByParameters(params,rb);
+	}
+
+	@Override
+	public List<T> selectFullByParameters(Object params, Page page) {
+		RowBounds rb = null;
+		if (page instanceof RowBounds) {
+			rb = (RowBounds)page;
+		} else {
+			rb = new PageBounds(page.getPageIndex(), page.getPageSize());
+		}
+		return selectFullByParameters(params,rb);
 	}
 }
