@@ -8,7 +8,6 @@ import java.util.Map;
 
 import org.apache.struts2.ServletActionContext;
 
-import tykkidream.keel.base.BaseModel;
 import tykkidream.keel.base.BaseService;
 import tykkidream.keel.base.Page;
 import tykkidream.keel.mybatis.interceptor.PageBounds;
@@ -26,7 +25,7 @@ import com.opensymphony.xwork2.config.entities.ActionConfig;
 import com.opensymphony.xwork2.interceptor.ValidationWorkflowAware;
 
 public abstract class BaseAction<T extends BaseModel<T>> extends ActionSupport implements
-		ValidationWorkflowAware,HTMLAction,Preparable{
+		ValidationWorkflowAware, HTMLAction, Preparable{
 	
 	private static final long serialVersionUID = 4181081930725231597L;
 	
@@ -168,7 +167,7 @@ public abstract class BaseAction<T extends BaseModel<T>> extends ActionSupport i
 		setRequestType(requestType);
 	}
 	
-	@Override
+	//@Override
 	public String getInputResultName() {
 		return getRequestType();
 	}

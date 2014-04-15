@@ -38,6 +38,7 @@ public class HttpURLUtils {
 				}
 			}
 		} else {
+			@SuppressWarnings("unchecked")
 			Map<String, String[]> map = new HashMap<String, String[]>(request.getParameterMap());
 			
 			for (int i = 0; i < params.length; i++)
@@ -71,6 +72,7 @@ public class HttpURLUtils {
 	public static String escapeParameter(HttpServletRequest request) {
 		StringBuilder url = new StringBuilder();
 
+		@SuppressWarnings("unchecked")
 		Map<String, String[]> map = request.getParameterMap();
 		Iterator<Entry<String, String[]>> iterator = map.entrySet().iterator();
 		while (iterator.hasNext()) {
