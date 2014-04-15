@@ -3,8 +3,6 @@ package tykkidream.keel.base;
 import java.io.Serializable;
 import java.util.List;
 
-import org.apache.struts2.json.annotations.JSON;
-
 public interface BaseModelCasecade <T extends BaseModelCasecade<?>> extends BaseModel<T>, Serializable{
 
 	/**
@@ -71,7 +69,6 @@ public interface BaseModelCasecade <T extends BaseModelCasecade<?>> extends Base
 	 * 
 	 * @return
 	 */
-	@JSON(deserialize=true,serialize = false)
 	public String getPathCode();
 
 	/**
