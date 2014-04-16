@@ -92,7 +92,7 @@ public class PagingInterceptor implements Interceptor {
 
 		// 最底层的语句处理器。
 		StatementHandler delegateStatementHandler = (StatementHandler) metaStatementHandler.getValue("delegate");
-
+		
 		BoundSql boundSql = delegateStatementHandler.getBoundSql();
 
 		metaStatementHandler = MetaObject.forObject(delegateStatementHandler, DEFAULT_OBJECT_FACTORY, DEFAULT_OBJECT_WRAPPER_FACTORY);
@@ -145,7 +145,6 @@ public class PagingInterceptor implements Interceptor {
 		}
 
 		// 利用反射设置当前BoundSql对应的sql属性为我们建立好的分页Sql语句
-		// ReflectUtils.setFieldValue(boundSql, "sql", pageSql);
 		metaStatementHandler = MetaObject.forObject(boundSql, DEFAULT_OBJECT_FACTORY, DEFAULT_OBJECT_WRAPPER_FACTORY);
 		metaStatementHandler.setValue("sql", pageSql);
 	}
