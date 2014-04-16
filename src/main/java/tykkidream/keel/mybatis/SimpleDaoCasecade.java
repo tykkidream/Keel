@@ -6,7 +6,7 @@ import org.apache.ibatis.session.RowBounds;
 
 import tykkidream.keel.base.BaseModelCasecade;
 import tykkidream.keel.base.Page;
-import tykkidream.keel.mybatis.interceptor.PageBounds;
+import tykkidream.keel.mybatis.interceptor.PagingBounds;
 
 public class SimpleDaoCasecade <T extends BaseModelCasecade<?>> extends SimpleDao<T> implements BaseDaoCasecade<T>{
 
@@ -57,7 +57,7 @@ public class SimpleDaoCasecade <T extends BaseModelCasecade<?>> extends SimpleDa
 		if (page instanceof RowBounds) {
 			rb = (RowBounds)page;
 		} else {
-			rb = new PageBounds(page.getPageIndex(), page.getPageSize());
+			rb = new PagingBounds(page.getPageIndex(), page.getPageSize());
 		}
 		return selectConnectLeafByParameters(params,rb);
 	}
@@ -68,7 +68,7 @@ public class SimpleDaoCasecade <T extends BaseModelCasecade<?>> extends SimpleDa
 		if (page instanceof RowBounds) {
 			rb = (RowBounds)page;
 		} else {
-			rb = new PageBounds(page.getPageIndex(), page.getPageSize());
+			rb = new PagingBounds(page.getPageIndex(), page.getPageSize());
 		}
 		return selectConnectRootByParameters(params,rb);
 	}

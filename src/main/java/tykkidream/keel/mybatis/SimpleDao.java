@@ -7,7 +7,7 @@ import org.mybatis.spring.support.SqlSessionDaoSupport;
 
 import tykkidream.keel.base.BaseModel;
 import tykkidream.keel.base.Page;
-import tykkidream.keel.mybatis.interceptor.PageBounds;
+import tykkidream.keel.mybatis.interceptor.PagingBounds;
 
 /**
  * <h2>通用数据操作类</h2>
@@ -131,12 +131,12 @@ public class SimpleDao<T extends BaseModel<?>> extends SqlSessionDaoSupport impl
 	}
 	
 	public List<T> selectList(String sqlId, Object params, RowBounds bounds) {
-		PageBounds pb = null;
+		PagingBounds pb = null;
 		
-		if (bounds instanceof PageBounds) {
-			pb = (PageBounds)bounds;
+		if (bounds instanceof PagingBounds) {
+			pb = (PagingBounds)bounds;
 		} else {
-			pb = new PageBounds(bounds.getOffset() / bounds.getLimit() + 1, bounds.getLimit());
+			pb = new PagingBounds(bounds.getOffset() / bounds.getLimit() + 1, bounds.getLimit());
 		}
 		
 		return getSqlSession().selectList(sqlId, params, pb);
@@ -189,7 +189,7 @@ public class SimpleDao<T extends BaseModel<?>> extends SqlSessionDaoSupport impl
 		if (page instanceof RowBounds) {
 			rb = (RowBounds)page;
 		} else {
-			rb = new PageBounds(page.getPageIndex(), page.getPageSize());
+			rb = new PagingBounds(page.getPageIndex(), page.getPageSize());
 		}
 		return selectByParameters(params,rb);
 	}
@@ -200,7 +200,7 @@ public class SimpleDao<T extends BaseModel<?>> extends SqlSessionDaoSupport impl
 		if (page instanceof RowBounds) {
 			rb = (RowBounds)page;
 		} else {
-			rb = new PageBounds(page.getPageIndex(), page.getPageSize());
+			rb = new PagingBounds(page.getPageIndex(), page.getPageSize());
 		}
 		return selectFullByParameters(params,rb);
 	}

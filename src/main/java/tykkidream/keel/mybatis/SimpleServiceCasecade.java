@@ -7,7 +7,7 @@ import org.apache.ibatis.session.RowBounds;
 
 import tykkidream.keel.base.BaseModelCasecade;
 import tykkidream.keel.base.Page;
-import tykkidream.keel.mybatis.interceptor.PageBounds;
+import tykkidream.keel.mybatis.interceptor.PagingBounds;
 
 public class SimpleServiceCasecade<T extends BaseModelCasecade<T>> extends tykkidream.keel.base.SimpleServiceCasecade<T> implements BaseService<T>, BaseServiceCasecade<T> {
 	private BaseDaoCasecade<T> baseDaoCasecade = null;
@@ -48,7 +48,7 @@ public class SimpleServiceCasecade<T extends BaseModelCasecade<T>> extends tykki
 		if (page instanceof RowBounds) {
 			bounds = (RowBounds)page;
 		} else {
-			bounds = new PageBounds(page.getPageIndex(), page.getPageSize());
+			bounds = new PagingBounds(page.getPageIndex(), page.getPageSize());
 		}
 		List<T> list = getBaseDao().selectConnectLeafByParameters(params, bounds);
 		return list;
@@ -61,7 +61,7 @@ public class SimpleServiceCasecade<T extends BaseModelCasecade<T>> extends tykki
 		if (page instanceof RowBounds) {
 			bounds = (RowBounds)page;
 		} else {
-			bounds = new PageBounds(page.getPageIndex(), page.getPageSize());
+			bounds = new PagingBounds(page.getPageIndex(), page.getPageSize());
 		}
 		
 		List<T> list = getBaseDao().selectConnectRootByParameters(params, bounds);
@@ -75,7 +75,7 @@ public class SimpleServiceCasecade<T extends BaseModelCasecade<T>> extends tykki
 		if (page instanceof RowBounds) {
 			bounds = (RowBounds)page;
 		} else {
-			bounds = new PageBounds(page.getPageIndex(), page.getPageSize());
+			bounds = new PagingBounds(page.getPageIndex(), page.getPageSize());
 		}
 		
 		List<T> list = getBaseDao().selectByParameters(params,bounds);
@@ -89,7 +89,7 @@ public class SimpleServiceCasecade<T extends BaseModelCasecade<T>> extends tykki
 		if (page instanceof RowBounds) {
 			bounds = (RowBounds)page;
 		} else {
-			bounds = new PageBounds(page.getPageIndex(), page.getPageSize());
+			bounds = new PagingBounds(page.getPageIndex(), page.getPageSize());
 		}
 		
 		List<T> list = getBaseDao().selectFullByParameters(params, bounds);

@@ -7,7 +7,7 @@ import org.apache.ibatis.session.RowBounds;
 
 import tykkidream.keel.base.BaseModel;
 import tykkidream.keel.base.Page;
-import tykkidream.keel.mybatis.interceptor.PageBounds;
+import tykkidream.keel.mybatis.interceptor.PagingBounds;
 
 /**
  * <h2>通用业务类</h2>
@@ -37,7 +37,7 @@ public class SimpleService<T extends BaseModel<T>> extends tykkidream.keel.base.
 		if (page instanceof RowBounds) {
 			bounds = (RowBounds)page;
 		} else {
-			bounds = new PageBounds(page.getPageIndex(), page.getPageSize());
+			bounds = new PagingBounds(page.getPageIndex(), page.getPageSize());
 		}
 		
 		List<T> list = getBaseDao().selectByParameters(params,bounds);
@@ -51,7 +51,7 @@ public class SimpleService<T extends BaseModel<T>> extends tykkidream.keel.base.
 		if (page instanceof RowBounds) {
 			bounds = (RowBounds)page;
 		} else {
-			bounds = new PageBounds(page.getPageIndex(), page.getPageSize());
+			bounds = new PagingBounds(page.getPageIndex(), page.getPageSize());
 		}
 		
 		List<T> list = getBaseDao().selectFullByParameters(params, bounds);

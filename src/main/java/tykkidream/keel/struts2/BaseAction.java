@@ -10,7 +10,7 @@ import org.apache.struts2.ServletActionContext;
 
 import tykkidream.keel.base.BaseService;
 import tykkidream.keel.base.Page;
-import tykkidream.keel.mybatis.interceptor.PageBounds;
+import tykkidream.keel.mybatis.interceptor.PagingBounds;
 import tykkidream.keel.util.HttpURLUtils;
 import tykkidream.keel.util.ReflectUtils;
 import tykkidream.keel.util.StringUtils;
@@ -378,7 +378,7 @@ public abstract class BaseAction<T extends BaseModel<T>> extends ActionSupport i
 	@SuppressWarnings("unused")
 	private Object getQueryModel() {
 		if(this.page == null){
-			return this.page = new PageBounds();
+			return this.page = new PagingBounds();
 		}
 		return  this.page;
 	}

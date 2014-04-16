@@ -17,7 +17,7 @@ import org.springframework.web.servlet.ModelAndView;
 import tykkidream.keel.base.AbstractController;
 import tykkidream.keel.base.BaseModel;
 import tykkidream.keel.base.Page;
-import tykkidream.keel.mybatis.interceptor.PageBounds;
+import tykkidream.keel.mybatis.interceptor.PagingBounds;
 
 public abstract class WebController<T extends BaseModel<?>> extends AbstractController<T>{
 	
@@ -137,16 +137,16 @@ public abstract class WebController<T extends BaseModel<?>> extends AbstractCont
 	}
 
 	@RequestMapping(value = { "/browse" }, method = RequestMethod.GET)
-	public ModelAndView search$(Map<String, Object> t, PageBounds page) {
+	public ModelAndView search$(Map<String, Object> t, PagingBounds page) {
 		if (page == null) {
-			page =new PageBounds();
+			page =new PagingBounds();
 		}
 
 		return search(t, page);
 	}
 
 	@RequestMapping(value = { "/manage" }, method = RequestMethod.GET)
-	public ModelAndView manage(Map<String, Object> t,PageBounds page) {
+	public ModelAndView manage(Map<String, Object> t,PagingBounds page) {
 		return search$(t, page);
 	}
 

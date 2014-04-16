@@ -9,7 +9,7 @@ import tykkidream.keel.base.Page;
 /**
  * 对分页的基本数据进行一个简单的封装
  */
-public class PageBounds extends RowBounds  implements Page,Serializable{
+public class PagingBounds extends RowBounds  implements Page,Serializable{
 
 	private static final long serialVersionUID = 1484498591639486566L;
 	private Integer pageIndex = 1;// 页码，默认是第一页
@@ -18,10 +18,10 @@ public class PageBounds extends RowBounds  implements Page,Serializable{
 	private Integer totalRecord;// 总记录数
 	private Integer totalPage;// 总页数
 	
-	public PageBounds() {
+	public PagingBounds() {
 	}
 	
-	public PageBounds(Integer pageIndex, Integer pageSize) {
+	public PagingBounds(Integer pageIndex, Integer pageSize) {
 		this.setPageIndex(pageIndex);
 		this.setPageSize(pageSize);
 	}
