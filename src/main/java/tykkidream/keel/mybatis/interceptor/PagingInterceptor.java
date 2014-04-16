@@ -120,10 +120,6 @@ public class PagingInterceptor implements Interceptor {
 		// 获取计算总数的SQL语句
 		String countSql = this.pagingHandler.getCountSQL(this.pagingType, sql, null);
 
-		// 获取分页SQL语句
-		String pageSql = this.pagingHandler.getPagingSQL(this.pagingType, sql, page);
-		
-		
 		
 		ParameterHandler parameterHandler = new DefaultParameterHandler(mappedStatement, page, boundSql);
 		// 通过connection建立一个countSql对应的PreparedStatement对象。
@@ -142,6 +138,13 @@ public class PagingInterceptor implements Interceptor {
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
+		}
+		
+
+		// 获取分页SQL语句
+		String pageSql = this.pagingHandler.getPagingSQL(this.pagingType, sql, page);
+		if(this.pagingType == PagingHandler.PagingType_PageIndex) {
+			page.setPageStart(0);
 		}
 
 		// 利用反射设置当前BoundSql对应的sql属性为我们建立好的分页Sql语句
