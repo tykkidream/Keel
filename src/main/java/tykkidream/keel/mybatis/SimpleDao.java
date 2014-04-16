@@ -169,7 +169,7 @@ public class SimpleDao<T extends BaseModel<?>> extends SqlSessionDaoSupport impl
 
 	@Override
 	public T selectFullByKey(Object id) {
-		return selectOne(this.mapperNamespace + ".selectFullByID", id);
+		return selectOne(this.mapperNamespace + ".selectFullByKey", id);
 	}
 
 	@Override

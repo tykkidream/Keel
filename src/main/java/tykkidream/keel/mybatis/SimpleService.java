@@ -19,15 +19,10 @@ import tykkidream.keel.mybatis.interceptor.PagingBounds;
  * @see tykkidream.keel.base.BaseModel
  */
 public class SimpleService<T extends BaseModel<T>> extends tykkidream.keel.base.SimpleService<T>  implements BaseService<T> {
-	private BaseDao<T> baseDao = null;
 
 	@Override
 	public BaseDao<T> getBaseDao() {
-		return baseDao;
-	}
-
-	public void setBaseDao(BaseDao<T> baseDao) {
-		this.baseDao = baseDao;
+		return (BaseDao<T>)super.getBaseDao();
 	}
 
 	@Override
