@@ -14,14 +14,14 @@ import java.util.Map;
  * @see tykkidream.keel.base.BaseDao
  * @see tykkidream.keel.base.BaseModel
  */
-public class SimpleService<T extends BaseModel<T>> implements BaseService<T> {
-	private BaseDao<T> baseDao = null;
+public class SimpleService<T extends BaseModel<T>, I extends BaseDao<T>> implements BaseService<T> {
+	private I baseDao = null;
 
-	public BaseDao<T> getBaseDao() {
+	public I getBaseDao() {
 		return baseDao;
 	}
 
-	public void setBaseDao(BaseDao<T> baseDao) {
+	public void setBaseDao(I baseDao) {
 		this.baseDao = baseDao;
 	}
 
@@ -207,7 +207,7 @@ public class SimpleService<T extends BaseModel<T>> implements BaseService<T> {
 	}
 
 	@Override
-	public T query(Object id) {
+	public T queryByKey(Object id) {
 		T obj = getBaseDao().selectByKey(id);
 		return obj;
 	}

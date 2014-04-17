@@ -18,12 +18,7 @@ import tykkidream.keel.mybatis.interceptor.PagingBounds;
  * @see tykkidream.keel.base.BaseDao
  * @see tykkidream.keel.base.BaseModel
  */
-public class SimpleService<T extends BaseModel<T>> extends tykkidream.keel.base.SimpleService<T>  implements BaseService<T> {
-
-	@Override
-	public BaseDao<T> getBaseDao() {
-		return (BaseDao<T>)super.getBaseDao();
-	}
+public class SimpleService<T extends BaseModel<T>, I extends BaseDao<T>> extends tykkidream.keel.base.SimpleService<T, I>  implements BaseService<T> {
 
 	@Override
 	public List<T> queryByPage(Map<String, Object> params,Page page) {

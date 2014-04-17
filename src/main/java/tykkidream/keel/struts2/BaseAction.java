@@ -368,7 +368,7 @@ public abstract class BaseAction<T extends BaseModel<T>> extends ActionSupport i
 
 	public String query() {
 		if (this.entity != null && this.entity.getId() != null) {
-			this.entity = getBaseService().query(getEntity().getId());
+			this.entity = getBaseService().queryByKey(getEntity().getId());
 		} else {
 			this.list = getBaseService().queryByPage(null, this.page);
 		}

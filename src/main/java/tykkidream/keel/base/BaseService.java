@@ -163,7 +163,7 @@ public interface BaseService<T> {
 	 * @param id 数据的主键ID
 	 * @return 单个数据
 	 */
-	public T query(Object id);
+	public T queryByKey(Object id);
 	/**
 	 * <h3>普通数据处理：查询多个数据。</h3>
 	 * <p>功能约定为根据数据的主键ID从数据表中查询多个数据。最终功能视具体的实现而定。</p>

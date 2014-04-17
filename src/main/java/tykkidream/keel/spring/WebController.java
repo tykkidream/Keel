@@ -63,7 +63,7 @@ public abstract class WebController<T extends BaseModel<?>> extends AbstractCont
 					break;
 				}
 			} else {
-				t = getBaseService().query(id);
+				t = getBaseService().queryByKey(id);
 			}
 			mv.addObject("data", t);
 			mv.setViewName(viewNameForEdit());
@@ -96,7 +96,7 @@ public abstract class WebController<T extends BaseModel<?>> extends AbstractCont
 	public ModelAndView edit(Long id) {
 		ModelAndView mv = new ModelAndView();
 
-		T t = this.getBaseService().query(id);
+		T t = this.getBaseService().queryByKey(id);
 		mv.addObject("data", t);
 		mv.setViewName(viewNameForEdit());
 
@@ -119,7 +119,7 @@ public abstract class WebController<T extends BaseModel<?>> extends AbstractCont
 	public ModelAndView view(@RequestParam("id") Long id) {
 		ModelAndView mv = new ModelAndView();
 
-		T t = this.getBaseService().query(id);
+		T t = this.getBaseService().queryByKey(id);
 		mv.addObject("data", t);
 		mv.setViewName(viewNameForView());
 

@@ -9,26 +9,7 @@ import tykkidream.keel.base.BaseModelCasecade;
 import tykkidream.keel.base.Page;
 import tykkidream.keel.mybatis.interceptor.PagingBounds;
 
-public class SimpleServiceCasecade<T extends BaseModelCasecade<T>> extends tykkidream.keel.base.SimpleServiceCasecade<T> implements BaseService<T>, BaseServiceCasecade<T> {
-	private BaseDaoCasecade<T> baseDaoCasecade = null;
-
-	public BaseDaoCasecade<T> getBaseDaoCasecade() {
-		return baseDaoCasecade;
-	}
-
-	public void setBaseDaoCasecade(BaseDaoCasecade<T> baseDaoCasecade) {
-		this.baseDaoCasecade = baseDaoCasecade;
-	}
-	
-	@Override
-	public BaseDaoCasecade<T> getBaseDao() {
-		return this.getBaseDaoCasecade();
-	}
-
-	@SuppressWarnings({ "rawtypes", "unchecked" })
-	public void setBaseDao(BaseDao<T> baseDao) {
-		this.setBaseDaoCasecade((BaseDaoCasecade)baseDao);
-	}
+public class SimpleServiceCasecade<T extends BaseModelCasecade<T>, I extends BaseDaoCasecade<T>> extends tykkidream.keel.base.SimpleServiceCasecade<T, I> implements BaseService<T>, BaseServiceCasecade<T> {
 
 	@Override
 	public List<T> queryConnectLeafByPage(Map<String, Object> params, RowBounds bounds) {

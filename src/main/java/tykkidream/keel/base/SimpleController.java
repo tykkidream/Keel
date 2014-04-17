@@ -32,7 +32,7 @@ public class SimpleController<T> extends AbstractController<T> implements BaseCo
 	@Override
 	public T edit(Long t) {
 		if (t != null) {
-			return getBaseService().query(t);
+			return getBaseService().queryByKey(t);
 		}
 		return null;
 	}
@@ -53,7 +53,7 @@ public class SimpleController<T> extends AbstractController<T> implements BaseCo
 	@Override
 	public T view(Long t) {
 		if (t != null) {
-			return getBaseService().query(t);
+			return getBaseService().queryByKey(t);
 		}
 		return null;
 	}
