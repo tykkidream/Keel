@@ -44,7 +44,7 @@ public abstract class WebController<T extends BaseModel<?>> extends AbstractCont
 
 	@RequestMapping(value = { "/{id}/delete" }, method = { RequestMethod.GET, RequestMethod.POST })
 	@Override
-	public ModelAndView doDelete(@RequestParam("id") Long id) {
+	public ModelAndView doDelete(@PathVariable("id") Long id) {
 		ModelAndView mv = new ModelAndView();
 		
 		mv.setViewName(viewNameForDoDelete());
@@ -53,7 +53,7 @@ public abstract class WebController<T extends BaseModel<?>> extends AbstractCont
 	}
 
 	@RequestMapping(value = { "/{id}/edit" }, method = RequestMethod.POST)
-	public ModelAndView doEdit(@PathVariable Long id, @Valid T t, BindingResult bindingResult) {
+	public ModelAndView doEdit(@PathVariable("id") Long id, @Valid T t, BindingResult bindingResult) {
 		ModelAndView mv = new ModelAndView();
 
 		do {
@@ -93,7 +93,7 @@ public abstract class WebController<T extends BaseModel<?>> extends AbstractCont
 
 	@RequestMapping(value = { "/{id}/edit" }, method = RequestMethod.GET)
 	@Override
-	public ModelAndView edit(Long id) {
+	public ModelAndView edit(@PathVariable("id") Long id) {
 		ModelAndView mv = new ModelAndView();
 
 		T t = this.getBaseService().queryByKey(id);
@@ -116,7 +116,7 @@ public abstract class WebController<T extends BaseModel<?>> extends AbstractCont
 
 	@RequestMapping(value = { "/{id}/detail" }, method = RequestMethod.GET)
 	@Override
-	public ModelAndView view(@RequestParam("id") Long id) {
+	public ModelAndView view(@PathVariable("id") Long id) {
 		ModelAndView mv = new ModelAndView();
 
 		T t = this.getBaseService().queryByKey(id);
