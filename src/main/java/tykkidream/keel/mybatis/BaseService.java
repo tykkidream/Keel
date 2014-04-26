@@ -7,7 +7,7 @@ import org.apache.ibatis.session.RowBounds;
 
 public interface BaseService<T> extends tykkidream.keel.base.BaseService<T>{
 	
-	public List<T> queryByPage(Map<String, Object> params,RowBounds bounds, Object... args);
+	public List<T> queryByPage(Map<String, Object> params,RowBounds bounds);
 
-	public List<T> queryFullByPage(Map<String, Object> params, RowBounds bounds, Object... args);
+	public List<T> queryFullByPage(Map<String, Object> params, RowBounds bounds);
 }

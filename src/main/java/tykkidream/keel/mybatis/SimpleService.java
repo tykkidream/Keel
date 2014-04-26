@@ -21,7 +21,7 @@ import tykkidream.keel.mybatis.interceptor.PagingBounds;
 public class SimpleService<T extends BaseModel<T>, I extends BaseDao<T>> extends tykkidream.keel.base.SimpleService<T, I>  implements BaseService<T> {
 
 	@Override
-	public List<T> queryByPage(Map<String, Object> params,Page page, Object... args) {
+	public List<T> queryByPage(Map<String, Object> params,Page page) {
 
 		RowBounds bounds = null;
 		if (page instanceof RowBounds) {
@@ -35,7 +35,7 @@ public class SimpleService<T extends BaseModel<T>, I extends BaseDao<T>> extends
 	}
 
 	@Override
-	public List<T> queryFullByPage(Map<String, Object> params, Page page, Object... args) {
+	public List<T> queryFullByPage(Map<String, Object> params, Page page) {
 
 		RowBounds bounds = null;
 		if (page instanceof RowBounds) {
@@ -49,13 +49,13 @@ public class SimpleService<T extends BaseModel<T>, I extends BaseDao<T>> extends
 	}
 	
 	@Override
-	public List<T> queryByPage(Map<String, Object> params, RowBounds bounds, Object... args) {
+	public List<T> queryByPage(Map<String, Object> params, RowBounds bounds) {
 		List<T> list = getBaseDao().selectFullByParameters(params, bounds);
 		return list;
 	}
 
 	@Override
-	public List<T> queryFullByPage(Map<String, Object> params, RowBounds bounds, Object... args) {
+	public List<T> queryFullByPage(Map<String, Object> params, RowBounds bounds) {
 		List<T> list = getBaseDao().selectByParameters(params,bounds);
 		return list;
 	}
