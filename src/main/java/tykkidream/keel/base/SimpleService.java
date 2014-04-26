@@ -16,7 +16,7 @@ import java.util.Map;
  */
 public class SimpleService<T extends BaseModel<T>, I extends BaseDao<T>> implements BaseService<T> {
 	private I baseDao = null;
-
+	
 	public I getBaseDao() {
 		return baseDao;
 	}
@@ -26,19 +26,19 @@ public class SimpleService<T extends BaseModel<T>, I extends BaseDao<T>> impleme
 	}
 
 	@Override
-	public boolean create(T record) {
+	public boolean create(T record, Object... args) {
 		int num = getBaseDao().insert(record);
 		return num == 1;
 	}
 
 	@Override
-	public boolean createSelective(T record) {
+	public boolean createSelective(T record, Object... args) {
 		int num = getBaseDao().insertSelective(record);
 		return num == 1;
 	}
 
 	@Override
-	public boolean create(List<T> record) {
+	public boolean create(List<T> record, Object... args) {
 		if(record == null  || record.size() > 0){
 			int num = 0;
 			for (Iterator<T> iterator = record.iterator(); iterator.hasNext();) {
@@ -51,7 +51,7 @@ public class SimpleService<T extends BaseModel<T>, I extends BaseDao<T>> impleme
 	}
 
 	@Override
-	public boolean createSelective(List<T> record) {
+	public boolean createSelective(List<T> record, Object... args) {
 		if(record == null  || record.size() > 0){
 			int num = 0;
 			for (Iterator<T> iterator = record.iterator(); iterator.hasNext();) {
@@ -64,19 +64,19 @@ public class SimpleService<T extends BaseModel<T>, I extends BaseDao<T>> impleme
 	}
 
 	@Override
-	public boolean modify(T record) {
+	public boolean modify(T record, Object... args) {
 		int num = getBaseDao().update(record);
 		return num == 1;
 	}
 
 	@Override
-	public boolean modifySelective(T record) {
+	public boolean modifySelective(T record, Object... args) {
 		int num = getBaseDao().updateSelective(record);
 		return num == 1;
 	}
 
 	@Override
-	public boolean modify(List<T> record) {
+	public boolean modify(List<T> record, Object... args) {
 		if(record == null  || record.size() > 0){
 			int num = 0;
 			for (Iterator<T> iterator = record.iterator(); iterator.hasNext();) {
@@ -89,7 +89,7 @@ public class SimpleService<T extends BaseModel<T>, I extends BaseDao<T>> impleme
 	}
 
 	@Override
-	public boolean modifySelective(List<T> record) {
+	public boolean modifySelective(List<T> record, Object... args) {
 		if(record == null  || record.size() > 0){
 			int num = 0;
 			for (Iterator<T> iterator = record.iterator(); iterator.hasNext();) {
@@ -102,7 +102,7 @@ public class SimpleService<T extends BaseModel<T>, I extends BaseDao<T>> impleme
 	}
 
 	@Override
-	public int saveOne(T record) {
+	public int saveOne(T record, Object... args) {
 		int num = 0;
 		
 		if (record != null) {
@@ -116,7 +116,7 @@ public class SimpleService<T extends BaseModel<T>, I extends BaseDao<T>> impleme
 	}
 
 	@Override
-	public int saveOneSelective(T record) {
+	public int saveOneSelective(T record, Object... args) {
 		int num = 0;
 		
 		if (record != null) {
@@ -130,7 +130,7 @@ public class SimpleService<T extends BaseModel<T>, I extends BaseDao<T>> impleme
 	}
 
 	@Override
-	public int saveList(List<T> record) {
+	public int saveList(List<T> record, Object... args) {
 		int num = 0;
 
 		if (record != null) {
@@ -155,7 +155,7 @@ public class SimpleService<T extends BaseModel<T>, I extends BaseDao<T>> impleme
 	}
 
 	@Override
-	public int saveListSelective(List<T> record) {
+	public int saveListSelective(List<T> record, Object... args) {
 		int num = 0;
 		
 		if (record != null) {
@@ -180,12 +180,12 @@ public class SimpleService<T extends BaseModel<T>, I extends BaseDao<T>> impleme
 	}
 
 	@Override
-	public int deleteOne(Object id) {
+	public int deleteOne(Object id, Object... args) {
 		return getBaseDao().deleteByKey(id);
 	}
 
 	@Override
-	public int deleteArray(Object[] list) {
+	public int deleteArray(Object[] list, Object... args) {
 		int num = 0;
 		if (list != null) {
 			for (int i = 0; i < list.length; i++) {
@@ -196,7 +196,7 @@ public class SimpleService<T extends BaseModel<T>, I extends BaseDao<T>> impleme
 	}
 
 	@Override
-	public int deleteList(List<T> list) {
+	public int deleteList(List<T> list, Object... args) {
 		int num = 0;
 		if (list != null) {
 			for (int i = 0; i < list.size(); i++) {
@@ -207,57 +207,57 @@ public class SimpleService<T extends BaseModel<T>, I extends BaseDao<T>> impleme
 	}
 
 	@Override
-	public T queryByKey(Object id) {
+	public T queryByKey(Object id, Object... args) {
 		T obj = getBaseDao().selectByKey(id);
 		return obj;
 	}
 	
 	@Override
-	public List<T> queryByArray(Object[] array) {
+	public List<T> queryByArray(Object[] array, Object... args) {
 		List<T> list = getBaseDao().selectByArray(array);
 		return list;
 	}
 
 	@Override
-	public List<T> queryByList(List<T> list) {
+	public List<T> queryByList(List<T> list, Object... args) {
 		List<T> list_ = getBaseDao().selectByList(list);
 		return list_;
 	}
 
 	@Override
-	public List<T> queryByPage(Map<String, Object> params,Page page) {
+	public List<T> queryByPage(Map<String, Object> params,Page page, Object... args) {
 		List<T> list = getBaseDao().selectByParameters(page);
 		return list;
 	}
 
 	@Override
-	public List<T> queryByParameters(Map<String, Object> params) {
+	public List<T> queryByParameters(Map<String, Object> params, Object... args) {
 		return getBaseDao().selectByParameters(params);
 	}
 
 	@Override
-	public List<T> queryAll() {
+	public List<T> queryAll(Object... args) {
 		return queryByParameters(null);
 	}
 
 	@Override
-	public T queryFull(Object id) {
+	public T queryFull(Object id, Object... args) {
 		return getBaseDao().selectFullByKey(id);
 	}
 
 	@Override
-	public List<T> queryFullByPage(Map<String, Object> params, Page page) { 
+	public List<T> queryFullByPage(Map<String, Object> params, Page page, Object... args) { 
 		List<T> list = getBaseDao().selectFullByParameters(page);
 		return list;
 	}
 
 	@Override
-	public List<T> queryFullByParameters(Map<String, Object> params) {
+	public List<T> queryFullByParameters(Map<String, Object> params, Object... args) {
 		return getBaseDao().selectFullByParameters(params);
 	}
 
 	@Override
-	public List<T> queryFullAll() {
+	public List<T> queryFullAll(Object... args) {
 		List<T> list =  getBaseDao().selectFullByParameters(null);
 		return list;
 	}

@@ -9,7 +9,7 @@ import tykkidream.keel.base.BaseModelCasecade;
 import tykkidream.keel.base.Page;
 import tykkidream.keel.mybatis.interceptor.PagingBounds;
 
-public class SimpleServiceCasecade<T extends BaseModelCasecade<T>, I extends BaseDaoCasecade<T>> extends tykkidream.keel.base.SimpleServiceCasecade<T, I> implements BaseService<T>, BaseServiceCasecade<T> {
+public class SimpleServiceCasecade<T extends BaseModelCasecade<T>, I extends BaseDaoCasecade<T>> extends tykkidream.keel.base.SimpleServiceCasecade<T, I> implements BaseServiceCasecade<T> {
 
 	@Override
 	public List<T> queryConnectLeafByPage(Map<String, Object> params, RowBounds bounds) {
@@ -49,8 +49,7 @@ public class SimpleServiceCasecade<T extends BaseModelCasecade<T>, I extends Bas
 		return list;
 	}
 
-	@Override
-	public List<T> queryByPage(Map<String, Object> params,Page page) {
+	/*public List<T> queryByPage(Map<String, Object> params,Page page) {
 
 		RowBounds bounds = null;
 		if (page instanceof RowBounds) {
@@ -63,7 +62,6 @@ public class SimpleServiceCasecade<T extends BaseModelCasecade<T>, I extends Bas
 		return list;
 	}
 
-	@Override
 	public List<T> queryFullByPage(Map<String, Object> params, Page page) {
 
 		RowBounds bounds = null;
@@ -75,19 +73,18 @@ public class SimpleServiceCasecade<T extends BaseModelCasecade<T>, I extends Bas
 		
 		List<T> list = getBaseDao().selectFullByParameters(params, bounds);
 		return list;
-	}
+	}*/
 	
-	@Override
-	public List<T> queryByPage(Map<String, Object> params, RowBounds bounds) {
+
+	/*public List<T> queryByPage(Map<String, Object> params, RowBounds bounds) {
 		List<T> list = getBaseDao().selectFullByParameters(params, bounds);
 		return list;
 	}
 
-	@Override
 	public List<T> queryFullByPage(Map<String, Object> params, RowBounds bounds) {
 		List<T> list = getBaseDao().selectByParameters(params,bounds);
 		return list;
-	}
+	}*/
 	
 	
 }

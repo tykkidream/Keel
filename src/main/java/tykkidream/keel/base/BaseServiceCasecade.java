@@ -3,7 +3,7 @@ package tykkidream.keel.base;
 import java.util.List;
 import java.util.Map;
 
-public interface BaseServiceCasecade<T> extends BaseService<T>{
+public interface BaseServiceCasecade<T>{
 
 	/**
 	 * <h3>向上级联数据处理：查询一个数据。</h3>

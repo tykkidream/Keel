@@ -5,19 +5,10 @@ import java.util.Map;
 
 /**
  * <h2>通用业务接口</h2>
- * <p>本接口为通用架构的一部分，Service层通用接口。通用架构设计之初的使用的以下方面的技术：</p>
- * <ul>
- * <li>MVC框架：Struts2</li>
- * <li>IOC和AOP框架：Spring3</li>
- * <li>ORM框架：MyBatis3.1</li>
- * <li>数据库：Oracle 11g r2</li>
- * </ul>
+ * <p>本接口为通用架构的一部分，Service层通用接口。</p>
  * <p>本接口使用了泛型，使用了通用架构的其它部分：Dao层通用接口{@link tykkidream.keel.base.BaseDao BaseDao}和Module层通用类{@link tykkidream.keel.base.BaseModel BaseModel}。并有默认的实现{@link tykkidream.keel.base.SimpleService BaseServiceImpl}，可直接继承使用。</p>
  * <p>本接口的方法包含常见的对数据库执行简单操作的业务方法。涉及到普通的增、删、改、查，以及复杂查询（条件、分页、级联、外键关联）。</p>
  * @author 武利庆
- * @version 1.2，时间：2013-10-25 10：55，修订者：武利庆，内容：由于创建之初失误，个别方法参数和返回类型不符合设计的通用规则。
- * @version 1.1，时间：2013-10-21 10：55，修订者：武利庆，内容：由于业务或框架使用了反射无法获取多态方法，所以取消了多态方法，使用各自的名称。
- * @version 1.0，时间：2013-10-18 10：55，修订者：武利庆，内容：创建接口。
  * @param <T> 泛型实现，Module层通用类
  * @see tykkidream.keel.base.SimpleService
  * @see tykkidream.keel.base.BaseDao
@@ -34,56 +25,56 @@ public interface BaseService<T> {
 	 * @param record 一个数据
 	 * @return 成功是否
 	 */
-	public boolean create(T record);
+	public boolean create(T record, Object...args);
 	
 	/**
 	 * <h3>普通数据处理：选择性地创建一个数据。</h3>
 	 * @param record 一个数据
 	 * @return 成功是否
 	 */
-	public boolean createSelective(T record);
+	public boolean createSelective(T record, Object...args);
 	
 	/**
 	 * <h3>普通数据处理：创建多个数据。</h3>
 	 * @param record 一个数据
 	 * @return 成功是否
 	 */
-	public boolean create(List<T> record);
+	public boolean create(List<T> record, Object...args);
 	
 	/**
 	 * <h3>普通数据处理：选择性地创建多个数据。</h3>
 	 * @param record 一个数据
 	 * @return 成功是否
 	 */
-	public boolean createSelective(List<T> record);
+	public boolean createSelective(List<T> record, Object...args);
 	
 	/**
 	 * <h3>普通数据处理：修改一个数据。</h3>
 	 * @param record 一个数据
 	 * @return 成功是否
 	 */
-	public boolean modify(T record);
+	public boolean modify(T record, Object...args);
 	
 	/**
 	 * <h3>普通数据处理：选择性地修改一个数据。</h3>
 	 * @param record 一个数据
 	 * @return 成功是否
 	 */
-	public boolean modifySelective(T record);
+	public boolean modifySelective(T record, Object...args);
 	
 	/**
 	 * <h3>普通数据处理：修改多个数据。</h3>
 	 * @param record 一个数据
 	 * @return 成功是否
 	 */
-	public boolean modify(List<T> record);
+	public boolean modify(List<T> record, Object...args);
 	
 	/**
 	 * <h3>普通数据处理：选择性地修改多个数据。</h3>
 	 * @param record 一个数据
 	 * @return 成功是否
 	 */
-	public boolean modifySelective(List<T> record);
+	public boolean modifySelective(List<T> record, Object... args);
 
 	/* ===================== *
 	 * 保存数据系列方法。
@@ -96,7 +87,7 @@ public interface BaseService<T> {
 	 * @param record 一个数据
 	 * @return 成功次数
 	 */
-	public int saveOne(T record);
+	public int saveOne(T record, Object...args);
 
 	/**
 	 * <h3>普通数据处理：选择性地保存一个数据。</h3>
@@ -105,7 +96,7 @@ public interface BaseService<T> {
 	 * @param record
 	 * @return 成功次数
 	 */
-	public int saveOneSelective(T record);
+	public int saveOneSelective(T record, Object...args);
 
 	/**
 	 * <h3>普通数据处理：保存多个数据。</h3>
@@ -114,7 +105,7 @@ public interface BaseService<T> {
 	 * @param record 多个数据集合
 	 * @return 成功次数
 	 */
-	public int saveList(List<T> record);
+	public int saveList(List<T> record, Object...args);
 
 	/**
 	 * <h3>普通数据处理：选择性地保存多个数据。</h3>
@@ -123,7 +114,7 @@ public interface BaseService<T> {
 	 * @param record 多个数据集合
 	 * @return 成功次数
 	 */
-	public int saveListSelective(List<T> record);
+	public int saveListSelective(List<T> record, Object...args);
 	
 	/* ===================== *
 	 * 删除数据的相关方法。
@@ -135,7 +126,7 @@ public interface BaseService<T> {
 	 * @param id 数据的主键ID
 	 * @return 成功次数
 	 */
-	public int deleteOne(Object id);
+	public int deleteOne(Object id, Object...args);
 	
 	/**
 	 * <h3>普通数据处理：删除多个数据。</h3>
@@ -143,7 +134,7 @@ public interface BaseService<T> {
 	 * @param array 多个数据的主键ID
 	 * @return 成功次数
 	 */
-	public int deleteArray(Object[] array);
+	public int deleteArray(Object[] array, Object...args);
 	
 	/**
 	 * <h3>普通数据处理：删除多个数据。</h3>
@@ -151,7 +142,7 @@ public interface BaseService<T> {
 	 * @param list 多个数据
 	 * @return 成功次数
 	 */
-	public int deleteList(List<T> list);
+	public int deleteList(List<T> list, Object...args);
 
 	/* ===================== *
 	 * 查询数据的相关方法。
@@ -163,41 +154,41 @@ public interface BaseService<T> {
 	 * @param id 数据的主键ID
 	 * @return 单个数据
 	 */
-	public T queryByKey(Object id);
+	public T queryByKey(Object id, Object...args);
 	/**
 	 * <h3>普通数据处理：查询多个数据。</h3>
 	 * <p>功能约定为根据数据的主键ID从数据表中查询多个数据。最终功能视具体的实现而定。</p>
 	 * @param array 数据的主键ID
 	 * @return 多个数据
 	 */
-	public List<T> queryByArray(Object[] array);
+	public List<T> queryByArray(Object[] array, Object...args);
 	/**
 	 * <h3>普通数据处理：查询多个数据。</h3>
 	 * <p>功能约定为根据数据的主键ID从数据表中查询多个数据。最终功能视具体的实现而定。</p>
 	 * @param lsit 数据的主键ID
 	 * @return 多个数据
 	 */
-	public List<T> queryByList(List<T> lsit);
+	public List<T> queryByList(List<T> lsit, Object...args);
 	/**
 	 * <h3>普通数据处理：按条件查询所有数据。</h3>
 	 * <p>功能约定为根据条件设置从数据表中按查询所有数据。最终功能视具体的实现而定。</p>
 	 * @param params 条件
 	 * @return 数据集合
 	 */
-	public List<T> queryByParameters(Map<String, Object> params);
+	public List<T> queryByParameters(Map<String, Object> params, Object...args);
 	/**
 	 * <h3>普通数据处理：按条件分页查询多个数据。</h3>
 	 * <p>功能约定为根据件条件和分页设置从数据表中按分页查询多个数据。最终功能视具体的实现而定。</p>
 	 * @param page 分页数据
 	 * @return 分页数据
 	 */
-	public List<T> queryByPage(Map<String, Object> params,Page page);
+	public List<T> queryByPage(Map<String, Object> params,Page page, Object...args);
 	/**
 	 * <h3>普通数据处理：查询所有数据。</h3>
 	 * <p>功能约定为无条件从数据表中按查询表所有数据。最终功能视具体的实现而定。</p>
 	 * @return 数据集合
 	 */
-	public List<T> queryAll();
+	public List<T> queryAll(Object...args);
 	
 	/**
 	 * <h3>关联多种数据处理：查询一个数据。</h3>
@@ -205,25 +196,25 @@ public interface BaseService<T> {
 	 * @param id 数据的主键ID
 	 * @return 单个数据及其外键数据
 	 */
-	public T queryFull(Object id);
+	public T queryFull(Object id, Object...args);
 	/**
 	 * <h3>关联多种数据处理：按条件查询所有数据。</h3>
 	 * <p>功能约定为根据条件设置从数据表中按查询所有数据，包括相关的外键数据。最终功能视具体的实现而定。</p>
 	 * @param params 条件
 	 * @return 数据集合
 	 */
-	public List<T> queryFullByParameters(Map<String, Object> params);
+	public List<T> queryFullByParameters(Map<String, Object> params, Object...args);
 	/**
 	 * <h3>关联多种数据处理：按条件分页查询多个数据。</h3>
 	 * <p>功能约定为根据件条件和分页设置从数据表中按分页查询多个数据，包括相关的外键数据。最终功能视具体的实现而定。</p>
 	 * @param page 分页数据
 	 * @return 分页数据
 	 */
-	public List<T> queryFullByPage(Map<String, Object> params, Page page);
+	public List<T> queryFullByPage(Map<String, Object> params, Page page, Object...args);
 	/**
 	 * <h3>关联多种数据处理：查询所有数据。</h3>
 	 * <p>功能约定为无条件从数据表中按查询表所有数据，包括相关的外键数据。最终功能视具体的实现而定。</p>
 	 * @return 数据集合
 	 */
-	public List<T> queryFullAll();
+	public List<T> queryFullAll(Object...args);
 }
