@@ -13,13 +13,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
-import tykkidream.keel.base.AbstractController;
 import tykkidream.keel.base.BaseModel;
 import tykkidream.keel.base.Page;
 import tykkidream.keel.mybatis.interceptor.PagingBounds;
 
-public abstract class WebController<T extends BaseModel<?>> extends AbstractController<T>{
-	
+public abstract class AbstractController<T extends BaseModel<?>> extends tykkidream.keel.base.AbstractController<T>{
 	protected abstract String viewNameForDoDelete();
 	protected abstract String viewNameForDoEdit(Long id);
 	protected abstract String viewNameForDoNew(Long id);
@@ -29,7 +27,6 @@ public abstract class WebController<T extends BaseModel<?>> extends AbstractCont
 	protected abstract String viewNameForSearch();
 	protected abstract String viewNameForManage();
 
-	
 	@Autowired
 	private ServletContext servletContext;
 
@@ -45,18 +42,16 @@ public abstract class WebController<T extends BaseModel<?>> extends AbstractCont
 	@Override
 	public ModelAndView doDelete(@PathVariable("id") Long id) {
 		ModelAndView mv = new ModelAndView();
-		
+		getBaseService().deleteOne(id);
 		mv.setViewName(viewNameForDoDelete());
-		
 		return mv;
 	}
 
 	@RequestMapping(value = { "/{id}/edit" }, method = RequestMethod.POST)
 	public ModelAndView doEdit(@PathVariable("id") Long id, @Valid T t, BindingResult bindingResult) {
 		ModelAndView mv = new ModelAndView();
-
 		do {
-			if (null != t && id == t.getId()) {
+			if (null != t && null != id && id.equals(t.getId())) {
 				if (!bindingResult.hasErrors() && getBaseService().modify(t)) {
 					mv.setViewName(viewNameForDoEdit(t.getId()));
 					break;
@@ -68,7 +63,6 @@ public abstract class WebController<T extends BaseModel<?>> extends AbstractCont
 			mv.setViewName(viewNameForEdit());
 		} while (false);
 		// bindingResult.reject(e.getMessage());
-
 		return mv;
 	}
 
@@ -76,7 +70,6 @@ public abstract class WebController<T extends BaseModel<?>> extends AbstractCont
 	@Override
 	public ModelAndView doNew(T t) {
 		ModelAndView mv = new ModelAndView();
-
 		try {
 			if (getBaseService().createSelective(t)) {
 				mv.setViewName(viewNameForDoNew(t.getId()));
@@ -86,7 +79,6 @@ public abstract class WebController<T extends BaseModel<?>> extends AbstractCont
 		} catch (RuntimeException e) {
 			throw e;
 		}
-		
 		return mv;
 	}
 
@@ -94,11 +86,9 @@ public abstract class WebController<T extends BaseModel<?>> extends AbstractCont
 	@Override
 	public ModelAndView edit(@PathVariable("id") Long id) {
 		ModelAndView mv = new ModelAndView();
-
 		T t = this.getBaseService().queryByKey(id);
-		mv.addObject("data", t);
+		mv.addObject("data", null != t ? t : createEntity(t));
 		mv.setViewName(viewNameForEdit());
-
 		return mv;
 	}
 
@@ -106,10 +96,8 @@ public abstract class WebController<T extends BaseModel<?>> extends AbstractCont
 	@Override
 	public ModelAndView new$(T t) {
 		ModelAndView mv = new ModelAndView();
-
 		mv.addObject("data", createEntity(t));
 		mv.setViewName(viewNameForNew());
-
 		return mv;
 	}
 
@@ -117,11 +105,9 @@ public abstract class WebController<T extends BaseModel<?>> extends AbstractCont
 	@Override
 	public ModelAndView view(@PathVariable("id") Long id) {
 		ModelAndView mv = new ModelAndView();
-
 		T t = this.getBaseService().queryByKey(id);
-		mv.addObject("data", t);
+		mv.addObject("data", null != t ? t : createEntity(t));
 		mv.setViewName(viewNameForView());
-
 		return mv;
 	}
 
@@ -130,8 +116,6 @@ public abstract class WebController<T extends BaseModel<?>> extends AbstractCont
 		ModelAndView mv = new ModelAndView();
 		List<T> list = getBaseService().queryByPage(t,page);
 		mv.addObject(list);
-		mv.setViewName(viewNameForSearch());
-
 		return mv;
 	}
 
@@ -140,13 +124,18 @@ public abstract class WebController<T extends BaseModel<?>> extends AbstractCont
 		if (page == null) {
 			page =new PagingBounds();
 		}
-
-		return search(t, page);
+		ModelAndView mav = search(t, page);
+		mav.setViewName(viewNameForSearch());
+		return mav;
 	}
 
 	@RequestMapping(value = { "/manage" }, method = RequestMethod.GET)
 	public ModelAndView manage(Map<String, Object> t,PagingBounds page) {
-		return search$(t, page);
+		ModelAndView mav = search$(t, page);
+		mav.setViewName(viewNameForManage());
+		System.out.println(mav);
+		System.out.println(mav.getViewName());
+		return mav;
 	}
 
 	@Override
