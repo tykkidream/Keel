@@ -6,11 +6,10 @@ import tykkidream.keel.base.sdm.BaseService;
 import tykkidream.keel.base.sdm.Page;
 
 
-public class BaseRepositoryAndBaseServiceAdapter<T,Y extends BaseID> extends BaseRepositoryResolver<T, Y>{
-	private BaseService<T,Y> baseService;
+public abstract class BaseRepositoryAndBaseServiceAdapter<T, I extends BaseID, S extends BaseService<T, I>> extends BaseRepositoryResolver<T, I>{
 
 	@Override
-	public Y nextIdentity() {
+	public I nextIdentity() {
 		return super.nextIdentity();
 	}
 
@@ -25,7 +24,7 @@ public class BaseRepositoryAndBaseServiceAdapter<T,Y extends BaseID> extends Bas
 	}
 
 	@Override
-	public int removeOne(Y t) {
+	public int removeOne(I t) {
 		return service().deleteOne(t);
 	}
 
@@ -35,12 +34,12 @@ public class BaseRepositoryAndBaseServiceAdapter<T,Y extends BaseID> extends Bas
 	}
 
 	@Override
-	public T getOneByID(Y y) {
+	public T getOneByID(I y) {
 		return service().queryByKey(y);
 	}
 
 	@Override
-	public List<T> getListByPage(Y y, Page page) {
+	public List<T> getListByPage(I y, Page page) {
 		return super.getListByPage(y, page);
 	}
 
@@ -49,19 +48,15 @@ public class BaseRepositoryAndBaseServiceAdapter<T,Y extends BaseID> extends Bas
 		return 0;
 	}
 
-	private BaseService<T, Y> service() {
-		BaseService<T, Y> service = getBaseService();
+	protected S service() {
+		S service = getService();
 		if (null == service) {
 			throw new NullRepositorServiceException(this);
 		}
 		return service;
 	}
 	
-	public BaseService<T, Y> getBaseService() {
-		return baseService;
-	}
+	public abstract S getService();
 
-	public void setBaseService(BaseService<T, Y> baseService) {
-		this.baseService = baseService;
-	}
+	public abstract void setService(S service);
 }
