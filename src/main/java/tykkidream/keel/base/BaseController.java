@@ -3,6 +3,7 @@ package tykkidream.keel.base;
 import java.util.Map;
 
 import tykkidream.keel.base.request.BaseRequest;
+import tykkidream.keel.base.sdm.Page;
 
 public interface BaseController<T> extends BaseRequest<Long, T, Map<String,Object>, T> {
 

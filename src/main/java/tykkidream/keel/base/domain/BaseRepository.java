@@ -2,7 +2,7 @@ package tykkidream.keel.base.domain;
 
 import java.util.List;
 
-import tykkidream.keel.base.Page;
+import tykkidream.keel.base.sdm.Page;
 
 public interface BaseRepository<T,Y> {
 	public Y nextIdentity();

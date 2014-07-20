@@ -2,7 +2,7 @@ package tykkidream.keel.struts2;
 
 import org.apache.struts2.json.annotations.JSON;
 
-import tykkidream.keel.base.BaseModelCasecade;
+import tykkidream.keel.base.sdm.BaseModelCasecade;
 
 @SuppressWarnings("serial")
 public abstract class BaseModel<T extends BaseModel<?>> implements BaseModelCasecade<T>{

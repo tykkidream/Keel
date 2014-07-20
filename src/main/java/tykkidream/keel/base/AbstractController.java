@@ -3,6 +3,8 @@ package tykkidream.keel.base;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
 
+import tykkidream.keel.base.sdm.BaseService;
+
 public abstract class AbstractController<T> implements BaseController<T> {
 	
 	@SuppressWarnings("unchecked")

@@ -1,6 +1,6 @@
 package tykkidream.keel.mybatis.interceptor;
 
-import tykkidream.keel.base.Page;
+import tykkidream.keel.base.sdm.Page;
 
 public class MySqlPagingHandler extends BasePagingHandler implements PagingHandler {
 

@@ -1,4 +1,4 @@
-package tykkidream.keel.base;
+package tykkidream.keel.base.sdm;
 
 import java.io.Serializable;
 

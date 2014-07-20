@@ -14,8 +14,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import tykkidream.keel.base.AbstractController;
-import tykkidream.keel.base.BaseModel;
-import tykkidream.keel.base.Page;
+import tykkidream.keel.base.sdm.BaseModel;
+import tykkidream.keel.base.sdm.Page;
 import tykkidream.keel.mybatis.interceptor.PagingBounds;
 
 public abstract class WebController<T extends BaseModel<?>> extends AbstractController<T>{

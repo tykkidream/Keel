@@ -1,4 +1,4 @@
-package tykkidream.keel.base;
+package tykkidream.keel.base.sdm;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -7,12 +7,12 @@ import java.util.Map;
 
 /**
  * <h2>通用业务类</h2>
- * <p>本类为通用架构的一部分，Service层通用接口{@link tykkidream.keel.base.BaseService BaseService}实现类。</p>
+ * <p>本类为通用架构的一部分，Service层通用接口{@link tykkidream.keel.base.sdm.BaseService BaseService}实现类。</p>
  * @author 武利庆
  * @param <T> 泛型实现，Module层通用类
- * @see tykkidream.keel.base.BaseService
- * @see tykkidream.keel.base.BaseDao
- * @see tykkidream.keel.base.BaseModel
+ * @see tykkidream.keel.base.sdm.BaseService
+ * @see tykkidream.keel.base.sdm.BaseDao
+ * @see tykkidream.keel.base.sdm.BaseModel
  */
 public class SimpleService<T extends BaseModel<T>, I extends BaseDao<T>> implements BaseService<T> {
 	private I baseDao = null;

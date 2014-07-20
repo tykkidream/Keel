@@ -4,7 +4,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import tykkidream.keel.base.BaseController;
-import tykkidream.keel.base.BaseModel;
+import tykkidream.keel.base.sdm.BaseModel;
 
 @Controller
 public class SimpleController<T extends BaseModel<?>> extends WebController<T> implements BaseController<T> {

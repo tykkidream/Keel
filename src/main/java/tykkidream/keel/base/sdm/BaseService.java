@@ -1,4 +1,4 @@
-package tykkidream.keel.base;
+package tykkidream.keel.base.sdm;
 
 import java.util.List;
 import java.util.Map;
@@ -6,13 +6,13 @@ import java.util.Map;
 /**
  * <h2>通用业务接口</h2>
  * <p>本接口为通用架构的一部分，Service层通用接口。</p>
- * <p>本接口使用了泛型，使用了通用架构的其它部分：Dao层通用接口{@link tykkidream.keel.base.BaseDao BaseDao}和Module层通用类{@link tykkidream.keel.base.BaseModel BaseModel}。并有默认的实现{@link tykkidream.keel.base.SimpleService BaseServiceImpl}，可直接继承使用。</p>
+ * <p>本接口使用了泛型，使用了通用架构的其它部分：Dao层通用接口{@link tykkidream.keel.base.sdm.BaseDao BaseDao}和Module层通用类{@link tykkidream.keel.base.sdm.BaseModel BaseModel}。并有默认的实现{@link tykkidream.keel.base.sdm.SimpleService BaseServiceImpl}，可直接继承使用。</p>
  * <p>本接口的方法包含常见的对数据库执行简单操作的业务方法。涉及到普通的增、删、改、查，以及复杂查询（条件、分页、级联、外键关联）。</p>
  * @author 武利庆
  * @param <T> 泛型实现，Module层通用类
- * @see tykkidream.keel.base.SimpleService
- * @see tykkidream.keel.base.BaseDao
- * @see tykkidream.keel.base.BaseModel
+ * @see tykkidream.keel.base.sdm.SimpleService
+ * @see tykkidream.keel.base.sdm.BaseDao
+ * @see tykkidream.keel.base.sdm.BaseModel
  */
 public interface BaseService<T> {
 	

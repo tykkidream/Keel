@@ -3,6 +3,8 @@ package tykkidream.keel.base;
 import java.util.List;
 import java.util.Map;
 
+import tykkidream.keel.base.sdm.Page;
+
 public class SimpleController<T> extends AbstractController<T> implements BaseController<T> {
 
 	@Override
