@@ -17,7 +17,7 @@ public interface BaseRepository<T,Y> {
 	
 	public T getOneByID(Y y);
 
-	public T getListByPage(Y y,Page page);
+	public List<T> getListByPage(Y y,Page page);
 	
 	public int count();
 }

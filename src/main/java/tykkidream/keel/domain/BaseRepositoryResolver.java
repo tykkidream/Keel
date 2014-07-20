@@ -39,7 +39,7 @@ public class BaseRepositoryResolver<T,Y> implements BaseRepository<T, Y> {
 	}
 
 	@Override
-	public T getListByPage(Y y, Page page) {
+	public List<T> getListByPage(Y y, Page page) {
 		return repositoryDelegate().getListByPage(y, page);
 	}
 
