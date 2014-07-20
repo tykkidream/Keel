@@ -1,4 +1,4 @@
-package tykkidream.keel.struts2;
+package tykkidream.keel.struts2.mvc;
 
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;

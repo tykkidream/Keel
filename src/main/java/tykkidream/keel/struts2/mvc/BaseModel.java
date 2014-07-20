@@ -1,4 +1,4 @@
-package tykkidream.keel.struts2;
+package tykkidream.keel.struts2.mvc;
 
 import org.apache.struts2.json.annotations.JSON;
 
