@@ -14,7 +14,13 @@ import java.util.Map;
  * @see tykkidream.keel.base.sdm.BaseDao
  * @see tykkidream.keel.base.sdm.BaseModel
  */
-public interface BaseService<T> {
+public interface BaseService<T, I> {
+	
+	/**
+	 * <h3>获取一个新的唯一标识。</h3>
+	 * @return 唯一标识
+	 */
+	public I nextIdentity();
 	
 	/* ===================== *
 	 * 增加数据和修改数据的相关方法。
@@ -126,7 +132,7 @@ public interface BaseService<T> {
 	 * @param id 数据的主键ID
 	 * @return 成功次数
 	 */
-	public int deleteOne(Object id);
+	public int deleteOne(I id);
 	
 	/**
 	 * <h3>普通数据处理：删除多个数据。</h3>
@@ -134,7 +140,7 @@ public interface BaseService<T> {
 	 * @param array 多个数据的主键ID
 	 * @return 成功次数
 	 */
-	public int deleteArray(Object[] array);
+	public int deleteArray(I[] array);
 	
 	/**
 	 * <h3>普通数据处理：删除多个数据。</h3>
@@ -154,14 +160,14 @@ public interface BaseService<T> {
 	 * @param id 数据的主键ID
 	 * @return 单个数据
 	 */
-	public T queryByKey(Object id);
+	public T queryByKey(I id);
 	/**
 	 * <h3>普通数据处理：查询多个数据。</h3>
 	 * <p>功能约定为根据数据的主键ID从数据表中查询多个数据。最终功能视具体的实现而定。</p>
 	 * @param array 数据的主键ID
 	 * @return 多个数据
 	 */
-	public List<T> queryByArray(Object[] array);
+	public List<T> queryByArray(I[] array);
 	/**
 	 * <h3>普通数据处理：查询多个数据。</h3>
 	 * <p>功能约定为根据数据的主键ID从数据表中查询多个数据。最终功能视具体的实现而定。</p>
@@ -196,7 +202,7 @@ public interface BaseService<T> {
 	 * @param id 数据的主键ID
 	 * @return 单个数据及其外键数据
 	 */
-	public T queryFull(Object id);
+	public T queryFull(I id);
 	/**
 	 * <h3>关联多种数据处理：按条件查询所有数据。</h3>
 	 * <p>功能约定为根据条件设置从数据表中按查询所有数据，包括相关的外键数据。最终功能视具体的实现而定。</p>

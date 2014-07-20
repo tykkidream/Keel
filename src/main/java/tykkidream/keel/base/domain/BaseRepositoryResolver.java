@@ -4,7 +4,7 @@ import java.util.List;
 
 import tykkidream.keel.base.sdm.Page;
 
-public class BaseRepositoryResolver<T,Y> implements BaseRepository<T, Y> {
+public class BaseRepositoryResolver<T,Y extends BaseID> implements BaseRepository<T, Y> {
 	
 	private BaseRepository<T,Y> delegate;
 
@@ -24,7 +24,7 @@ public class BaseRepositoryResolver<T,Y> implements BaseRepository<T, Y> {
 	}
 
 	@Override
-	public int removeOne(T t) {
+	public int removeOne(Y t) {
 		return repositoryDelegate().removeOne(t);
 	}
 

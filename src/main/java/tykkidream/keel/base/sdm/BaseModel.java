@@ -17,18 +17,18 @@ import java.io.Serializable;
  * @version 1.0，时间：2013-10-18 10：55，修订者：武利庆，内容：创建类。
  * @param <T> 泛型实现，Module层通用类
  */
-public interface BaseModel<T extends BaseModel<?>> extends Serializable {
+public interface BaseModel<T extends BaseModel<?, ?>, I> extends Serializable {
 	/**
 	 * 设置整型主键。
 	 * @param id 主键ID
 	 */
-	public void setId(Long id);
+	public void setId(I id);
 
 	/**
 	 * 得到整型主键。
 	 * @return 主键ID
 	 */
-	public Long getId();
+	public I getId();
 
 	/**
 	 * 

@@ -19,7 +19,10 @@ import java.util.List;
  * @see tykkidream.keel.mybatis.sdm.SimpleDao
  * @see tykkidream.keel.base.sdm.BaseModel
  */
-public interface BaseDao<T> {
+public interface BaseDao<T, I> {
+	
+	I generatePrimaryKey();
+	
 	/* ===================== *
 	 * 增加数据的相关方法。
 	 * ===================== */
@@ -57,7 +60,7 @@ public interface BaseDao<T> {
 	 * @param id 数据的主键ID
 	 * @return 成功次数
 	 */
-	int deleteByKey(Object id);
+	int deleteByKey(I id);
 
 	/* ===================== *
 	 * 修改数据的相关方法。
@@ -89,14 +92,14 @@ public interface BaseDao<T> {
 	 * @param id 数据的主键ID
 	 * @return 单个数据
 	 */
-	public T selectByKey(Object id);
+	public T selectByKey(I id);
 	/**
 	 * <h3>普通数据处理：查询多个数据。</h3>
 	 * <p>功能约定为根据数据的主键ID从数据表中查询多个数据。最终功能视具体的实现而定。</p>
 	 * @param array 多个数据的主键ID
 	 * @return 多个数据
 	 */
-	public List<T> selectByArray(Object[] array);
+	public List<T> selectByArray(I[] array);
 	/**
 	 * <h3>普通数据处理：查询多个数据。</h3>
 	 * <p>功能约定为根据数据的主键ID从数据表中查询多个数据。最终功能视具体的实现而定。</p>
@@ -119,7 +122,7 @@ public interface BaseDao<T> {
 	 * @param id 数据的主键ID
 	 * @return 单个数据及其外键数据
 	 */
-	public T selectFullByKey(Object id);
+	public T selectFullByKey(I id);
 	/**
 	 * <h3>关联多种数据处理：按条件查询所有数据。</h3>
 	 * <p>功能约定为根据条件设置从数据表中按查询所有数据，包括相关的外键数据。最终功能视具体的实现而定。</p>

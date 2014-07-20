@@ -7,15 +7,15 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
-public class SimpleServiceCasecade<T extends BaseModelCasecade<T>, I extends BaseDaoCasecade<T>> extends SimpleService<T, I> implements BaseServiceCasecade<T> {
+public class SimpleServiceCasecade<T extends BaseModelCasecade<T, I>, Y extends BaseDaoCasecade<T, I>, I> extends SimpleService<T, Y, I> implements BaseServiceCasecade<T, I> {
 	
 	@Override
-	public T queryConnectLeaf(Object id) {
+	public T queryConnectLeaf(I id) {
 		return this.getBaseDao().selectConnectLeaf(id);
 	}
 
 	@Override
-	public T queryConnectLeafByLeaf(T leaf) {
+	public T queryConnectLeafByLeaf(I leaf) {
 		return this.getBaseDao().selectConnectLeafByLeaf(leaf);
 	}
 
@@ -31,13 +31,13 @@ public class SimpleServiceCasecade<T extends BaseModelCasecade<T>, I extends Bas
 	}
 
 	@Override
-	public T queryConnectRoot(Object id) {
+	public T queryConnectRoot(I id) {
 		return this.getBaseDao().selectConnectRoot(id);
 	}
 
 	@Override
-	public T queryConnectRootByRoot(T root) {
-		return this.getBaseDao().selectConnectRootByRoot(root.getId());
+	public T queryConnectRootByRoot(I root) {
+		return this.getBaseDao().selectConnectRootByRoot(root);
 	}
 
 	@Override
@@ -48,7 +48,7 @@ public class SimpleServiceCasecade<T extends BaseModelCasecade<T>, I extends Bas
 
 	@Override
 	public List<T> queryConnectRootByParameters(Map<String, Object> params) {
-		Map<Long, T> map = new HashMap<Long, T>();
+		Map<I, T> map = new HashMap<I, T>();
 		List<T> list = new LinkedList<T>();
 		List<T> result =  new LinkedList<T>(this.getBaseDao().selectConnectRootByParameters(params));
 		int size = 0;

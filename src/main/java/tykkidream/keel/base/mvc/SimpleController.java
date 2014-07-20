@@ -5,12 +5,12 @@ import java.util.Map;
 
 import tykkidream.keel.base.sdm.Page;
 
-public class SimpleController<T> extends AbstractController<T> implements BaseController<T> {
+public class SimpleController<T,Y> extends AbstractController<T,Y> implements BaseController<T, Y> {
 
 	@Override
-	public Integer doDelete(Long t) {
-		if (t != null) {
-			return getBaseService().deleteOne(t);
+	public Integer doDelete(Y y) {
+		if (null != y) {
+			return getBaseService().deleteOne(y);
 		}
 		return null;
 	}
@@ -32,7 +32,7 @@ public class SimpleController<T> extends AbstractController<T> implements BaseCo
 	}
 
 	@Override
-	public T edit(Long t) {
+	public T edit(Y t) {
 		if (t != null) {
 			return getBaseService().queryByKey(t);
 		}
@@ -53,7 +53,7 @@ public class SimpleController<T> extends AbstractController<T> implements BaseCo
 	}
 
 	@Override
-	public T view(Long t) {
+	public T view(Y t) {
 		if (t != null) {
 			return getBaseService().queryByKey(t);
 		}

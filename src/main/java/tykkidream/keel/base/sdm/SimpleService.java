@@ -14,15 +14,22 @@ import java.util.Map;
  * @see tykkidream.keel.base.sdm.BaseDao
  * @see tykkidream.keel.base.sdm.BaseModel
  */
-public class SimpleService<T extends BaseModel<T>, I extends BaseDao<T>> implements BaseService<T> {
-	private I baseDao = null;
+public class SimpleService<T extends BaseModel<T, I>, Y extends BaseDao<T, I>, I> implements BaseService<T, I> {
+	private Y baseDao = null;
 	
-	public I getBaseDao() {
+	public Y getBaseDao() {
 		return baseDao;
 	}
 
-	public void setBaseDao(I baseDao) {
+	public void setBaseDao(Y baseDao) {
 		this.baseDao = baseDao;
+	}
+
+
+	@Override
+	public I nextIdentity() {
+		I i = getBaseDao().generatePrimaryKey();
+		return i;
 	}
 
 	@Override
@@ -120,7 +127,7 @@ public class SimpleService<T extends BaseModel<T>, I extends BaseDao<T>> impleme
 		int num = 0;
 		
 		if (record != null) {
-			if (record.getId() == null || record.getId()==0) {
+			if (record.getId() == null) {
 				num = getBaseDao().insertSelective(record);
 			} else {
 				num = getBaseDao().updateSelective(record);
@@ -180,12 +187,12 @@ public class SimpleService<T extends BaseModel<T>, I extends BaseDao<T>> impleme
 	}
 
 	@Override
-	public int deleteOne(Object id) {
+	public int deleteOne(I id) {
 		return getBaseDao().deleteByKey(id);
 	}
 
 	@Override
-	public int deleteArray(Object[] list) {
+	public int deleteArray(I[] list) {
 		int num = 0;
 		if (list != null) {
 			for (int i = 0; i < list.length; i++) {
@@ -207,13 +214,13 @@ public class SimpleService<T extends BaseModel<T>, I extends BaseDao<T>> impleme
 	}
 
 	@Override
-	public T queryByKey(Object id) {
+	public T queryByKey(I id) {
 		T obj = getBaseDao().selectByKey(id);
 		return obj;
 	}
 	
 	@Override
-	public List<T> queryByArray(Object[] array) {
+	public List<T> queryByArray(I[] array) {
 		List<T> list = getBaseDao().selectByArray(array);
 		return list;
 	}
@@ -241,7 +248,7 @@ public class SimpleService<T extends BaseModel<T>, I extends BaseDao<T>> impleme
 	}
 
 	@Override
-	public T queryFull(Object id) {
+	public T queryFull(I id) {
 		return getBaseDao().selectFullByKey(id);
 	}
 

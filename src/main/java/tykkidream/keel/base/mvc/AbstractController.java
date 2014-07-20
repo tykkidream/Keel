@@ -5,7 +5,7 @@ import java.lang.reflect.Type;
 
 import tykkidream.keel.base.sdm.BaseService;
 
-public abstract class AbstractController<T> implements BaseController<T> {
+public abstract class AbstractController<T,Y> implements BaseController<T, Y> {
 	
 	@SuppressWarnings("unchecked")
 	public AbstractController() {
@@ -29,13 +29,13 @@ public abstract class AbstractController<T> implements BaseController<T> {
 		this.entityClass = entityClass;
 	}
 	
-	private BaseService<T> baseService = null;
+	private BaseService<T,Y> baseService = null;
 	
-	public BaseService<T> getBaseService() {
+	public BaseService<T,Y> getBaseService() {
 		return baseService;
 	}
 
-	public void setBaseService(BaseService<T> baseService) {
+	public void setBaseService(BaseService<T,Y> baseService) {
 		this.baseService = baseService;
 	}
 
