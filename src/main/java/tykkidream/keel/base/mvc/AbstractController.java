@@ -1,4 +1,4 @@
-package tykkidream.keel.base;
+package tykkidream.keel.base.mvc;
 
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;

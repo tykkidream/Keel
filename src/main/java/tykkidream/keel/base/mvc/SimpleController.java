@@ -1,4 +1,4 @@
-package tykkidream.keel.base;
+package tykkidream.keel.base.mvc;
 
 import java.util.List;
 import java.util.Map;
