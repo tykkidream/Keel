@@ -24,7 +24,7 @@ import com.opensymphony.xwork2.Preparable;
 import com.opensymphony.xwork2.config.entities.ActionConfig;
 import com.opensymphony.xwork2.interceptor.ValidationWorkflowAware;
 
-public abstract class BaseAction<T extends BaseModel<T>> extends ActionSupport implements
+public abstract class BaseAction<T extends BaseModel<T, I>, I> extends ActionSupport implements
 		ValidationWorkflowAware, HTMLAction, Preparable{
 	
 	private static final long serialVersionUID = 4181081930725231597L;
@@ -84,7 +84,7 @@ public abstract class BaseAction<T extends BaseModel<T>> extends ActionSupport i
 	/**
 	 * 私有的BasseService基本服务对象。
 	 */
-	private BaseService<T> baseService = null;
+	private BaseService<T, I> baseService = null;
 	
 	public String getRequestBaseURL() {
 		if (requestBaseURL == null) {
@@ -114,7 +114,7 @@ public abstract class BaseAction<T extends BaseModel<T>> extends ActionSupport i
 	 * 
 	 * @return
 	 */
-	public BaseService<T> getBaseService() {
+	public BaseService<T, I> getBaseService() {
 		return baseService;
 	}
 
@@ -123,7 +123,7 @@ public abstract class BaseAction<T extends BaseModel<T>> extends ActionSupport i
 	 * 
 	 * @return
 	 */
-	public void setBaseService(BaseService<T> service) {
+	public void setBaseService(BaseService<T, I> service) {
 		this.baseService = service;
 	}
 
