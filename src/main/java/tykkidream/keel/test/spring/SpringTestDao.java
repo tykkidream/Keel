@@ -7,7 +7,7 @@ import org.springframework.test.context.TestContextManager;
 import tykkidream.keel.base.sdm.BaseModel;
 
 @ContextConfiguration(locations = "classpath:applicationContext.xml")
-public abstract class SpringTestDao<T extends BaseModel<?>> extends TestDao<T>{
+public abstract class SpringTestDao<T extends BaseModel<?, I>, I> extends TestDao<T, I>{
 	
 	private TestContextManager testContextManager;
 

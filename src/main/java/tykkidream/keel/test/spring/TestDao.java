@@ -16,7 +16,7 @@ import tykkidream.keel.util.TestUtils;
 
 @RunWith(Parameterized.class)
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
-public abstract class TestDao<T extends BaseModel<?>>{
+public abstract class TestDao<T extends BaseModel<?, I>, I>{
 	
 	@Parameter(0)
 	public T t1 = null;
@@ -27,18 +27,18 @@ public abstract class TestDao<T extends BaseModel<?>>{
 	@Parameter(3)
 	public T t4 = null;
 	@Parameter(4)
-	public long id;
+	public I id;
 	
-	public abstract BaseDao<T> getBaseDao();
+	public abstract BaseDao<T, I> getBaseDao();
 	
-	public abstract void setBaseDao(BaseDao<T> baseDao);
+	public abstract void setBaseDao(BaseDao<T, I> baseDao);
 	
 	protected abstract String getBeanName();
 	
 	@Before
 	@SuppressWarnings("unchecked")
 	public void setUp(){
-		this.setBaseDao((BaseDao<T>) TestUtils.getApplicationContext().getBean(getBeanName()));
+		this.setBaseDao((BaseDao<T, I>) TestUtils.getApplicationContext().getBean(getBeanName()));
 	}
 	
 	@Test

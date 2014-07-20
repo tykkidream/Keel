@@ -20,7 +20,7 @@ import tykkidream.keel.util.TestUtils;
 
 @RunWith(Parameterized.class)
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
-public abstract class TestService<T extends BaseModel<?>> {
+public abstract class TestService<T extends BaseModel<?, I>, I> {
 
 	@Parameter(0)
 	public T t1 = null;
@@ -33,16 +33,16 @@ public abstract class TestService<T extends BaseModel<?>> {
 	@Parameter(4)
 	public Page p = null;
 
-	public abstract BaseService<T> getBaseService();
+	public abstract BaseService<T, I> getBaseService();
 
-	public abstract void setBaseService(BaseService<T> baseService);
+	public abstract void setBaseService(BaseService<T, I> baseService);
 
 	protected abstract String getBeanName();
 	
 	@Before
 	@SuppressWarnings("unchecked")
 	public void setUp(){
-		this.setBaseService((BaseService<T>) TestUtils.getApplicationContext().getBean(getBeanName()));
+		this.setBaseService((BaseService<T, I>) TestUtils.getApplicationContext().getBean(getBeanName()));
 	}
 
 	@Test
@@ -78,14 +78,14 @@ public abstract class TestService<T extends BaseModel<?>> {
 
 		// 第二次保存：向数据库中insert此数据，受影响行数应为1。
 		t = null;
-		long id = t2.getId();
+		I id = t2.getId();
 		t2.setId(null);
 		try {
 			num = this.getBaseService().saveOneSelective(t2);
 		} catch (Exception ex) {
 			t = ex;
 		}
-		long nid = t2.getId();
+		I nid = t2.getId();
 		t2.setId(id);
 		assertNull("保存数据发生异常！", t);
 		assertSame("保存数据库失败！", 1, num);

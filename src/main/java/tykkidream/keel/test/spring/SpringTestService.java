@@ -7,7 +7,7 @@ import org.springframework.test.context.TestContextManager;
 import tykkidream.keel.base.sdm.BaseModel;
 
 @ContextConfiguration(locations = "classpath:applicationContext.xml")
-public abstract class SpringTestService<T extends BaseModel<?>> extends TestService<T> {
+public abstract class SpringTestService<T extends BaseModel<?, I>, I> extends TestService<T, I> {
 
 	private TestContextManager testContextManager;
 
