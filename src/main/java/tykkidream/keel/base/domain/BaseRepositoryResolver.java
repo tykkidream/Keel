@@ -1,4 +1,4 @@
-package tykkidream.keel.domain;
+package tykkidream.keel.base.domain;
 
 import java.util.List;
 

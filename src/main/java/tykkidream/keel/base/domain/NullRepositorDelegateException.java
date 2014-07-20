@@ -1,4 +1,4 @@
-package tykkidream.keel.domain;
+package tykkidream.keel.base.domain;
 
 public class NullRepositorDelegateException extends RuntimeException {
 
