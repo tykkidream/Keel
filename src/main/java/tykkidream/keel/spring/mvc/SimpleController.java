@@ -7,7 +7,7 @@ import tykkidream.keel.base.mvc.BaseController;
 import tykkidream.keel.base.sdm.BaseModel;
 
 @Controller
-public class SimpleController<T extends BaseModel<?>> extends WebController<T> implements BaseController<T> {
+public class SimpleController<T extends BaseModel<?, I>, I> extends WebController<T, I> implements BaseController<T, I> {
 
 	protected String basepath = "";
 	
@@ -21,12 +21,12 @@ public class SimpleController<T extends BaseModel<?>> extends WebController<T> i
 	}
 
 	@Override
-	protected String viewNameForDoEdit(Long id) {
+	protected String viewNameForDoEdit(I id) {
 		return "redirect:/detail/" + id;
 	}
 
 	@Override
-	protected String viewNameForDoNew(Long id) {
+	protected String viewNameForDoNew(I id) {
 		return "redirect:/" + id;
 	}
 

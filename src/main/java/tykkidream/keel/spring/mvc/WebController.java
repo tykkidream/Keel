@@ -18,11 +18,11 @@ import tykkidream.keel.base.sdm.BaseModel;
 import tykkidream.keel.base.sdm.Page;
 import tykkidream.keel.mybatis.interceptor.PagingBounds;
 
-public abstract class WebController<T extends BaseModel<?>> extends AbstractController<T>{
+public abstract class WebController<T extends BaseModel<?,I>, I> extends AbstractController<T, I>{
 	
 	protected abstract String viewNameForDoDelete();
-	protected abstract String viewNameForDoEdit(Long id);
-	protected abstract String viewNameForDoNew(Long id);
+	protected abstract String viewNameForDoEdit(I id);
+	protected abstract String viewNameForDoNew(I id);
 	protected abstract String viewNameForEdit();
 	protected abstract String viewNameForNew();
 	protected abstract String viewNameForView();
@@ -43,7 +43,7 @@ public abstract class WebController<T extends BaseModel<?>> extends AbstractCont
 
 	@RequestMapping(value = { "/{id}/delete" }, method = { RequestMethod.GET, RequestMethod.POST })
 	@Override
-	public ModelAndView doDelete(@PathVariable("id") Long id) {
+	public ModelAndView doDelete(@PathVariable("id") I id) {
 		ModelAndView mv = new ModelAndView();
 		
 		mv.setViewName(viewNameForDoDelete());
@@ -52,7 +52,7 @@ public abstract class WebController<T extends BaseModel<?>> extends AbstractCont
 	}
 
 	@RequestMapping(value = { "/{id}/edit" }, method = RequestMethod.POST)
-	public ModelAndView doEdit(@PathVariable("id") Long id, @Valid T t, BindingResult bindingResult) {
+	public ModelAndView doEdit(@PathVariable("id") I id, @Valid T t, BindingResult bindingResult) {
 		ModelAndView mv = new ModelAndView();
 
 		do {
@@ -92,7 +92,7 @@ public abstract class WebController<T extends BaseModel<?>> extends AbstractCont
 
 	@RequestMapping(value = { "/{id}/edit" }, method = RequestMethod.GET)
 	@Override
-	public ModelAndView edit(@PathVariable("id") Long id) {
+	public ModelAndView edit(@PathVariable("id") I id) {
 		ModelAndView mv = new ModelAndView();
 
 		T t = this.getBaseService().queryByKey(id);
@@ -115,7 +115,7 @@ public abstract class WebController<T extends BaseModel<?>> extends AbstractCont
 
 	@RequestMapping(value = { "/{id}/detail" }, method = RequestMethod.GET)
 	@Override
-	public ModelAndView view(@PathVariable("id") Long id) {
+	public ModelAndView view(@PathVariable("id") I id) {
 		ModelAndView mv = new ModelAndView();
 
 		T t = this.getBaseService().queryByKey(id);
