@@ -52,7 +52,7 @@ public class BaseRepositoryAndBaseServiceAdapter<T,Y extends BaseID> extends Bas
 	private BaseService<T, Y> service() {
 		BaseService<T, Y> service = getBaseService();
 		if (null == service) {
-			
+			throw new NullRepositorServiceException(this);
 		}
 		return service;
 	}
