@@ -17,7 +17,9 @@ public class SimpleID implements BaseID {
 	}
 
 	public void setId(Long id) {
-		this.id = id;
+		if (null == this.id) {
+			this.id = id;
+		}
 	}
 
 }
