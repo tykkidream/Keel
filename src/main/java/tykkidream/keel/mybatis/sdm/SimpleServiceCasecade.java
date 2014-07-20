@@ -9,7 +9,7 @@ import tykkidream.keel.base.sdm.BaseModelCasecade;
 import tykkidream.keel.base.sdm.Page;
 import tykkidream.keel.mybatis.interceptor.PagingBounds;
 
-public class SimpleServiceCasecade<T extends BaseModelCasecade<T>, I extends BaseDaoCasecade<T>> extends tykkidream.keel.base.sdm.SimpleServiceCasecade<T, I> implements BaseServiceCasecade<T> {
+public class SimpleServiceCasecade<T extends BaseModelCasecade<T, I>, Y extends BaseDaoCasecade<T, I>, I> extends tykkidream.keel.base.sdm.SimpleServiceCasecade<T, Y, I> implements BaseServiceCasecade<T, I> {
 
 	@Override
 	public List<T> queryConnectLeafByPage(Map<String, Object> params, RowBounds bounds) {

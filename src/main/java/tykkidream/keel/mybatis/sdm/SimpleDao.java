@@ -17,7 +17,7 @@ import tykkidream.keel.mybatis.interceptor.PagingBounds;
  * @see tykkidream.keel.base.sdm.BaseDao
  * @see tykkidream.keel.base.sdm.BaseModel
  */
-public class SimpleDao<T extends BaseModel<?>> extends SqlSessionDaoSupport implements BaseDao<T> {
+public class SimpleDao<T extends BaseModel<?, I>, I> extends SqlSessionDaoSupport implements BaseDao<T,I> {
 	
 	protected String mapperNamespace = null;
 
@@ -79,17 +79,17 @@ public class SimpleDao<T extends BaseModel<?>> extends SqlSessionDaoSupport impl
 	 * @param id 主键
 	 * @return 受影响的行数
 	 */
-	public int delete(String sqlId, Object id) {
+	public int delete(String sqlId, I id) {
 		return getSqlSession().delete(sqlId, id);
 	}
 	
 	@Override
 	public int delete(T record) {
-		return delete(mapperNamespace + ".delete", record);
+		return delete(mapperNamespace + ".delete", record.getId());
 	}
 	
 	@Override
-	public int deleteByKey(Object id) {
+	public int deleteByKey(I id) {
 		return delete(mapperNamespace + ".deleteByID", id);
 	}
 	
@@ -117,7 +117,7 @@ public class SimpleDao<T extends BaseModel<?>> extends SqlSessionDaoSupport impl
 	 * 查询数据的相关方法。
 	 * ===================== */
 
-	public T selectOne(String sqlId, Object id) {
+	public T selectOne(String sqlId, I id) {
 		try {
 			return getSqlSession().selectOne(sqlId, id);
 		} catch (Exception ex) {
@@ -143,12 +143,12 @@ public class SimpleDao<T extends BaseModel<?>> extends SqlSessionDaoSupport impl
 	}
 
 	@Override
-	public T selectByKey(Object id) {
+	public T selectByKey(I id) {
 		return selectOne(this.mapperNamespace + ".selectByKey", id);
 	}
 	
 	@Override
-	public List<T> selectByArray(Object[] array) {
+	public List<T> selectByArray(I[] array) {
 		return selectList(this.mapperNamespace + ".selectByArray", array);
 	}
 
@@ -168,7 +168,7 @@ public class SimpleDao<T extends BaseModel<?>> extends SqlSessionDaoSupport impl
 	}
 
 	@Override
-	public T selectFullByKey(Object id) {
+	public T selectFullByKey(I id) {
 		return selectOne(this.mapperNamespace + ".selectFullByKey", id);
 	}
 
@@ -203,5 +203,10 @@ public class SimpleDao<T extends BaseModel<?>> extends SqlSessionDaoSupport impl
 			rb = new PagingBounds(page.getPageIndex(), page.getPageSize());
 		}
 		return selectFullByParameters(params,rb);
+	}
+	
+	@Override
+	public I generatePrimaryKey() {
+		return getSqlSession().selectOne(this.mapperNamespace + ".generatePrimaryKey");
 	}
 }

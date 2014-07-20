@@ -4,7 +4,7 @@ import java.util.List;
 
 import org.apache.ibatis.session.RowBounds;
 
-public interface BaseDao<T> extends tykkidream.keel.base.sdm.BaseDao<T>{
+public interface BaseDao<T, I> extends tykkidream.keel.base.sdm.BaseDao<T,I>{
 	
 	public List<T> selectByParameters(Object params, RowBounds bounds);
 	

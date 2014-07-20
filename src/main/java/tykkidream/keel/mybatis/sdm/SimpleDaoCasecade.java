@@ -8,15 +8,15 @@ import tykkidream.keel.base.sdm.BaseModelCasecade;
 import tykkidream.keel.base.sdm.Page;
 import tykkidream.keel.mybatis.interceptor.PagingBounds;
 
-public class SimpleDaoCasecade <T extends BaseModelCasecade<?>> extends SimpleDao<T> implements BaseDaoCasecade<T>{
+public class SimpleDaoCasecade <T extends BaseModelCasecade<?, I>,  I> extends SimpleDao<T, I> implements BaseDaoCasecade<T, I>{
 
 	@Override
-	public T selectConnectLeaf(Object id) {
+	public T selectConnectLeaf(I id) {
 		return selectOne(this.mapperNamespace + ".selectConnectLeafByID", id);
 	}
 
 	@Override
-	public T selectConnectLeafByLeaf(Object id) {
+	public T selectConnectLeafByLeaf(I id) {
 		return selectOne(this.mapperNamespace + ".selectConnectLeafByLeaf", id);
 	}
 
@@ -31,12 +31,12 @@ public class SimpleDaoCasecade <T extends BaseModelCasecade<?>> extends SimpleDa
 	}
 	
 	@Override
-	public T selectConnectRoot(Object id) {
+	public T selectConnectRoot(I id) {
 		return selectOne(this.mapperNamespace + ".selectConnectRootByID", id);
 	}
 
 	@Override
-	public T selectConnectRootByRoot(Object id) {
+	public T selectConnectRootByRoot(I id) {
 		return selectOne(this.mapperNamespace + ".selectConnectRootByRoot", id);
 	}
 
