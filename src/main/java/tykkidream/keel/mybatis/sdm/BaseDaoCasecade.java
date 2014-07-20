@@ -1,4 +1,4 @@
-package tykkidream.keel.mybatis;
+package tykkidream.keel.mybatis.sdm;
 
 import java.util.List;
 
