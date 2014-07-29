@@ -1,4 +1,4 @@
-package tykkidream.keel.base.domain;
+package tykkidream.keel.base.ddd;
 
 public class SimpleID implements BaseID {
 	private Long id;

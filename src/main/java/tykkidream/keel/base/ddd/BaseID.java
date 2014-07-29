@@ -1,4 +1,4 @@
-package tykkidream.keel.base.domain;
+package tykkidream.keel.base.ddd;
 
 public interface BaseID {
 	Long longID();
