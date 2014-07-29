@@ -5,7 +5,7 @@ import java.util.Map;
 
 import tykkidream.keel.base.Page;
 
-public interface BaseApplication<T,I> {
+public interface BaseApplication<T,I extends BaseID> {
 	int saveOne(T t);
 	
 	int saveList(List<T> ts);
