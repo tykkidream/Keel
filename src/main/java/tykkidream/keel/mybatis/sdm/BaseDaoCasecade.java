@@ -4,7 +4,7 @@ import java.util.List;
 
 import org.apache.ibatis.session.RowBounds;
 
-public interface BaseDaoCasecade<T, I> extends BaseDao<T, I>, tykkidream.keel.base.sdm.BaseDaoCasecade<T, I> {
+public interface BaseDaoCasecade<T, I> extends BaseDao<T, I>, tykkidream.keel.base.sta.BaseDaoCasecade<T, I> {
 
 	List<T> selectConnectRootByParameters(Object params, RowBounds bounds);
 

@@ -13,9 +13,9 @@ import org.junit.runners.MethodSorters;
 import org.junit.runners.Parameterized;
 import org.junit.runners.Parameterized.Parameter;
 
-import tykkidream.keel.base.sdm.BaseModel;
-import tykkidream.keel.base.sdm.BaseService;
-import tykkidream.keel.base.sdm.Page;
+import tykkidream.keel.base.sta.BaseModel;
+import tykkidream.keel.base.sta.BaseService;
+import tykkidream.keel.base.sta.Page;
 import tykkidream.keel.util.TestUtils;
 
 @RunWith(Parameterized.class)

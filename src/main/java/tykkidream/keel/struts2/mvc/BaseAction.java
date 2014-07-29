@@ -8,8 +8,8 @@ import java.util.Map;
 
 import org.apache.struts2.ServletActionContext;
 
-import tykkidream.keel.base.sdm.BaseService;
-import tykkidream.keel.base.sdm.Page;
+import tykkidream.keel.base.sta.BaseService;
+import tykkidream.keel.base.sta.Page;
 import tykkidream.keel.mybatis.interceptor.PagingBounds;
 import tykkidream.keel.util.HttpURLUtils;
 import tykkidream.keel.util.ReflectUtils;

@@ -4,7 +4,7 @@ import java.io.Serializable;
 
 import org.apache.ibatis.session.RowBounds;
 
-import tykkidream.keel.base.sdm.Page;
+import tykkidream.keel.base.sta.Page;
 
 /**
  * 对分页的基本数据进行一个简单的封装

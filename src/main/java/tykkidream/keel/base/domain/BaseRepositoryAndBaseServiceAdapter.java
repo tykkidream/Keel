@@ -2,8 +2,8 @@ package tykkidream.keel.base.domain;
 
 import java.util.List;
 
-import tykkidream.keel.base.sdm.BaseService;
-import tykkidream.keel.base.sdm.Page;
+import tykkidream.keel.base.sta.BaseService;
+import tykkidream.keel.base.sta.Page;
 
 
 public abstract class BaseRepositoryAndBaseServiceAdapter<T, I extends BaseID, S extends BaseService<T, I>> extends BaseRepositoryResolver<T, I>{

@@ -4,8 +4,8 @@ import java.util.List;
 
 import org.apache.ibatis.session.RowBounds;
 
-import tykkidream.keel.base.sdm.BaseModelCasecade;
-import tykkidream.keel.base.sdm.Page;
+import tykkidream.keel.base.sta.BaseModelCasecade;
+import tykkidream.keel.base.sta.Page;
 import tykkidream.keel.mybatis.interceptor.PagingBounds;
 
 public class SimpleDaoCasecade <T extends BaseModelCasecade<?, I>,  I> extends SimpleDao<T, I> implements BaseDaoCasecade<T, I>{

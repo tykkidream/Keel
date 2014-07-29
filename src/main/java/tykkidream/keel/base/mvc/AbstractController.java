@@ -3,7 +3,7 @@ package tykkidream.keel.base.mvc;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
 
-import tykkidream.keel.base.sdm.BaseService;
+import tykkidream.keel.base.sta.BaseService;
 
 public abstract class AbstractController<T,Y> implements BaseController<T, Y> {
 	

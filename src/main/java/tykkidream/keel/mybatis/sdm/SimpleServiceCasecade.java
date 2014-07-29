@@ -5,11 +5,11 @@ import java.util.Map;
 
 import org.apache.ibatis.session.RowBounds;
 
-import tykkidream.keel.base.sdm.BaseModelCasecade;
-import tykkidream.keel.base.sdm.Page;
+import tykkidream.keel.base.sta.BaseModelCasecade;
+import tykkidream.keel.base.sta.Page;
 import tykkidream.keel.mybatis.interceptor.PagingBounds;
 
-public class SimpleServiceCasecade<T extends BaseModelCasecade<T, I>, Y extends BaseDaoCasecade<T, I>, I> extends tykkidream.keel.base.sdm.SimpleServiceCasecade<T, Y, I> implements BaseServiceCasecade<T, I> {
+public class SimpleServiceCasecade<T extends BaseModelCasecade<T, I>, Y extends BaseDaoCasecade<T, I>, I> extends tykkidream.keel.base.sta.SimpleServiceCasecade<T, Y, I> implements BaseServiceCasecade<T, I> {
 
 	@Override
 	public List<T> queryConnectLeafByPage(Map<String, Object> params, RowBounds bounds) {

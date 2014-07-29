@@ -23,7 +23,7 @@ import org.apache.ibatis.reflection.wrapper.DefaultObjectWrapperFactory;
 import org.apache.ibatis.reflection.wrapper.ObjectWrapperFactory;
 import org.apache.ibatis.scripting.defaults.DefaultParameterHandler;
 
-import tykkidream.keel.base.sdm.Page;
+import tykkidream.keel.base.sta.Page;
 
 /**
  * <h2>分页拦截器</h2>
