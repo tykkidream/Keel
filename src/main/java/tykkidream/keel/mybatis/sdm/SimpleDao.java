@@ -5,8 +5,8 @@ import java.util.List;
 import org.apache.ibatis.session.RowBounds;
 import org.mybatis.spring.support.SqlSessionDaoSupport;
 
+import tykkidream.keel.base.Page;
 import tykkidream.keel.base.sta.BaseModel;
-import tykkidream.keel.base.sta.Page;
 import tykkidream.keel.mybatis.interceptor.PagingBounds;
 
 /**

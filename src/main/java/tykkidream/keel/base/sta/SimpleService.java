@@ -5,6 +5,8 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
+import tykkidream.keel.base.Page;
+
 /**
  * <h2>通用业务类</h2>
  * <p>本类为通用架构的一部分，Service层通用接口{@link tykkidream.keel.base.sta.BaseService BaseService}实现类。</p>

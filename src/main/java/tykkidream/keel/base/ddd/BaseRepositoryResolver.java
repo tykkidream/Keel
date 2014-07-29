@@ -2,7 +2,7 @@ package tykkidream.keel.base.ddd;
 
 import java.util.List;
 
-import tykkidream.keel.base.sta.Page;
+import tykkidream.keel.base.Page;
 
 public class BaseRepositoryResolver<T,Y extends BaseID> implements BaseRepository<T, Y> {
 	

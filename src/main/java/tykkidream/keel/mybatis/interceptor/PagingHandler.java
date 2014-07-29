@@ -1,6 +1,6 @@
 package tykkidream.keel.mybatis.interceptor;
 
-import tykkidream.keel.base.sta.Page;
+import tykkidream.keel.base.Page;
 
 public interface PagingHandler {
 	

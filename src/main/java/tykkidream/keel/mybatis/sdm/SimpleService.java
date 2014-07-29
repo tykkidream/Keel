@@ -5,8 +5,8 @@ import java.util.Map;
 
 import org.apache.ibatis.session.RowBounds;
 
+import tykkidream.keel.base.Page;
 import tykkidream.keel.base.sta.BaseModel;
-import tykkidream.keel.base.sta.Page;
 import tykkidream.keel.mybatis.interceptor.PagingBounds;
 
 /**

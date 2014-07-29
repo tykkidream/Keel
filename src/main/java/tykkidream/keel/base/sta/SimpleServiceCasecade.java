@@ -7,6 +7,8 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
+import tykkidream.keel.base.Page;
+
 public class SimpleServiceCasecade<T extends BaseModelCasecade<T, I>, Y extends BaseDaoCasecade<T, I>, I> extends SimpleService<T, Y, I> implements BaseServiceCasecade<T, I> {
 	
 	@Override

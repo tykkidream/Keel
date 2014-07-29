@@ -2,6 +2,8 @@ package tykkidream.keel.base.sta;
 
 import java.util.List;
 
+import tykkidream.keel.base.Page;
+
 public interface BaseDaoCasecade<T, I> extends BaseDao<T, I> {
 	/**
 	 * <h3>向上级联数据处理：查询一个数据。</h3>

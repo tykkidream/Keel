@@ -3,7 +3,7 @@ package tykkidream.keel.base.mvc;
 import java.util.List;
 import java.util.Map;
 
-import tykkidream.keel.base.sta.Page;
+import tykkidream.keel.base.Page;
 
 public class SimpleController<T,Y> extends AbstractController<T,Y> implements BaseController<T, Y> {
 

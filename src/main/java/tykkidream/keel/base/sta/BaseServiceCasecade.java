@@ -3,6 +3,8 @@ package tykkidream.keel.base.sta;
 import java.util.List;
 import java.util.Map;
 
+import tykkidream.keel.base.Page;
+
 public interface BaseServiceCasecade<T, I>{
 
 	/**

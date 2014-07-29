@@ -2,8 +2,8 @@ package tykkidream.keel.base.mvc;
 
 import java.util.Map;
 
+import tykkidream.keel.base.Page;
 import tykkidream.keel.base.mvc.request.BaseRequest;
-import tykkidream.keel.base.sta.Page;
 
 public interface BaseController<T,Y> extends BaseRequest<Y, T, Map<String,Object>, T> {
 

@@ -5,8 +5,8 @@ import java.util.Map;
 
 import org.apache.ibatis.session.RowBounds;
 
+import tykkidream.keel.base.Page;
 import tykkidream.keel.base.sta.BaseModelCasecade;
-import tykkidream.keel.base.sta.Page;
 import tykkidream.keel.mybatis.interceptor.PagingBounds;
 
 public class SimpleServiceCasecade<T extends BaseModelCasecade<T, I>, Y extends BaseDaoCasecade<T, I>, I> extends tykkidream.keel.base.sta.SimpleServiceCasecade<T, Y, I> implements BaseServiceCasecade<T, I> {

@@ -3,6 +3,8 @@ package tykkidream.keel.base.sta;
 import java.util.List;
 import java.util.Map;
 
+import tykkidream.keel.base.Page;
+
 /**
  * <h2>通用业务接口</h2>
  * <p>本接口为通用架构的一部分，Service层通用接口。</p>
