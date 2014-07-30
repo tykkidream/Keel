@@ -1,6 +1,7 @@
 package tykkidream.keel.base.ddd;
 
 import java.util.List;
+import java.util.Map;
 
 import tykkidream.keel.base.Page;
 import tykkidream.keel.base.sta.BaseService;
@@ -29,18 +30,18 @@ public abstract class BaseRepositoryAndBaseServiceAdapter<T, I extends BaseID, S
 	}
 
 	@Override
-	public int removeList(List<T> t) {
-		return service().deleteList(t);
+	public int removeList(List<T> ts) {
+		return service().deleteList(ts);
 	}
 
 	@Override
-	public T getOneByID(I y) {
+	public T findOneByID(I y) {
 		return service().queryByKey(y);
 	}
 
 	@Override
-	public List<T> getListByPage(I y, Page page) {
-		return super.getListByPage(y, page);
+	public List<T> findListByPage(Map<String, Object> params, Page page) {
+		return service().queryByPage(params, page);
 	}
 
 	@Override

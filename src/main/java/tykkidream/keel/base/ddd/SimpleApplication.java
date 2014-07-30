@@ -19,38 +19,32 @@ public class SimpleApplication<T, I extends BaseID> implements BaseApplication<T
 	
 	@Override
 	public int saveOne(T t) {
-		// TODO Auto-generated method stub
-		return 0;
+		return getBaseRepository().saveOne(t);
 	}
 
 	@Override
 	public int saveList(List<T> ts) {
-		// TODO Auto-generated method stub
-		return 0;
+		return getBaseRepository().saveList(ts);
 	}
 
 	@Override
 	public int deleteOne(I i) {
-		// TODO Auto-generated method stub
-		return 0;
+		return getBaseRepository().removeOne(i);
 	}
 
 	@Override
-	public int deleteList(List<I> is) {
-		// TODO Auto-generated method stub
-		return 0;
+	public int deleteList(List<T> is) {
+		return getBaseRepository().removeList(is);
 	}
 
 	@Override
 	public T queryByKey(I i) {
-		// TODO Auto-generated method stub
-		return null;
+		return getBaseRepository().findOneByID(i);
 	}
 
 	@Override
 	public List<T> queryByPage(Map<String, Object> params, Page page) {
-		// TODO Auto-generated method stub
-		return null;
+		return getBaseRepository().findListByPage(params, page);
 	}
 
 }

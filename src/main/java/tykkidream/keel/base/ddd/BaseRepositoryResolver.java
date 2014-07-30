@@ -1,15 +1,16 @@
 package tykkidream.keel.base.ddd;
 
 import java.util.List;
+import java.util.Map;
 
 import tykkidream.keel.base.Page;
 
-public class BaseRepositoryResolver<T,Y extends BaseID> implements BaseRepository<T, Y> {
+public class BaseRepositoryResolver<T,I extends BaseID> implements BaseRepository<T, I> {
 	
-	private BaseRepository<T,Y> delegate;
+	private BaseRepository<T,I> delegate;
 
 	@Override
-	public Y nextIdentity() {
+	public I nextIdentity() {
 		return repositoryDelegate().nextIdentity();
 	}
 
@@ -24,23 +25,23 @@ public class BaseRepositoryResolver<T,Y extends BaseID> implements BaseRepositor
 	}
 
 	@Override
-	public int removeOne(Y t) {
-		return repositoryDelegate().removeOne(t);
+	public int removeOne(I i) {
+		return repositoryDelegate().removeOne(i);
 	}
 
 	@Override
-	public int removeList(List<T> t) {
-		return repositoryDelegate().removeList(t);
+	public int removeList(List<T> is) {
+		return repositoryDelegate().removeList(is);
 	}
 
 	@Override
-	public T getOneByID(Y y) {
-		return repositoryDelegate().getOneByID(y);
+	public T findOneByID(I y) {
+		return repositoryDelegate().findOneByID(y);
 	}
 
 	@Override
-	public List<T> getListByPage(Y y, Page page) {
-		return repositoryDelegate().getListByPage(y, page);
+	public List<T> findListByPage(Map<String, Object> params, Page page) {
+		return repositoryDelegate().findListByPage(params, page);
 	}
 
 	@Override
@@ -48,14 +49,14 @@ public class BaseRepositoryResolver<T,Y extends BaseID> implements BaseRepositor
 		return repositoryDelegate().count();
 	}
 
-	protected BaseRepository<T,Y> repositoryDelegate() {
+	protected BaseRepository<T,I> repositoryDelegate() {
 		if (this.delegate == null) {
 			throw new NullRepositorDelegateException(this);
 		}
 		return this.delegate;
 	}
 	
-	protected void repositoryDelegate(BaseRepository<T,Y> delegate) {
+	protected void repositoryDelegate(BaseRepository<T,I> delegate) {
 		this.delegate = delegate;
 	}
 }

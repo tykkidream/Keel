@@ -12,9 +12,9 @@ public interface BaseApplication<T,I extends BaseID> {
 	
 	int deleteOne(I i);
 	
-	int deleteList(List<I> is);
+	int deleteList(List<T> is);
 	
 	T queryByKey(I i);
 	
-	List<T> queryByPage(Map<String, Object> params,Page page);
+	List<T> queryByPage(Map<String, Object> params, Page page);
 }
