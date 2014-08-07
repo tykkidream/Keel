@@ -5,10 +5,10 @@ import java.util.Map;
 import tykkidream.keel.base.Page;
 import tykkidream.keel.base.mvc.request.BaseRequest;
 
-public interface BaseController<T,Y> extends BaseRequest<Y, T, Map<String,Object>, T> {
+public interface BaseController<T,I> extends BaseRequest<I, T, Map<String,Object>, T> {
 
 	@Override
-	public Object doDelete(Y t);
+	public Object doDelete(I t);
 
 	@Override
 	public Object doEdit(T t);
@@ -17,7 +17,7 @@ public interface BaseController<T,Y> extends BaseRequest<Y, T, Map<String,Object
 	public Object doNew(T t);
 
 	@Override
-	public Object edit(Y t);
+	public Object edit(I t);
 
 	@Override
 	public Object new$(T t);
@@ -26,6 +26,6 @@ public interface BaseController<T,Y> extends BaseRequest<Y, T, Map<String,Object
 	public Object search(Map<String, Object> t , Page page);
 
 	@Override
-	public Object view(Y t);
+	public Object view(I t);
 
 }

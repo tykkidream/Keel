@@ -4,13 +4,24 @@ import java.util.List;
 import java.util.Map;
 
 import tykkidream.keel.base.Page;
+import tykkidream.keel.base.sta.BaseService;
 
-public class SimpleController<T,Y> extends AbstractController<T,Y> implements BaseController<T, Y> {
+public class SimpleStaController<T,Y> extends AbstractController<T,Y> implements BaseController<T, Y> {
+	
+	protected BaseService<T,Y> baseService = null;
+	
+	public BaseService<T,Y> getBaseService() {
+		return baseService;
+	}
 
+	public void setBaseService(BaseService<T,Y> baseService) {
+		this.baseService = baseService;
+	}
+	
 	@Override
 	public Integer doDelete(Y y) {
 		if (null != y) {
-			return getBaseService().deleteOne(y);
+			return getBaseService().delete(y);
 		}
 		return null;
 	}
@@ -18,7 +29,7 @@ public class SimpleController<T,Y> extends AbstractController<T,Y> implements Ba
 	@Override
 	public Boolean doEdit(T t) {
 		if (t != null) {
-			return getBaseService().modifySelective(t);
+			return getBaseService().modify(t);
 		}
 		return null;
 	}
@@ -34,7 +45,7 @@ public class SimpleController<T,Y> extends AbstractController<T,Y> implements Ba
 	@Override
 	public T edit(Y t) {
 		if (t != null) {
-			return getBaseService().queryByKey(t);
+			return getBaseService().query(t);
 		}
 		return null;
 	}
@@ -49,13 +60,13 @@ public class SimpleController<T,Y> extends AbstractController<T,Y> implements Ba
 
 	@Override
 	public List<T> search(Map<String, Object> t, Page page) {
-		return getBaseService().queryByPage(t, page);
+		return getBaseService().query(t, page);
 	}
 
 	@Override
 	public T view(Y t) {
 		if (t != null) {
-			return getBaseService().queryByKey(t);
+			return getBaseService().query(t);
 		}
 		return null;
 	}

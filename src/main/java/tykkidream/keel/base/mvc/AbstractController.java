@@ -3,8 +3,6 @@ package tykkidream.keel.base.mvc;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
 
-import tykkidream.keel.base.sta.BaseService;
-
 public abstract class AbstractController<T,Y> implements BaseController<T, Y> {
 	
 	@SuppressWarnings("unchecked")
@@ -27,16 +25,6 @@ public abstract class AbstractController<T,Y> implements BaseController<T, Y> {
 
 	public void setEntityClass(Class<T> entityClass) {
 		this.entityClass = entityClass;
-	}
-	
-	private BaseService<T,Y> baseService = null;
-	
-	public BaseService<T,Y> getBaseService() {
-		return baseService;
-	}
-
-	public void setBaseService(BaseService<T,Y> baseService) {
-		this.baseService = baseService;
 	}
 
 	protected T createEntity(T t) {
