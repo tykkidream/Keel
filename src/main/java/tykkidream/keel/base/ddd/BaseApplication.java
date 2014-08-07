@@ -5,16 +5,25 @@ import java.util.Map;
 
 import tykkidream.keel.base.Page;
 
-public interface BaseApplication<T,I extends BaseID> {
-	int saveOne(T t);
+
+public interface BaseApplication<E,I extends BaseID>{
+	public I nextId();
 	
-	int saveList(List<T> ts);
+	public int save(E  t);
 	
-	int deleteOne(I i);
+	public int save(List<E>  t);
 	
-	int deleteList(List<T> is);
+	public int delete(I i);
+
+	public int delete(List<E> is);
 	
-	T queryByKey(I i);
+	public List<E> search();
 	
-	List<T> queryByPage(Map<String, Object> params, Page page);
+	public E search(I i);
+	
+	public List<E> search(Map<String, Object> params);
+	
+	public List<E> search(Map<String, Object> params, Page page);
+	
+	public int count();
 }

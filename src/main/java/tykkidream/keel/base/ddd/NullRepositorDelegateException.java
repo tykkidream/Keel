@@ -12,11 +12,11 @@ public class NullRepositorDelegateException extends RuntimeException {
 		super(s);
 	}
 	
-	public NullRepositorDelegateException(BaseRepositoryResolver<?, ?> delegate) {
+	public NullRepositorDelegateException(SimpleRepository<?, ?> delegate) {
 		super(exceptionMessage(delegate));
 	}
 	
-	private static String exceptionMessage(BaseRepositoryResolver<?, ?> delegate) {
+	private static String exceptionMessage(SimpleRepository<?, ?> delegate) {
 		String s = null;
 		if (null != delegate) {
 			s = "BaseRepositoryResolver （" + delegate.toString() +"）内部 的 delegate 为 null 。请使用 repositoryDelegate(BaseRepository) 为其设置。";

@@ -7,8 +7,9 @@ public class SimpleID implements BaseID {
 		setId(id);
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
-	public Long longID() {
+	public Long value() {
 		return getId();
 	}
 
@@ -21,5 +22,4 @@ public class SimpleID implements BaseID {
 			this.id = id;
 		}
 	}
-
 }

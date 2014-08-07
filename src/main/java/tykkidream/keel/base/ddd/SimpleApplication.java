@@ -18,33 +18,53 @@ public class SimpleApplication<T, I extends BaseID> implements BaseApplication<T
 	}
 	
 	@Override
-	public int saveOne(T t) {
-		return getBaseRepository().saveOne(t);
+	public int save(T t) {
+		return getBaseRepository().store(t);
 	}
 
 	@Override
-	public int saveList(List<T> ts) {
-		return getBaseRepository().saveList(ts);
+	public int save(List<T> ts) {
+		return getBaseRepository().store(ts);
 	}
 
 	@Override
-	public int deleteOne(I i) {
-		return getBaseRepository().removeOne(i);
+	public int delete(I i) {
+		return getBaseRepository().remove(i);
 	}
 
 	@Override
-	public int deleteList(List<T> is) {
-		return getBaseRepository().removeList(is);
+	public int delete(List<T> is) {
+		return getBaseRepository().remove(is);
 	}
 
 	@Override
-	public T queryByKey(I i) {
-		return getBaseRepository().findOneByID(i);
+	public T search(I i) {
+		return getBaseRepository().find(i);
 	}
 
 	@Override
-	public List<T> queryByPage(Map<String, Object> params, Page page) {
-		return getBaseRepository().findListByPage(params, page);
+	public List<T> search(Map<String, Object> params, Page page) {
+		return getBaseRepository().find(params, page);
+	}
+
+	@Override
+	public I nextId() {
+		return getBaseRepository().nextIdentity();
+	}
+
+	@Override
+	public List<T> search() {
+		return getBaseRepository().find();
+	}
+
+	@Override
+	public List<T> search(Map<String, Object> params) {
+		return getBaseRepository().find(params);
+	}
+
+	@Override
+	public int count() {
+		return getBaseRepository().count();
 	}
 
 }

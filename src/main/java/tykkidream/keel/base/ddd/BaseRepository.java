@@ -5,20 +5,24 @@ import java.util.Map;
 
 import tykkidream.keel.base.Page;
 
-public interface BaseRepository<T,I extends BaseID> {
+public interface BaseRepository<E,I extends BaseID> {
 	public I nextIdentity();
 	
-	public int saveOne(T  t);
+	public int store(E  t);
 	
-	public int saveList(List<T>  t);
+	public int store(List<E>  t);
 	
-	public int removeOne(I i);
+	public int remove(I i);
 
-	public int removeList(List<T> is);
+	public int remove(List<E> is);
 	
-	public T findOneByID(I i);
-
-	public List<T> findListByPage(Map<String, Object> params, Page page);
+	public List<E> find();
+	
+	public E find(I i);
+	
+	public List<E> find(Map<String, Object> params);
+	
+	public List<E> find(Map<String, Object> params, Page page);
 	
 	public int count();
 }
