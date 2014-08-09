@@ -1,11 +1,13 @@
 package tykkidream.keel.struts2.mvc;
 
+import java.io.Serializable;
+
 import org.apache.struts2.json.annotations.JSON;
 
 import tykkidream.keel.base.sta.BaseModelCasecade;
 
 @SuppressWarnings("serial")
-public abstract class BaseModel<T extends BaseModel<?, I>, I> implements BaseModelCasecade<T, I>{
+public abstract class BaseModel<T extends BaseModel<?, I>, I extends Serializable> implements BaseModelCasecade<T, I>{
 
 	public boolean getLeaf() {
 	     boolean leaf = true;

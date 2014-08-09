@@ -19,7 +19,7 @@ public class SimpleStaController<T,Y> extends AbstractController<T,Y> implements
 	}
 	
 	@Override
-	public Integer doDelete(Y y) {
+	public Boolean doDelete(Y y) {
 		if (null != y) {
 			return getBaseService().delete(y);
 		}

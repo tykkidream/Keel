@@ -30,7 +30,7 @@ public interface BaseService<E, I> {
 	 * @param entitys 多个数据
 	 * @return 成功是否
 	 */
-	public boolean create(List<E> entitys);
+	public int create(List<E> entitys);
 	
 	/**
 	 * <h3>普通数据处理：修改一个数据。</h3>
@@ -44,7 +44,11 @@ public interface BaseService<E, I> {
 	 * @param entitys 多个数据
 	 * @return 成功是否
 	 */
-	public boolean modify(List<E> entitys);
+	public int modify(List<E> entitys);
+	
+	public boolean createOrModify(E entity);
+	
+	public int createOrModify(List<E> entitys);
 		
 	/**
 	 * <h3>普通数据处理：删除一个数据。</h3>
@@ -52,7 +56,7 @@ public interface BaseService<E, I> {
 	 * @param id 数据的主键ID
 	 * @return 成功次数
 	 */
-	public int delete(I id);
+	public boolean delete(I id);
 	
 	/**
 	 * <h3>普通数据处理：删除多个数据。</h3>

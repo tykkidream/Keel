@@ -1,5 +1,6 @@
 package tykkidream.keel.base.sta;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -9,7 +10,7 @@ import java.util.Map;
 
 import tykkidream.keel.base.Page;
 
-public class SimpleServiceCasecade<T extends BaseModelCasecade<T, I>, Y extends BaseDaoCasecade<T, I>, I> extends SimpleService<T, Y, I> implements BaseServiceCasecade<T, I> {
+public class SimpleServiceCasecade<T extends BaseModelCasecade<T, I>, Y extends BaseDaoCasecade<T, I>, I extends Serializable> extends SimpleService<T, Y, I> implements BaseServiceCasecade<T, I> {
 	
 	@Override
 	public T queryConnectLeaf(I id) {

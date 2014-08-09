@@ -1,5 +1,7 @@
 package tykkidream.keel.spring.mvc;
 
+import java.io.Serializable;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -7,7 +9,7 @@ import tykkidream.keel.base.mvc.BaseController;
 import tykkidream.keel.base.sta.BaseModel;
 
 @Controller
-public class SimpleController<T extends BaseModel<?, I>, I> extends WebController<T, I> implements BaseController<T, I> {
+public class SimpleController<T extends BaseModel<?, I>, I extends Serializable> extends WebController<T, I> implements BaseController<T, I> {
 
 	protected String basepath = "";
 	

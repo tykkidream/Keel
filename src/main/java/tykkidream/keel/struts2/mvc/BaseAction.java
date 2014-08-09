@@ -1,5 +1,6 @@
 package tykkidream.keel.struts2.mvc;
 
+import java.io.Serializable;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
 import java.util.HashMap;
@@ -24,7 +25,7 @@ import com.opensymphony.xwork2.Preparable;
 import com.opensymphony.xwork2.config.entities.ActionConfig;
 import com.opensymphony.xwork2.interceptor.ValidationWorkflowAware;
 
-public abstract class BaseAction<T extends BaseModel<T, I>, I> extends ActionSupport implements
+public abstract class BaseAction<T extends BaseModel<T, I>, I extends Serializable> extends ActionSupport implements
 		ValidationWorkflowAware, HTMLAction, Preparable{
 	
 	private static final long serialVersionUID = 4181081930725231597L;
@@ -254,9 +255,10 @@ public abstract class BaseAction<T extends BaseModel<T, I>, I> extends ActionSup
 	public String save() {
 		int num = 0;
 		if (this.list != null) { // 批量保存数据
-			num = getBaseService().saveListSelective(this.list);
+			num = getBaseService().createOrModify(this.list);
 		} else if (this.entity != null) { // 单个保存数据
-			num = getBaseService().saveOneSelective(this.entity);
+			if (getBaseService().createOrModify(this.entity))
+				num = 1;
 		} else { // 没有任何参数时候，表示在HTML页面中录入新数据
 			num = -1;
 		}
@@ -314,9 +316,10 @@ public abstract class BaseAction<T extends BaseModel<T, I>, I> extends ActionSup
 	public String delete() {
 		int num = 0;
 		if (this.getList() != null && this.getList().size() > 0) {
-			num = getBaseService().deleteList(this.getList());
+			num = getBaseService().delete(this.getList());
 		} else if (this.entity != null && this.entity.getId() != null) {
-			num = getBaseService().deleteOne(this.entity.getId());
+			if(getBaseService().delete(this.entity.getId()))
+				num = 1;
 		} else {
 			num = -1;
 		}
@@ -368,9 +371,9 @@ public abstract class BaseAction<T extends BaseModel<T, I>, I> extends ActionSup
 
 	public String query() {
 		if (this.entity != null && this.entity.getId() != null) {
-			this.entity = getBaseService().queryByKey(getEntity().getId());
+			this.entity = getBaseService().query(getEntity().getId());
 		} else {
-			this.list = getBaseService().queryByPage(null, this.page);
+			this.list = getBaseService().query(null, this.page);
 		}
 		return windUp("success");
 	}

@@ -2,6 +2,8 @@ package tykkidream.keel.test.spring;
 
 import static org.junit.Assert.*;
 
+import java.io.Serializable;
+
 import org.junit.Before;
 import org.junit.FixMethodOrder;
 import org.junit.Test;
@@ -16,7 +18,7 @@ import tykkidream.keel.util.TestUtils;
 
 @RunWith(Parameterized.class)
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
-public abstract class TestDao<T extends BaseModel<?, I>, I>{
+public abstract class TestDao<T extends BaseModel<?, I>, I extends Serializable>{
 	
 	@Parameter(0)
 	public T t1 = null;
@@ -56,12 +58,6 @@ public abstract class TestDao<T extends BaseModel<?, I>, I>{
 	}
 	
 	@Test
-	public void test03InsertSelective(){
-		int rs = this.getBaseDao().insertSelective(t3);
-		assertSame("保存数据失败！",1, rs);
-	}
-	
-	@Test
 	public void test04UpdateByID(){
 		int rs = 0;
 		
@@ -76,23 +72,14 @@ public abstract class TestDao<T extends BaseModel<?, I>, I>{
 	
 	protected abstract void test04UpdateByID_assert();
 	
-	@Test
-	public void test05UpdateByIDSelective(){
-		t4.setId(t2.getId());
-		int rs = this.getBaseDao().updateSelective(t4);
-		assertEquals("更新数据失败！",1, rs);
-		
-		test05UpdateByIDSelective_assert();
-	}
-	
 	protected abstract void test05UpdateByIDSelective_assert();
 	
 	@Test
 	public void test06DeleteByID(){
 		int rs = 0;
 
-		rs += this.getBaseDao().deleteByKey(t1.getId());
-		rs += this.getBaseDao().deleteByKey(t2.getId());
+		rs += this.getBaseDao().delete(t1.getId());
+		rs += this.getBaseDao().delete(t2.getId());
 		assertSame("删除数据失败！", 2, rs);
 	}
 }

@@ -1,5 +1,6 @@
 package tykkidream.keel.mybatis.sdm;
 
+import java.io.Serializable;
 import java.util.List;
 import java.util.Map;
 
@@ -18,33 +19,19 @@ import tykkidream.keel.mybatis.interceptor.PagingBounds;
  * @see tykkidream.keel.base.sta.BaseDao
  * @see tykkidream.keel.base.sta.BaseModel
  */
-public class SimpleService<T extends BaseModel<T, I>, Y extends BaseDao<T, I>, I> extends tykkidream.keel.base.sta.SimpleService<T, Y, I>  implements BaseService<T, I> {
+public class SimpleService<T extends BaseModel<T, I>, Y extends BaseDao<T, I>, I extends Serializable> extends tykkidream.keel.base.sta.SimpleService<T, Y, I>  implements BaseService<T, I> {
 
 	@Override
-	public List<T> queryByPage(Map<String, Object> params,Page page) {
+	public List<T> query(Map<String, Object> params,Page page) {
 
-		RowBounds bounds = null;
-		if (page instanceof RowBounds) {
-			bounds = (RowBounds)page;
+		Page bounds = null;
+		if (page instanceof PagingBounds) {
+			bounds = (PagingBounds)page;
 		} else {
 			bounds = new PagingBounds(page.getPageIndex(), page.getPageSize());
 		}
 		
 		List<T> list = getBaseDao().selectByParameters(params,bounds);
-		return list;
-	}
-
-	@Override
-	public List<T> queryFullByPage(Map<String, Object> params, Page page) {
-
-		RowBounds bounds = null;
-		if (page instanceof RowBounds) {
-			bounds = (RowBounds)page;
-		} else {
-			bounds = new PagingBounds(page.getPageIndex(), page.getPageSize());
-		}
-		
-		List<T> list = getBaseDao().selectFullByParameters(params, bounds);
 		return list;
 	}
 	
@@ -59,4 +46,5 @@ public class SimpleService<T extends BaseModel<T, I>, Y extends BaseDao<T, I>, I
 		List<T> list = getBaseDao().selectByParameters(params,bounds);
 		return list;
 	}
+
 }

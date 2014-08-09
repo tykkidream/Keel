@@ -1,5 +1,6 @@
 package tykkidream.keel.mybatis.sdm;
 
+import java.io.Serializable;
 import java.util.List;
 
 import org.apache.ibatis.session.RowBounds;
@@ -11,13 +12,11 @@ import tykkidream.keel.mybatis.interceptor.PagingBounds;
 
 /**
  * <h2>通用数据操作类</h2>
- * <p>本类为通用架构的一部分，Dao层通用接口{@link tykkidream.keel.base.sta.BaseDao BaseDao}实现类。</p>
- * @author 武利庆
  * @param <T> 泛型实现，Module层通用类
  * @see tykkidream.keel.base.sta.BaseDao
  * @see tykkidream.keel.base.sta.BaseModel
  */
-public class SimpleDao<T extends BaseModel<?, I>, I> extends SqlSessionDaoSupport implements BaseDao<T,I> {
+public class SimpleDao<T extends BaseModel<?, I>, I extends Serializable> extends SqlSessionDaoSupport implements BaseDao<T,I> {
 	
 	protected String mapperNamespace = null;
 
@@ -45,17 +44,13 @@ public class SimpleDao<T extends BaseModel<?, I>, I> extends SqlSessionDaoSuppor
 		}
 	}
 	
-	/* ===================== *
-	 * 增加数据的相关方法。
-	 * ===================== */
-	
 	/**
 	 * 通用的插入数据方法。
 	 * @param sqlId MyBatis的插入SQL语句ID
 	 * @param record 含有数据的对象
 	 * @return 受影响的行数
 	 */
-	public int insert(String sqlId, T record) {
+	protected int insert(String sqlId, T record) {
 		return getSqlSession().insert(sqlId, record);
 	}
 	
@@ -69,35 +64,20 @@ public class SimpleDao<T extends BaseModel<?, I>, I> extends SqlSessionDaoSuppor
 		return insert(this.mapperNamespace + ".insertSelective",record);
 	}
 	
-	/* ===================== *
-	 * 删除数据的相关方法。
-	 * ===================== */
-	
 	/**
 	 * 通用的根据主键删除数据方法。
 	 * @param sqlId MyBatis的删除SQL语句ID
 	 * @param id 主键
 	 * @return 受影响的行数
 	 */
-	public int delete(String sqlId, I id) {
+	protected int delete(String sqlId, I id) {
 		return getSqlSession().delete(sqlId, id);
 	}
 	
 	@Override
-	public int delete(T record) {
-		return delete(mapperNamespace + ".delete", record.getId());
+	public int delete(I id) {
+		return getSqlSession().delete(mapperNamespace + ".delete", id);
 	}
-	
-	@Override
-	public int deleteByKey(I id) {
-		return delete(mapperNamespace + ".deleteByID", id);
-	}
-	
-
-	
-	/* ===================== *
-	 * 修改数据的相关方法。
-	 * ===================== */
 	
 	public int update(String sqlId,T record) {
 		return getSqlSession().update(sqlId, record);
@@ -112,10 +92,6 @@ public class SimpleDao<T extends BaseModel<?, I>, I> extends SqlSessionDaoSuppor
 	public int updateSelective(T record) {
 		return update(mapperNamespace + ".updateByIDSelective", record);
 	}
-
-	/* ===================== *
-	 * 查询数据的相关方法。
-	 * ===================== */
 
 	public T selectOne(String sqlId, I id) {
 		try {
@@ -146,26 +122,39 @@ public class SimpleDao<T extends BaseModel<?, I>, I> extends SqlSessionDaoSuppor
 	public T selectByKey(I id) {
 		return selectOne(this.mapperNamespace + ".selectByKey", id);
 	}
-	
-	@Override
-	public List<T> selectByArray(I[] array) {
-		return selectList(this.mapperNamespace + ".selectByArray", array);
-	}
-
-	@Override
-	public List<T> selectByList(List<T> list) {
-		return selectList(this.mapperNamespace + ".selectByList", list);
-	}
 
 	@Override
 	public List<T> selectByParameters(Object params) {
 		return selectList(this.mapperNamespace + ".selectByParameters", params);
 	}
 	
+	public List<T> selectByParameters(Object params, PagingBounds bounds) {
+		return selectList(this.mapperNamespace + ".selectByParameters", params, bounds);
+	}
+
 	@Override
 	public List<T> selectByParameters(Object params, RowBounds page) {
-		return selectList(this.mapperNamespace + ".selectByParameters", params, page);
+		PagingBounds bounds = null;
+		if (page instanceof PagingBounds) {
+			bounds = (PagingBounds)page;
+		} else {
+			bounds = new PagingBounds(page.getOffset()/page.getLimit(), page.getLimit());
+		}
+		return selectByParameters(params, bounds);
 	}
+	
+
+	@Override
+	public List<T> selectByParameters(Object params, Page page) {
+		PagingBounds bounds = null;
+		if (page instanceof PagingBounds) {
+			bounds = (PagingBounds)page;
+		} else {
+			bounds = new PagingBounds(page.getPageIndex(), page.getPageSize());
+		}
+		return selectByParameters(params, bounds);
+	}
+
 
 	@Override
 	public T selectFullByKey(I id) {
@@ -176,37 +165,26 @@ public class SimpleDao<T extends BaseModel<?, I>, I> extends SqlSessionDaoSuppor
 	public List<T> selectFullByParameters(Object params) {
 		return selectList(this.mapperNamespace + ".selectFullByParameters", params);
 	}
-
-
-	@Override
-	public List<T> selectFullByParameters(Object params, RowBounds page) {
+	
+	public List<T> selectFullByParameters(Object params, PagingBounds page) {
 		return selectList(this.mapperNamespace + ".selectFullByParameters", params, page);
 	}
 
 	@Override
-	public List<T> selectByParameters(Object params, Page page) {
-		RowBounds rb = null;
-		if (page instanceof RowBounds) {
-			rb = (RowBounds)page;
+	public List<T> selectFullByParameters(Object params, RowBounds page) {
+		PagingBounds bounds = null;
+		if (page instanceof PagingBounds) {
+			bounds = (PagingBounds)page;
 		} else {
-			rb = new PagingBounds(page.getPageIndex(), page.getPageSize());
+			bounds = new PagingBounds(page.getOffset()/page.getLimit(), page.getLimit());
 		}
-		return selectByParameters(params,rb);
+		return selectFullByParameters(params, bounds);
 	}
 
-	@Override
-	public List<T> selectFullByParameters(Object params, Page page) {
-		RowBounds rb = null;
-		if (page instanceof RowBounds) {
-			rb = (RowBounds)page;
-		} else {
-			rb = new PagingBounds(page.getPageIndex(), page.getPageSize());
-		}
-		return selectFullByParameters(params,rb);
-	}
 	
 	@Override
-	public I generatePrimaryKey() {
-		return getSqlSession().selectOne(this.mapperNamespace + ".generatePrimaryKey");
+	public I generateKey() {
+		return getSqlSession().selectOne(this.mapperNamespace + ".generateKey");
 	}
+
 }

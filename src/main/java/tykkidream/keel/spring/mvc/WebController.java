@@ -1,5 +1,6 @@
 package tykkidream.keel.spring.mvc;
 
+import java.io.Serializable;
 import java.util.List;
 import java.util.Map;
 
@@ -17,8 +18,9 @@ import tykkidream.keel.base.Page;
 import tykkidream.keel.base.mvc.AbstractController;
 import tykkidream.keel.base.sta.BaseModel;
 import tykkidream.keel.mybatis.interceptor.PagingBounds;
+import tykkidream.keel.mybatis.sdm.BaseService;
 
-public abstract class WebController<T extends BaseModel<?,I>, I> extends AbstractController<T, I>{
+public abstract class WebController<T extends BaseModel<?,I>, I extends Serializable> extends AbstractController<T, I>{
 	
 	protected abstract String viewNameForDoDelete();
 	protected abstract String viewNameForDoEdit(I id);
@@ -29,7 +31,15 @@ public abstract class WebController<T extends BaseModel<?,I>, I> extends Abstrac
 	protected abstract String viewNameForSearch();
 	protected abstract String viewNameForManage();
 
+	protected BaseService<T, I> baseService;
 	
+	public BaseService<T, I> getBaseService() {
+		return baseService;
+	}
+	public void setBaseService(BaseService<T, I> baseService) {
+		this.baseService = baseService;
+	}
+
 	@Autowired
 	private ServletContext servletContext;
 
@@ -62,7 +72,7 @@ public abstract class WebController<T extends BaseModel<?,I>, I> extends Abstrac
 					break;
 				}
 			} else {
-				t = getBaseService().queryByKey(id);
+				t = getBaseService().query(id);
 			}
 			mv.addObject("data", t);
 			mv.setViewName(viewNameForEdit());
@@ -78,7 +88,7 @@ public abstract class WebController<T extends BaseModel<?,I>, I> extends Abstrac
 		ModelAndView mv = new ModelAndView();
 
 		try {
-			if (getBaseService().createSelective(t)) {
+			if (getBaseService().create(t)) {
 				mv.setViewName(viewNameForDoNew(t.getId()));
 			} else {
 				mv.setViewName(viewNameForNew());
@@ -95,7 +105,7 @@ public abstract class WebController<T extends BaseModel<?,I>, I> extends Abstrac
 	public ModelAndView edit(@PathVariable("id") I id) {
 		ModelAndView mv = new ModelAndView();
 
-		T t = this.getBaseService().queryByKey(id);
+		T t = this.getBaseService().query(id);
 		mv.addObject("data", t);
 		mv.setViewName(viewNameForEdit());
 
@@ -118,7 +128,7 @@ public abstract class WebController<T extends BaseModel<?,I>, I> extends Abstrac
 	public ModelAndView view(@PathVariable("id") I id) {
 		ModelAndView mv = new ModelAndView();
 
-		T t = this.getBaseService().queryByKey(id);
+		T t = this.getBaseService().query(id);
 		mv.addObject("data", t);
 		mv.setViewName(viewNameForView());
 
@@ -128,7 +138,7 @@ public abstract class WebController<T extends BaseModel<?,I>, I> extends Abstrac
 	@Override
 	public ModelAndView search(Map<String, Object> t, Page page) {
 		ModelAndView mv = new ModelAndView();
-		List<T> list = getBaseService().queryByPage(t,page);
+		List<T> list = getBaseService().query(t,page);
 		mv.addObject(list);
 		mv.setViewName(viewNameForSearch());
 

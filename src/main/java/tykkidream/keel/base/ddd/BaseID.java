@@ -1,5 +1,7 @@
 package tykkidream.keel.base.ddd;
 
-public interface BaseID {
+import java.io.Serializable;
+
+public interface BaseID extends Serializable{
 	<I> I value();
 }

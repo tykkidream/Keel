@@ -3,7 +3,7 @@ package tykkidream.keel.base.sta;
 import java.io.Serializable;
 import java.util.List;
 
-public interface BaseModelCasecade <T extends BaseModelCasecade<?, ?>, I> extends BaseModel<T, I>, Serializable{
+public interface BaseModelCasecade <T extends BaseModelCasecade<?, ?>, I extends Serializable> extends BaseModel<T, I>, Serializable{
 
 	/**
 	 * 得到父级对象的整型主键ID。

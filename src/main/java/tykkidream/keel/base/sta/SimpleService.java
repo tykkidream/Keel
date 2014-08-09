@@ -1,5 +1,7 @@
 package tykkidream.keel.base.sta;
 
+import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -15,7 +17,7 @@ import tykkidream.keel.base.Page;
  * @see tykkidream.keel.base.sta.BaseDao
  * @see tykkidream.keel.base.sta.BaseModel
  */
-public class SimpleService<E extends BaseModel<E, I>, D extends BaseDao<E, I>, I> implements BaseService<E, I> {
+public class SimpleService<E extends BaseModel<E, I>, D extends BaseDao<E, I>, I extends Serializable> implements BaseService<E, I> {
 	private D baseDao = null;
 	
 	public D getBaseDao() {
@@ -40,16 +42,15 @@ public class SimpleService<E extends BaseModel<E, I>, D extends BaseDao<E, I>, I
 	}
 
 	@Override
-	public boolean create(List<E> record) {
+	public int create(List<E> record) {
+		int num = 0;
 		if(record == null  || record.size() > 0){
-			int num = 0;
 			for (Iterator<E> iterator = record.iterator(); iterator.hasNext();) {
 				E t = iterator.next();
 				num += getBaseDao().insert(t);
 			}
-			return num == record.size();
 		}
-		return false;
+		return num;
 	}
 
 	@Override
@@ -59,21 +60,20 @@ public class SimpleService<E extends BaseModel<E, I>, D extends BaseDao<E, I>, I
 	}
 
 	@Override
-	public boolean modify(List<E> record) {
+	public int modify(List<E> record) {
+		int num = 0;
 		if(record == null  || record.size() > 0){
-			int num = 0;
 			for (Iterator<E> iterator = record.iterator(); iterator.hasNext();) {
 				E t = iterator.next();
 				num += getBaseDao().update(t);
 			}
-			return num == record.size();
 		}
-		return false;
+		return num;
 	}
 
 	@Override
-	public int delete(I id) {
-		return getBaseDao().delete(id);
+	public boolean delete(I id) {
+		return getBaseDao().delete(id) == 1;
 	}
 
 	@Override
@@ -81,7 +81,8 @@ public class SimpleService<E extends BaseModel<E, I>, D extends BaseDao<E, I>, I
 		int num = 0;
 		if (list != null) {
 			for (int i = 0; i < list.size(); i++) {
-				num += delete(list.get(i).getId());
+				if (delete(list.get(i).getId())) 
+					num++;
 			}
 		}
 		return num;
@@ -107,6 +108,45 @@ public class SimpleService<E extends BaseModel<E, I>, D extends BaseDao<E, I>, I
 	@Override
 	public List<E> query(Map<String, Object> params) {
 		return getBaseDao().selectByParameters(params);
+	}
+
+	@Override
+	public boolean createOrModify(E entity) {
+		int num = 0;
+		
+		if (entity != null) {
+			if (entity.getId() == null) {
+				num = getBaseDao().insert(entity);
+			} else {
+				num = getBaseDao().update(entity);
+			}
+		}
+		return num == 1;
+	}
+
+	@Override
+	public int createOrModify(List<E> entitys) {
+		int num = 0;
+
+		if (entitys != null) {
+			List<E> up = new ArrayList<E>();
+
+			for (int i = 0; i < entitys.size(); i++) {
+				E obj = entitys.get(i);
+				
+				if(obj.getId() == null){
+					num += getBaseDao().insert(obj);
+				} else {
+					up.add(obj);
+				}
+			}
+			
+			for (int i = 0; i < up.size(); i++) {
+				E obj = up.get(i);
+				num += getBaseDao().update(obj);
+			}
+		}
+		return num;
 	}
 
 }

@@ -1,5 +1,6 @@
 package tykkidream.keel.mybatis.sdm;
 
+import java.io.Serializable;
 import java.util.List;
 
 import org.apache.ibatis.session.RowBounds;
@@ -8,7 +9,7 @@ import tykkidream.keel.base.Page;
 import tykkidream.keel.base.sta.BaseModelCasecade;
 import tykkidream.keel.mybatis.interceptor.PagingBounds;
 
-public class SimpleDaoCasecade <T extends BaseModelCasecade<?, I>,  I> extends SimpleDao<T, I> implements BaseDaoCasecade<T, I>{
+public class SimpleDaoCasecade <T extends BaseModelCasecade<?, I>,  I extends Serializable> extends SimpleDao<T, I> implements BaseDaoCasecade<T, I>{
 
 	@Override
 	public T selectConnectLeaf(I id) {

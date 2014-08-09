@@ -1,5 +1,6 @@
 package tykkidream.keel.mybatis.sdm;
 
+import java.io.Serializable;
 import java.util.List;
 import java.util.Map;
 
@@ -9,7 +10,7 @@ import tykkidream.keel.base.Page;
 import tykkidream.keel.base.sta.BaseModelCasecade;
 import tykkidream.keel.mybatis.interceptor.PagingBounds;
 
-public class SimpleServiceCasecade<T extends BaseModelCasecade<T, I>, Y extends BaseDaoCasecade<T, I>, I> extends tykkidream.keel.base.sta.SimpleServiceCasecade<T, Y, I> implements BaseServiceCasecade<T, I> {
+public class SimpleServiceCasecade<T extends BaseModelCasecade<T, I>, Y extends BaseDaoCasecade<T, I>, I extends Serializable> extends tykkidream.keel.base.sta.SimpleServiceCasecade<T, Y, I> implements BaseServiceCasecade<T, I> {
 
 	@Override
 	public List<T> queryConnectLeafByPage(Map<String, Object> params, RowBounds bounds) {

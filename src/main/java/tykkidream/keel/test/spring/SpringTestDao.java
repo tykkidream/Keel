@@ -1,5 +1,7 @@
 package tykkidream.keel.test.spring;
 
+import java.io.Serializable;
+
 import org.junit.Before;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.TestContextManager;
@@ -7,7 +9,7 @@ import org.springframework.test.context.TestContextManager;
 import tykkidream.keel.base.sta.BaseModel;
 
 @ContextConfiguration(locations = "classpath:applicationContext.xml")
-public abstract class SpringTestDao<T extends BaseModel<?, I>, I> extends TestDao<T, I>{
+public abstract class SpringTestDao<T extends BaseModel<?, I>, I  extends Serializable> extends TestDao<T, I>{
 	
 	private TestContextManager testContextManager;
 

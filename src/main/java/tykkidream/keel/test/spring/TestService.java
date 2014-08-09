@@ -2,6 +2,7 @@ package tykkidream.keel.test.spring;
 
 import static org.junit.Assert.*;
 
+import java.io.Serializable;
 import java.util.List;
 
 import org.junit.Before;
@@ -20,7 +21,7 @@ import tykkidream.keel.util.TestUtils;
 
 @RunWith(Parameterized.class)
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
-public abstract class TestService<T extends BaseModel<?, I>, I> {
+public abstract class TestService<T extends BaseModel<?, I>, I extends Serializable> {
 
 	@Parameter(0)
 	public T t1 = null;
@@ -50,11 +51,18 @@ public abstract class TestService<T extends BaseModel<?, I>, I> {
 		// 第一次保存：向数据库中insert此数据，受影响行数应为1。
 		int num = 0;
 		t1.setId(null);
-		num = this.getBaseService().saveOne(t1);
+		if (this.getBaseService().createOrModify(t1)) {
+			num = 1;
+		}
 		assertSame("数据更新成功！数据库应该没有的id为" + t1.getId() + "的数据被更新了！", 1, num);
 
 		// 第二次保存：数据库中应该没有此数据，受影响行数应为1。
-		num = this.getBaseService().saveOne(t2);
+		if (this.getBaseService().createOrModify(t2)) {
+			num = 1;
+		} else {
+			num = 0;
+		}
+		
 		assertSame("保存数据库失败！", 0, num);
 	}
 
@@ -69,7 +77,9 @@ public abstract class TestService<T extends BaseModel<?, I>, I> {
 		Throwable t = null;
 		int num = 0;
 		try {
-			num = this.getBaseService().saveOneSelective(t2);
+			if (this.getBaseService().createOrModify(t2)) {
+				num = 1;
+			}
 		} catch (Exception ex) {
 			t = ex;
 		}
@@ -81,7 +91,9 @@ public abstract class TestService<T extends BaseModel<?, I>, I> {
 		I id = t2.getId();
 		t2.setId(null);
 		try {
-			num = this.getBaseService().saveOneSelective(t2);
+			if (this.getBaseService().createOrModify(t2)) {
+				num = 1;
+			}
 		} catch (Exception ex) {
 			t = ex;
 		}
@@ -95,7 +107,9 @@ public abstract class TestService<T extends BaseModel<?, I>, I> {
 		t = null;
 		t2.setId(nid);
 		try {
-			num = this.getBaseService().saveOneSelective(t2);
+			if (this.getBaseService().createOrModify(t2)) {
+				num = 1;
+			}
 		} catch (Exception ex) {
 			t = ex;
 		}
@@ -107,67 +121,70 @@ public abstract class TestService<T extends BaseModel<?, I>, I> {
 
 	@Test
 	public void test03SaveList1() {
-		int num = this.getBaseService().saveList(lt1);
+		int num = this.getBaseService().createOrModify(lt1);
 		
 		assertSame("保存数据库失败！", lt1.size(), num);
 	}
 
 	@Test
 	public void test04SaveList2() {
-		int count1 = this.getBaseService().queryAll().size();
+		int count1 = this.getBaseService().query().size();
 		Throwable t = null;
 		try {
-			this.getBaseService().saveList(lt2);
+			this.getBaseService().createOrModify(lt2);
 		} catch (Exception ex) {
 			t = ex;
 		}
 		assertNotNull("保存数据应该发生异常！", t);
 
-		int count2 = this.getBaseService().queryAll().size();
+		int count2 = this.getBaseService().query().size();
 		assertSame("保存数据没有事务，发生异常不能作到回滚！",count1,count2);
 	}
 
 	@Test
 	public void test05SaveListSelective1() {
-		int num = this.getBaseService().saveListSelective(lt1);
+		int num = this.getBaseService().createOrModify(lt1);
 
 		assertSame("保存数据库失败！", lt1.size(), num);
 	}
 
 	@Test
 	public void test06SaveListSelective2() {
-		int count1 = this.getBaseService().queryAll().size();
+		int count1 = this.getBaseService().query().size();
 		Throwable t = null;
 		try {
-			this.getBaseService().saveListSelective(lt2);
+			this.getBaseService().createOrModify(lt2);
 		} catch (Exception ex) {
 			t = ex;
 		}
 		assertNotNull("保存数据应该发生异常！", t);
 		
-		int count2 = this.getBaseService().queryAll().size();
+		int count2 = this.getBaseService().query().size();
 		assertSame("保存数据没有事务，发生异常不能作到回滚！",count1,count2);
 	}
 
 	@Test
 	public void test07DeleteOne() {
-		int num = this.getBaseService().deleteOne(t2.getId());
+		int num = 0;
+		if (this.getBaseService().delete(t2.getId())) {
+			num = 1;
+		}
 		assertSame("保存数据库失败！", 1, num);
 	}
 
 	@Test
 	public void test08DeleteList1() {
-		int count1 = this.getBaseService().queryAll().size();
+		int count1 = this.getBaseService().query().size();
 		
 		Throwable t = null;
 		try {
-			this.getBaseService().deleteList(lt1);
+			this.getBaseService().delete(lt1);
 		} catch (Exception ex) {
 			t = ex;
 		}
 		assertNotNull("保存数据应该发生异常！", t);
 		
-		int count2 = this.getBaseService().queryAll().size();
+		int count2 = this.getBaseService().query().size();
 		assertSame("保存数据库失败！", count1, count2);
 	}
 
@@ -175,19 +192,19 @@ public abstract class TestService<T extends BaseModel<?, I>, I> {
 	public void test09DeleteList2() {
 		Throwable t = null;
 		try {
-			this.getBaseService().deleteList(lt2);
+			this.getBaseService().delete(lt2);
 		} catch (Exception ex) {
 			t = ex;
 		}
 		assertNotNull("保存数据应该发生异常！", t);
 		
-		List<T> list = this.getBaseService().queryByList(lt2);
-		assertNotSame("保存数据没有事务，发生异常不能作到回滚！",lt2.size(),list.size());
+		//List<T> list = this.getBaseService().query(lt2);
+		//assertNotSame("保存数据没有事务，发生异常不能作到回滚！",lt2.size(),list.size());
 	}
 
 	@Test
 	public void test10QueryByPage() {
-		List<T> list = this.getBaseService().queryByPage(null,p);
+		List<T> list = this.getBaseService().query(null,p);
 		assertNotNull("无法获取目标数据！", list);
 		
 		if (p.getTotalPage() > 1) {
