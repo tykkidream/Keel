@@ -4,7 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import tykkidream.keel.base.Page;
-import tykkidream.keel.base.sta.BaseService;
+import tykkidream.keel.base.tta.BaseService;
 
 public class SimpleStaController<T,Y> extends AbstractController<T,Y> implements BaseController<T, Y> {
 	

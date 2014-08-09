@@ -10,7 +10,7 @@ import java.util.Map;
 import org.apache.struts2.ServletActionContext;
 
 import tykkidream.keel.base.Page;
-import tykkidream.keel.base.sta.BaseService;
+import tykkidream.keel.base.tta.BaseService;
 import tykkidream.keel.mybatis.interceptor.PagingBounds;
 import tykkidream.keel.util.HttpURLUtils;
 import tykkidream.keel.util.ReflectUtils;

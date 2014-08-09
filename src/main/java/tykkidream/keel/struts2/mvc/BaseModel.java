@@ -4,7 +4,7 @@ import java.io.Serializable;
 
 import org.apache.struts2.json.annotations.JSON;
 
-import tykkidream.keel.base.sta.BaseModelCasecade;
+import tykkidream.keel.base.tta.BaseModelCasecade;
 
 @SuppressWarnings("serial")
 public abstract class BaseModel<T extends BaseModel<?, I>, I extends Serializable> implements BaseModelCasecade<T, I>{

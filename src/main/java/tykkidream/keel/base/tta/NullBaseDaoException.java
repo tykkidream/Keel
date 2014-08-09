@@ -1,4 +1,4 @@
-package tykkidream.keel.base.sta;
+package tykkidream.keel.base.tta;
 
 import tykkidream.keel.base.ddd.SimpleRepositoryDaoAdapter;
 

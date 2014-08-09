@@ -1,4 +1,4 @@
-package tykkidream.keel.base.sta;
+package tykkidream.keel.base.tta;
 
 import java.util.List;
 
@@ -8,7 +8,7 @@ import tykkidream.keel.base.Page;
  * <h2>通用数据操作接口</h2>
  * @param <E> 泛型实现，Module层通用类
  * @see tykkidream.keel.mybatis.sdm.SimpleDao
- * @see tykkidream.keel.base.sta.BaseModel
+ * @see tykkidream.keel.base.tta.BaseModel
  */
 public interface BaseDao<E, I> {
 	

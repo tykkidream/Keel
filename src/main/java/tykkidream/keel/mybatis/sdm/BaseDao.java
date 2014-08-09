@@ -4,7 +4,7 @@ import java.util.List;
 
 import org.apache.ibatis.session.RowBounds;
 
-public interface BaseDao<E, I> extends tykkidream.keel.base.sta.BaseDao<E,I>{
+public interface BaseDao<E, I> extends tykkidream.keel.base.tta.BaseDao<E,I>{
 	
 	/**
 	 * <h3>普通数据处理：插入一个数据到数据库。</h3>

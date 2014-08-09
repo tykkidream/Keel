@@ -16,7 +16,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import tykkidream.keel.base.Page;
 import tykkidream.keel.base.mvc.AbstractController;
-import tykkidream.keel.base.sta.BaseModel;
+import tykkidream.keel.base.tta.BaseModel;
 import tykkidream.keel.mybatis.interceptor.PagingBounds;
 import tykkidream.keel.mybatis.sdm.BaseService;
 

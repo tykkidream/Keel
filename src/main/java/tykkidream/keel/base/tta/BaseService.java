@@ -1,4 +1,4 @@
-package tykkidream.keel.base.sta;
+package tykkidream.keel.base.tta;
 
 import java.util.List;
 import java.util.Map;
@@ -8,7 +8,7 @@ import tykkidream.keel.base.Page;
 /**
  * <h2>通用业务接口</h2>
  * @param <E> 泛型实现，Module层通用类
- * @see tykkidream.keel.base.sta.SimpleService
+ * @see tykkidream.keel.base.tta.SimpleService
  */
 public interface BaseService<E, I> {
 	

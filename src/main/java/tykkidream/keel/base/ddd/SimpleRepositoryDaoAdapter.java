@@ -5,9 +5,9 @@ import java.util.List;
 import java.util.Map;
 
 import tykkidream.keel.base.Page;
-import tykkidream.keel.base.sta.BaseDao;
-import tykkidream.keel.base.sta.BaseModel;
-import tykkidream.keel.base.sta.NullBaseDaoException;
+import tykkidream.keel.base.tta.BaseDao;
+import tykkidream.keel.base.tta.BaseModel;
+import tykkidream.keel.base.tta.NullBaseDaoException;
 
 
 public abstract class SimpleRepositoryDaoAdapter<T extends BaseModel<T,I>, I extends BaseID, S extends BaseDao<T, I>> extends SimpleRepository<T, I>{

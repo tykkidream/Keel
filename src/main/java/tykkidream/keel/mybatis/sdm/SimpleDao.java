@@ -7,14 +7,14 @@ import org.apache.ibatis.session.RowBounds;
 import org.mybatis.spring.support.SqlSessionDaoSupport;
 
 import tykkidream.keel.base.Page;
-import tykkidream.keel.base.sta.BaseModel;
+import tykkidream.keel.base.tta.BaseModel;
 import tykkidream.keel.mybatis.interceptor.PagingBounds;
 
 /**
  * <h2>通用数据操作类</h2>
  * @param <T> 泛型实现，Module层通用类
- * @see tykkidream.keel.base.sta.BaseDao
- * @see tykkidream.keel.base.sta.BaseModel
+ * @see tykkidream.keel.base.tta.BaseDao
+ * @see tykkidream.keel.base.tta.BaseModel
  */
 public class SimpleDao<T extends BaseModel<?, I>, I extends Serializable> extends SqlSessionDaoSupport implements BaseDao<T,I> {
 	

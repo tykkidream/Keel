@@ -6,7 +6,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import tykkidream.keel.base.mvc.BaseController;
-import tykkidream.keel.base.sta.BaseModel;
+import tykkidream.keel.base.tta.BaseModel;
 
 @Controller
 public class SimpleController<T extends BaseModel<?, I>, I extends Serializable> extends WebController<T, I> implements BaseController<T, I> {

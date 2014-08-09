@@ -5,7 +5,7 @@ import java.util.Map;
 
 import org.apache.ibatis.session.RowBounds;
 
-public interface BaseServiceCasecade<T,I> extends tykkidream.keel.base.sta.BaseServiceCasecade<T,I>{
+public interface BaseServiceCasecade<T,I> extends tykkidream.keel.base.tta.BaseServiceCasecade<T,I>{
 
 	public List<T> queryConnectLeafByPage(Map<String, Object> params, RowBounds bounds);
 	
