@@ -18,7 +18,7 @@ import tykkidream.keel.base.Page;
 import tykkidream.keel.base.mvc.AbstractController;
 import tykkidream.keel.base.tta.BaseModel;
 import tykkidream.keel.mybatis.interceptor.PagingBounds;
-import tykkidream.keel.mybatis.sdm.BaseService;
+import tykkidream.keel.mybatis.tta.BaseService;
 
 public abstract class WebController<T extends BaseModel<?,I>, I extends Serializable> extends AbstractController<T, I>{
 	
