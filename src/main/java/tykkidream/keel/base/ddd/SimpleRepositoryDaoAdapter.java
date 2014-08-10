@@ -14,7 +14,7 @@ public abstract class SimpleRepositoryDaoAdapter<T extends BaseModel<T,I>, I ext
 	
 	public abstract S getBaseDao();
 
-	public abstract void setBaseDao(BaseDao<T,I> dao);
+	public abstract void setBaseDao(S dao);
 
 	protected S dao() {
 		S dao = getBaseDao();
