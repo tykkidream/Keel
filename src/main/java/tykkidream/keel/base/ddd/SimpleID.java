@@ -5,6 +5,10 @@ public class SimpleID implements BaseID {
 	private static final long serialVersionUID = 21110648196894154L;
 	
 	private Long id;
+	
+	public SimpleID() {
+		
+	}
 
 	public SimpleID(Long id) {
 		setId(id);

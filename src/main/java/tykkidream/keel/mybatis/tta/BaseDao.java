@@ -41,8 +41,4 @@ public interface BaseDao<E, I> extends tykkidream.keel.base.tta.BaseDao<E,I>{
 	
 	public List<E> selectFullByParameters(Object params, RowBounds page);
 
-	
-
-	
-
 }

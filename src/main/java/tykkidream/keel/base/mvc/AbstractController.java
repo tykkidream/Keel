@@ -3,7 +3,7 @@ package tykkidream.keel.base.mvc;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
 
-public abstract class AbstractController<T,Y> implements BaseController<T, Y> {
+public abstract class AbstractController<E,I> implements BaseController<E, I> {
 	
 	@SuppressWarnings("unchecked")
 	public AbstractController() {
@@ -12,24 +12,24 @@ public abstract class AbstractController<T,Y> implements BaseController<T, Y> {
 			Type superClass = getClass().getGenericSuperclass();
 			if(superClass instanceof ParameterizedType){
 				Type type = ((ParameterizedType)superClass).getActualTypeArguments()[0];
-				this.entityClass = (Class<T>) type;
+				this.entityClass = (Class<E>) type;
 			}
 		}
 	}
 
-	private Class<T> entityClass = null;
+	private Class<E> entityClass = null;
 	
-	public Class<T> getEntityClass() {
+	public Class<E> getEntityClass() {
 		return entityClass;
 	}
 
-	public void setEntityClass(Class<T> entityClass) {
+	public void setEntityClass(Class<E> entityClass) {
 		this.entityClass = entityClass;
 	}
 
-	protected T createEntity(T t) {
+	protected E createEntity(E t) {
 		try {
-			t = (T) getEntityClass().newInstance();
+			t = (E) getEntityClass().newInstance();
 		} catch (InstantiationException e) {
 			e.printStackTrace();
 		} catch (IllegalAccessException e) {
