@@ -9,7 +9,7 @@ public class MySqlPagingHandler extends BasePagingHandler implements PagingHandl
 		StringBuffer sqlBuffer = new StringBuffer(sql);
 
 		// 计算第一条记录的位置，MySQL中记录的位置是从0开始的。
-		int offset = (page.getPageIndex() - 1) * page.getPageSize();
+		int offset = (page.getPageIndex() - 1) * page.getPageSize() + page.getPageStart();
 
 		// 组织SQL语句。
 		sqlBuffer.append(" limit ").append(offset).append(",").append(page.getPageSize());

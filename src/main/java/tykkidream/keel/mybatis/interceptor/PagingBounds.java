@@ -13,7 +13,7 @@ public class PagingBounds extends RowBounds implements Page, Serializable {
 
 	private static final long serialVersionUID = 1484498591639486566L;
 	private Integer pageIndex = 1;// 页码，默认是第一页
-	private Integer pageStart = 1;
+	private Integer pageStart = 0;
 	private Integer pageSize = 10;// 每页显示的记录数，默认设置10
 	private Integer totalRecord;// 总记录数
 	private Integer totalPage;// 总页数
@@ -49,7 +49,6 @@ public class PagingBounds extends RowBounds implements Page, Serializable {
 			return;
 		}
 		this.pageIndex = pageIndex;
-		this.setPageStart((this.getPageIndex() - 1) * this.getPageSize());
 	}
 
 	/**
@@ -75,7 +74,6 @@ public class PagingBounds extends RowBounds implements Page, Serializable {
 			return;
 		}
 		this.pageSize = pageSize;
-		this.setPageStart((this.getPageIndex() - 1) * this.getPageSize());
 	}
 
 	/**
@@ -118,7 +116,6 @@ public class PagingBounds extends RowBounds implements Page, Serializable {
 	 */
 	public void setTotalPage(Integer totalPage) {
 		this.totalPage = totalPage;
-		// super.put("totalPage", totalPage);
 	}
 
 	@Override
@@ -149,11 +146,11 @@ public class PagingBounds extends RowBounds implements Page, Serializable {
 
 	@Override
 	public int getLimit() {
-		return this.getPageSize();
+		return this.getPageStart() + this.getPageIndex() * this.getPageSize();
 	}
 
 	@Override
 	public int getOffset() {
-		return this.getPageStart();
+		return this.getPageSize();
 	}
 }
