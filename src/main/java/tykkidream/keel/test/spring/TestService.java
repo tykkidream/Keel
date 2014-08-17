@@ -51,13 +51,13 @@ public abstract class TestService<T extends BaseModel<?, I>, I extends Serializa
 		// 第一次保存：向数据库中insert此数据，受影响行数应为1。
 		int num = 0;
 		t1.setId(null);
-		if (this.getBaseService().createOrModify(t1)) {
+		if (this.getBaseService().createOrModify(t1) == 1) {
 			num = 1;
 		}
 		assertSame("数据更新成功！数据库应该没有的id为" + t1.getId() + "的数据被更新了！", 1, num);
 
 		// 第二次保存：数据库中应该没有此数据，受影响行数应为1。
-		if (this.getBaseService().createOrModify(t2)) {
+		if (this.getBaseService().createOrModify(t2) == 1) {
 			num = 1;
 		} else {
 			num = 0;
@@ -77,7 +77,7 @@ public abstract class TestService<T extends BaseModel<?, I>, I extends Serializa
 		Throwable t = null;
 		int num = 0;
 		try {
-			if (this.getBaseService().createOrModify(t2)) {
+			if (this.getBaseService().createOrModify(t2) == 1) {
 				num = 1;
 			}
 		} catch (Exception ex) {
@@ -91,7 +91,7 @@ public abstract class TestService<T extends BaseModel<?, I>, I extends Serializa
 		I id = t2.getId();
 		t2.setId(null);
 		try {
-			if (this.getBaseService().createOrModify(t2)) {
+			if (this.getBaseService().createOrModify(t2) == 1) {
 				num = 1;
 			}
 		} catch (Exception ex) {
@@ -107,7 +107,7 @@ public abstract class TestService<T extends BaseModel<?, I>, I extends Serializa
 		t = null;
 		t2.setId(nid);
 		try {
-			if (this.getBaseService().createOrModify(t2)) {
+			if (this.getBaseService().createOrModify(t2) == 1) {
 				num = 1;
 			}
 		} catch (Exception ex) {
@@ -166,7 +166,7 @@ public abstract class TestService<T extends BaseModel<?, I>, I extends Serializa
 	@Test
 	public void test07DeleteOne() {
 		int num = 0;
-		if (this.getBaseService().delete(t2.getId())) {
+		if (this.getBaseService().delete(t2.getId()) == 1) {
 			num = 1;
 		}
 		assertSame("保存数据库失败！", 1, num);

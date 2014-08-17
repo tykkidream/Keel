@@ -1,10 +1,10 @@
 package tykkidream.keel.base.mvc.request;
 
-public interface DoNew<T> {
+public interface DoNew<E> {
 	
 	/**
 	 * 响应新建数据时的提交保存。
 	 * @return
 	 */
-	Object doNew(T t);
+	int doNew(E entity);
 }

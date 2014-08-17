@@ -3,7 +3,7 @@ package tykkidream.keel.base.mvc;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
 
-public abstract class AbstractController<E,I> implements BaseController<E, I> {
+public abstract class AbstractController<E,I>{
 	
 	@SuppressWarnings("unchecked")
 	public AbstractController() {
@@ -36,5 +36,12 @@ public abstract class AbstractController<E,I> implements BaseController<E, I> {
 			e.printStackTrace();
 		}
 		return t;
+	}
+	
+
+	protected String basepath = "";
+	
+	public void setBasepath(String basepath) {
+		this.basepath = basepath;
 	}
 }

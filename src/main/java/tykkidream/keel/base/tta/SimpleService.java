@@ -36,9 +36,9 @@ public class SimpleService<E extends BaseModel<E, I>, D extends BaseDao<E, I>, I
 	}
 
 	@Override
-	public boolean create(E record) {
+	public int create(E record) {
 		int num = getBaseDao().insert(record);
-		return num == 1;
+		return num;
 	}
 
 	@Override
@@ -54,9 +54,9 @@ public class SimpleService<E extends BaseModel<E, I>, D extends BaseDao<E, I>, I
 	}
 
 	@Override
-	public boolean modify(E record) {
+	public int modify(E record) {
 		int num = getBaseDao().update(record);
-		return num == 1;
+		return num;
 	}
 
 	@Override
@@ -72,8 +72,8 @@ public class SimpleService<E extends BaseModel<E, I>, D extends BaseDao<E, I>, I
 	}
 
 	@Override
-	public boolean delete(I id) {
-		return getBaseDao().delete(id) == 1;
+	public int delete(I id) {
+		return getBaseDao().delete(id);
 	}
 
 	@Override
@@ -81,7 +81,7 @@ public class SimpleService<E extends BaseModel<E, I>, D extends BaseDao<E, I>, I
 		int num = 0;
 		if (list != null) {
 			for (int i = 0; i < list.size(); i++) {
-				if (delete(list.get(i).getId())) 
+				if (delete(list.get(i).getId()) == 1) 
 					num++;
 			}
 		}
@@ -111,7 +111,7 @@ public class SimpleService<E extends BaseModel<E, I>, D extends BaseDao<E, I>, I
 	}
 
 	@Override
-	public boolean createOrModify(E entity) {
+	public int createOrModify(E entity) {
 		int num = 0;
 		
 		if (entity != null) {
@@ -121,7 +121,7 @@ public class SimpleService<E extends BaseModel<E, I>, D extends BaseDao<E, I>, I
 				num = getBaseDao().update(entity);
 			}
 		}
-		return num == 1;
+		return num;
 	}
 
 	@Override

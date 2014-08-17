@@ -4,9 +4,9 @@ import java.io.Serializable;
 
 /**
  * <h2>通用业务类</h2>
- * @param <T> 泛型实现，Module层通用类
+ * @param <E> 泛型实现，Module层通用类
  */
-public interface BaseModel<T extends BaseModel<?, ?>, I extends Serializable> extends Serializable {
+public interface BaseModel<E extends BaseModel<?, ?>, I extends Serializable> extends Serializable {
 	/**
 	 * 设置整型主键。
 	 * @param id 主键ID

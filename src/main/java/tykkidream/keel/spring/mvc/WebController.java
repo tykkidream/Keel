@@ -52,7 +52,6 @@ public abstract class WebController<T extends BaseModel<?,I>, I extends Serializ
 	}
 
 	@RequestMapping(value = { "/{id}/delete" }, method = { RequestMethod.GET, RequestMethod.POST })
-	@Override
 	public ModelAndView doDelete(@PathVariable("id") I id) {
 		ModelAndView mv = new ModelAndView();
 		
@@ -67,7 +66,7 @@ public abstract class WebController<T extends BaseModel<?,I>, I extends Serializ
 
 		do {
 			if (null != t && id == t.getId()) {
-				if (!bindingResult.hasErrors() && getBaseService().modify(t)) {
+				if (!bindingResult.hasErrors() && getBaseService().modify(t) == 1) {
 					mv.setViewName(viewNameForDoEdit(t.getId()));
 					break;
 				}
@@ -83,12 +82,11 @@ public abstract class WebController<T extends BaseModel<?,I>, I extends Serializ
 	}
 
 	@RequestMapping(value = { "/new" }, method = RequestMethod.POST)
-	@Override
 	public ModelAndView doNew(T t) {
 		ModelAndView mv = new ModelAndView();
 
 		try {
-			if (getBaseService().create(t)) {
+			if (getBaseService().create(t) == 1) {
 				mv.setViewName(viewNameForDoNew(t.getId()));
 			} else {
 				mv.setViewName(viewNameForNew());
@@ -101,7 +99,6 @@ public abstract class WebController<T extends BaseModel<?,I>, I extends Serializ
 	}
 
 	@RequestMapping(value = { "/{id}/edit" }, method = RequestMethod.GET)
-	@Override
 	public ModelAndView edit(@PathVariable("id") I id) {
 		ModelAndView mv = new ModelAndView();
 
@@ -113,7 +110,6 @@ public abstract class WebController<T extends BaseModel<?,I>, I extends Serializ
 	}
 
 	@RequestMapping(value = { "/new" }, method = RequestMethod.GET)
-	@Override
 	public ModelAndView new$(T t) {
 		ModelAndView mv = new ModelAndView();
 
@@ -124,7 +120,6 @@ public abstract class WebController<T extends BaseModel<?,I>, I extends Serializ
 	}
 
 	@RequestMapping(value = { "/{id}/detail" }, method = RequestMethod.GET)
-	@Override
 	public ModelAndView view(@PathVariable("id") I id) {
 		ModelAndView mv = new ModelAndView();
 
@@ -135,7 +130,6 @@ public abstract class WebController<T extends BaseModel<?,I>, I extends Serializ
 		return mv;
 	}
 
-	@Override
 	public ModelAndView search(Map<String, Object> t, Page page) {
 		ModelAndView mv = new ModelAndView();
 		List<T> list = getBaseService().query(t,page);
@@ -159,7 +153,6 @@ public abstract class WebController<T extends BaseModel<?,I>, I extends Serializ
 		return search$(t, page);
 	}
 
-	@Override
 	public Object doEdit(T t) {
 		return null;
 	}

@@ -146,11 +146,12 @@ public class PagingBounds extends RowBounds implements Page, Serializable {
 
 	@Override
 	public int getLimit() {
-		return this.getPageStart() + this.getPageIndex() * this.getPageSize();
+		return this.getPageSize();
 	}
 
 	@Override
 	public int getOffset() {
-		return this.getPageSize();
+		//return this.getPageStart() + this.getPageIndex() * this.getPageSize();
+		return 0;
 	}
 }

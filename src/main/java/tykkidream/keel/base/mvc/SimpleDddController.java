@@ -7,69 +7,41 @@ import tykkidream.keel.base.Page;
 import tykkidream.keel.base.ddd.BaseApplication;
 import tykkidream.keel.base.ddd.BaseID;
 
-public class SimpleDddController<T,I extends BaseID> extends AbstractController<T,I> implements BaseController<T, I> {
+public class SimpleDddController<E,I extends BaseID> extends AbstractController<E,I> implements BaseController<E, I> {
 	
-	protected BaseApplication<T,I> baseApplication = null;
+	protected BaseApplication<E,I> baseApplication = null;
 	
-	public BaseApplication<T,I> getBaseApplication() {
+	public BaseApplication<E,I> getBaseApplication() {
 		return baseApplication;
 	}
 
-	public void setBaseApplication(BaseApplication<T,I> baseApplication) {
+	public void setBaseApplication(BaseApplication<E,I> baseApplication) {
 		this.baseApplication = baseApplication;
 	}
 	
 	@Override
-	public Integer doDelete(I y) {
-		if (null != y) {
-			return getBaseApplication().delete(y);
-		}
-		return null;
+	public int doDelete(I y) {
+		return getBaseApplication().delete(y);
 	}
 
 	@Override
-	public Boolean doEdit(T t) {
-		if (t != null) {
-			return 1 == getBaseApplication().save(t);
-		}
-		return null;
+	public int doEdit(E t) {
+		return getBaseApplication().save(t);
 	}
 
 	@Override
-	public Boolean doNew(T t) {
-		if (t != null) {
-			return 1 == getBaseApplication().save(t);
-		}
-		return null;
+	public int doNew(E t) {
+		return getBaseApplication().save(t);
 	}
 
 	@Override
-	public T edit(I t) {
-		if (t != null) {
-			return getBaseApplication().search(t);
-		}
-		return null;
+	public List<E> search(Map<String, Object> params, Page page) {
+		return getBaseApplication().search(params, page);
 	}
 
 	@Override
-	public T new$(T t) {
-		if (t== null) {
-			t = createEntity(t);
-		}
-		return t;
-	}
-
-	@Override
-	public List<T> search(Map<String, Object> t, Page page) {
-		return getBaseApplication().search(t, page);
-	}
-
-	@Override
-	public T view(I t) {
-		if (t != null) {
-			return getBaseApplication().search(t);
-		}
-		return null;
+	public E search(I id) {
+		return getBaseApplication().search(id);
 	}
 
 }

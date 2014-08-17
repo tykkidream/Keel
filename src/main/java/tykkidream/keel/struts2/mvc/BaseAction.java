@@ -257,7 +257,7 @@ public abstract class BaseAction<T extends BaseModel<T, I>, I extends Serializab
 		if (this.list != null) { // 批量保存数据
 			num = getBaseService().createOrModify(this.list);
 		} else if (this.entity != null) { // 单个保存数据
-			if (getBaseService().createOrModify(this.entity))
+			if (getBaseService().createOrModify(this.entity) == 1)
 				num = 1;
 		} else { // 没有任何参数时候，表示在HTML页面中录入新数据
 			num = -1;
@@ -318,7 +318,7 @@ public abstract class BaseAction<T extends BaseModel<T, I>, I extends Serializab
 		if (this.getList() != null && this.getList().size() > 0) {
 			num = getBaseService().delete(this.getList());
 		} else if (this.entity != null && this.entity.getId() != null) {
-			if(getBaseService().delete(this.entity.getId()))
+			if(getBaseService().delete(this.entity.getId()) ==1)
 				num = 1;
 		} else {
 			num = -1;

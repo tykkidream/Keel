@@ -1,31 +1,25 @@
 package tykkidream.keel.base.mvc;
 
+import java.util.List;
 import java.util.Map;
 
 import tykkidream.keel.base.Page;
 import tykkidream.keel.base.mvc.request.BaseRequest;
 
-public interface BaseController<T,I> extends BaseRequest<I, T, Map<String,Object>, T> {
+public interface BaseController<E, I> extends BaseRequest<E,  I, Map<String,Object>> {
 
 	@Override
-	public Object doDelete(I t);
+	public int doDelete(I id);
 
 	@Override
-	public Object doEdit(T t);
+	public int doEdit(E entity);
 
 	@Override
-	public Object doNew(T t);
+	public int doNew(E entity);
 
 	@Override
-	public Object edit(I t);
+	public E search(I id);
 
 	@Override
-	public Object new$(T t);
-
-	@Override
-	public Object search(Map<String, Object> t , Page page);
-
-	@Override
-	public Object view(I t);
-
+	public List<E> search(Map<String, Object> params , Page page);
 }
