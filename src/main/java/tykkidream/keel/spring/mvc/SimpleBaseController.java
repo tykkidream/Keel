@@ -19,7 +19,7 @@ import tykkidream.keel.base.mvc.BaseController;
 import tykkidream.keel.base.tta.BaseModel;
 import tykkidream.keel.mybatis.interceptor.PagingBounds;
 
-public class SimpleBaseControler<E extends BaseModel<E,I>, I extends BaseID> extends AbstractController<E, I>{
+public class SimpleBaseController<E extends BaseModel<E,I>, I extends BaseID> extends AbstractController<E, I>{
 	protected BaseController<E, I> baseController = null;
 	
 	public BaseController<E, I> getBaseController() {
