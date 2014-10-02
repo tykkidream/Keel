@@ -6,7 +6,7 @@ import java.util.Map;
 import tykkidream.keel.base.Page;
 
 
-public interface BaseApplication<E,I extends BaseID>{
+public interface BaseApplication<E,I extends BaseID<?>>{
 	public I nextId();
 	
 	public int save(E  t);

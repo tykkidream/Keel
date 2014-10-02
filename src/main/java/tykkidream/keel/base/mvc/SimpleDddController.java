@@ -7,7 +7,7 @@ import tykkidream.keel.base.Page;
 import tykkidream.keel.base.ddd.BaseApplication;
 import tykkidream.keel.base.ddd.BaseID;
 
-public class SimpleDddController<E,I extends BaseID> extends AbstractController<E,I> implements BaseController<E, I> {
+public class SimpleDddController<E,I extends BaseID<?>> extends AbstractController<E,I> implements BaseController<E, I> {
 	
 	protected BaseApplication<E,I> baseApplication = null;
 	

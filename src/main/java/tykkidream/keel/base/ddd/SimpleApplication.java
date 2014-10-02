@@ -5,7 +5,7 @@ import java.util.Map;
 
 import tykkidream.keel.base.Page;
 
-public class SimpleApplication<T, I extends BaseID> implements BaseApplication<T, I> {
+public class SimpleApplication<T, I extends BaseID<?>> implements BaseApplication<T, I> {
 	
 	protected BaseRepository<T,I> baseRepository = null;
 

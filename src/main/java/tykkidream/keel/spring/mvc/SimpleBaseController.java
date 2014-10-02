@@ -19,7 +19,7 @@ import tykkidream.keel.base.mvc.BaseController;
 import tykkidream.keel.base.tta.BaseModel;
 import tykkidream.keel.mybatis.interceptor.PagingBounds;
 
-public class SimpleBaseController<E extends BaseModel<E,I>, I extends BaseID> extends AbstractController<E, I>{
+public class SimpleBaseController<E extends BaseModel<E,I>, I extends BaseID<?>> extends AbstractController<E, I>{
 	protected BaseController<E, I> baseController = null;
 	
 	public BaseController<E, I> getBaseController() {
@@ -47,7 +47,7 @@ public class SimpleBaseController<E extends BaseModel<E,I>, I extends BaseID> ex
 		
 		int r = getBaseController().doDelete(id);
 		mv.addObject("data", r);
-		mv.setViewName(viewNameForDoDelete());
+		mv.setViewName(viewNameForDelete());
 		
 		return mv;
 	}
@@ -56,18 +56,21 @@ public class SimpleBaseController<E extends BaseModel<E,I>, I extends BaseID> ex
 	public ModelAndView doEdit(@PathVariable("id") I id, @Valid E t, BindingResult bindingResult) {
 		ModelAndView mv = new ModelAndView();
 
-		do {
-			if (null != t && id == t.getId()) {
-				if (bindingResult.hasErrors() && getBaseController().doEdit(t) != 1) {
-					mv.setViewName(viewNameForDoEdit(t.getId()));
-					break;
-				}
-			} else {
-				t = getBaseController().search(id);
-			}
-			mv.addObject("data", t);
-			mv.setViewName(viewNameForEdit());
-		} while (false);
+		/*if (!bindingResult.hasErrors()){
+		
+		}*/
+		
+		/*if (null != t && id.equals(t.getId())) {
+		}
+		else {
+			t = getBaseController().search(id);
+		}*/
+		t.setId(id);
+		getBaseController().doEdit(t);
+		
+		// 各种原因失败后，继续编辑。
+		mv.addObject("data", t);
+		mv.setViewName(viewNameForEdit());
 		// bindingResult.reject(e.getMessage());
 
 		return mv;
@@ -77,16 +80,9 @@ public class SimpleBaseController<E extends BaseModel<E,I>, I extends BaseID> ex
 	public ModelAndView doNew(E t) {
 		ModelAndView mv = new ModelAndView();
 
-		try {
-			if (getBaseController().doNew(t) == 1) {
-				mv.setViewName(viewNameForDoNew(t.getId()));
-			} else {
-				mv.setViewName(viewNameForNew());
-			}
-		} catch (RuntimeException e) {
-			throw e;
-		}
-		
+		getBaseController().doNew(t);
+
+		mv.setViewName(viewNameForEdit());
 		return mv;
 	}
 
@@ -102,11 +98,11 @@ public class SimpleBaseController<E extends BaseModel<E,I>, I extends BaseID> ex
 	}
 
 	@RequestMapping(value = { "/new" }, method = RequestMethod.GET)
-	public ModelAndView new_(E t) {
+	public ModelAndView new_() {
 		ModelAndView mv = new ModelAndView();
 
-		mv.addObject("data", createEntity(t));
-		mv.setViewName(viewNameForNew());
+		mv.addObject("data", createEntity());
+		mv.setViewName(viewNameForEdit());
 
 		return mv;
 	}
@@ -117,7 +113,7 @@ public class SimpleBaseController<E extends BaseModel<E,I>, I extends BaseID> ex
 
 		E t = this.getBaseController().search(id);
 		mv.addObject("data", t);
-		mv.setViewName(viewNameForView());
+		mv.setViewName(viewNameForDetail());
 
 		return mv;
 	}
@@ -147,28 +143,16 @@ public class SimpleBaseController<E extends BaseModel<E,I>, I extends BaseID> ex
 		return mv;
 	}
 	
-	protected String viewNameForDoDelete() {
-		return "redirect:/";
-	}
-
-	protected String viewNameForDoEdit(I id) {
-		return "redirect:/detail/" + id;
-	}
-
-	protected String viewNameForDoNew(I id) {
-		return "redirect:/" + id;
+	protected String viewNameForDelete() {
+		return "redirect:/" +basepath;
 	}
 
 	protected String viewNameForEdit() {
 		return basepath + "/edit";
 	}
 
-	protected String viewNameForNew() {
-		return basepath + "/edit";
-	}
-
-	protected String viewNameForView() {
-		return basepath + "/view";
+	protected String viewNameForDetail() {
+		return basepath + "/detail";
 	}
 
 	protected String viewNameForBrowse() {

@@ -27,9 +27,10 @@ public abstract class AbstractController<E,I>{
 		this.entityClass = entityClass;
 	}
 
-	protected E createEntity(E t) {
+	protected E createEntity() {
+		E t = null;
 		try {
-			t = (E) getEntityClass().newInstance();
+			t = getEntityClass().newInstance();
 		} catch (InstantiationException e) {
 			e.printStackTrace();
 		} catch (IllegalAccessException e) {

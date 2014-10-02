@@ -5,7 +5,7 @@ import java.util.Map;
 
 import tykkidream.keel.base.Page;
 
-public class SimpleRepository<T,I extends BaseID> implements BaseRepository<T, I> {
+public class SimpleRepository<T,I extends BaseID<?>> implements BaseRepository<T, I> {
 	
 	private BaseRepository<T,I> delegate;
 	
@@ -16,7 +16,7 @@ public class SimpleRepository<T,I extends BaseID> implements BaseRepository<T, I
 		return this.delegate;
 	}
 	
-	protected void repositoryDelegate(BaseRepository<T,I> delegate) {
+	public void repositoryDelegate(BaseRepository<T,I> delegate) {
 		this.delegate = delegate;
 	}
 

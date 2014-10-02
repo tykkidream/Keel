@@ -5,7 +5,7 @@ import java.util.Map;
 
 import tykkidream.keel.base.Page;
 
-public interface BaseRepository<E,I extends BaseID> {
+public interface BaseRepository<E,I extends BaseID<?>> {
 	public I nextIdentity();
 	
 	public int store(E  t);

@@ -113,7 +113,7 @@ public abstract class WebController<T extends BaseModel<?,I>, I extends Serializ
 	public ModelAndView new$(T t) {
 		ModelAndView mv = new ModelAndView();
 
-		mv.addObject("data", createEntity(t));
+		mv.addObject("data", createEntity());
 		mv.setViewName(viewNameForNew());
 
 		return mv;

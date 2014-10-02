@@ -10,7 +10,7 @@ import tykkidream.keel.base.tta.BaseModel;
 import tykkidream.keel.base.tta.NullBaseDaoException;
 
 
-public abstract class SimpleRepositoryDaoAdapter<T extends BaseModel<T,I>, I extends BaseID, S extends BaseDao<T, I>> extends SimpleRepository<T, I>{
+public abstract class SimpleRepositoryDaoAdapter<T extends BaseModel<T,I>, I extends BaseID<?>, S extends BaseDao<T, I>> extends SimpleRepository<T, I>{
 	
 	public abstract S getBaseDao();
 
@@ -31,7 +31,13 @@ public abstract class SimpleRepositoryDaoAdapter<T extends BaseModel<T,I>, I ext
 
 	@Override
 	public int store(T t) {
-		return dao().insert(t);
+		int i = 0;
+		if(null == t.getId()){
+			i = dao().insert(t);
+		} else {
+			i = dao().update(t);
+		}
+		return i;
 	}
 
 	@Override
@@ -42,7 +48,6 @@ public abstract class SimpleRepositoryDaoAdapter<T extends BaseModel<T,I>, I ext
 			T t2 = (T) iterator.next();
 			n += store(t2);
 		}
-		
 		return n;
 	}
 
