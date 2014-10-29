@@ -1,0 +1,60 @@
+package tykkidream.keel.base.ddd;
+
+import tykkidream.keel.base.tta.BaseModel;
+
+public class SimpleModelOnname<E extends SimpleModelOnname<?, I>, I extends BaseID<?>> implements BaseModel<E, I>{
+
+	private static final long serialVersionUID = -7225934699073832603L;
+	
+	protected E This = null;
+	
+	protected I id = null;
+	
+	protected String name = null;
+
+	@SuppressWarnings("unchecked")
+	public SimpleModelOnname(){
+		This = (E) this;
+	}
+	
+	public SimpleModelOnname(I id){
+		this();
+		setId(id);
+	}
+
+	@Override
+	public void setId(I id) {
+		This.id = id;
+	}
+
+	@Override
+	public I getId() {
+		return This.id;
+	}
+
+	@Override
+	public String getName() {
+		return This.name;
+	}
+
+	@Override
+	public void setName(String name) {
+		This.name = name;
+	}
+
+	@Override
+	@SuppressWarnings("unchecked")
+    public boolean equals(Object obj) {
+    	if (obj instanceof BaseModel) {
+			return equals((BaseModel<E,I>) obj);
+		}
+    	return false;
+    }
+    
+    public boolean equals(BaseModel<E,I> obj) {
+    	if (null != obj && null != this.getId() && this.getId().equals(obj.getId())){
+    		return true;
+		}
+		return false;
+    }
+}
