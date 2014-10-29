@@ -14,6 +14,11 @@ public class SimpleModelUnname<E extends SimpleModelUnname<?, I>, I extends Base
 	public SimpleModelUnname(){
 		This = (E) this;
 	}
+	
+	public SimpleModelUnname(I id){
+		this();
+		setId(id);
+	}
 
 	@Override
 	public void setId(I id) {
