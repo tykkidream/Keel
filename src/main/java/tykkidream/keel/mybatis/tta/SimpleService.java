@@ -31,19 +31,13 @@ public class SimpleService<T extends BaseModel<T, I>, Y extends BaseDao<T, I>, I
 			bounds = new PagingBounds(page.getPageIndex(), page.getPageSize());
 		}
 		
-		List<T> list = getBaseDao().selectByParameters(params,bounds);
+		List<T> list = getBaseDao().selectByPage(params,bounds);
 		return list;
 	}
 	
 	@Override
 	public List<T> queryByPage(Map<String, Object> params, RowBounds bounds) {
-		List<T> list = getBaseDao().selectFullByParameters(params, bounds);
-		return list;
-	}
-
-	@Override
-	public List<T> queryFullByPage(Map<String, Object> params, RowBounds bounds) {
-		List<T> list = getBaseDao().selectByParameters(params,bounds);
+		List<T> list = getBaseDao().selectByPage(params, bounds);
 		return list;
 	}
 

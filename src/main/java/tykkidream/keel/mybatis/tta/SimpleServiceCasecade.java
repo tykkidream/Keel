@@ -14,13 +14,13 @@ public class SimpleServiceCasecade<T extends BaseModelCasecade<T, I>, Y extends 
 
 	@Override
 	public List<T> queryConnectLeafByPage(Map<String, Object> params, RowBounds bounds) {
-		List<T> list = getBaseDao().selectConnectLeafByParameters(params, bounds);
+		List<T> list = getBaseDao().selectConnectLeafByPage(params, bounds);
 		return list;
 	}
 
 	@Override
 	public List<T> queryConnectRootByPage(Map<String, Object> params, RowBounds bounds) {
-		List<T> list = getBaseDao().selectConnectRootByParameters(params, bounds);
+		List<T> list = getBaseDao().selectConnectRootByRowBounds(params, bounds);
 		return list;
 	}
 	
@@ -32,7 +32,7 @@ public class SimpleServiceCasecade<T extends BaseModelCasecade<T, I>, Y extends 
 		} else {
 			bounds = new PagingBounds(page.getPageIndex(), page.getPageSize());
 		}
-		List<T> list = getBaseDao().selectConnectLeafByParameters(params, bounds);
+		List<T> list = getBaseDao().selectConnectLeafByPage(params, bounds);
 		return list;
 	}
 	
@@ -46,7 +46,7 @@ public class SimpleServiceCasecade<T extends BaseModelCasecade<T, I>, Y extends 
 			bounds = new PagingBounds(page.getPageIndex(), page.getPageSize());
 		}
 		
-		List<T> list = getBaseDao().selectConnectRootByParameters(params, bounds);
+		List<T> list = getBaseDao().selectConnectRootByRowBounds(params, bounds);
 		return list;
 	}
 

@@ -12,7 +12,7 @@ import tykkidream.keel.base.Page;
  */
 public interface BaseDao<E, I> {
 	
-	I generateKey();
+	public I generateKey();
 	
 	/**
 	 * <h3>普通数据处理：插入一个数据到数据库。</h3>
@@ -20,15 +20,17 @@ public interface BaseDao<E, I> {
 	 * @param record 一个数据对象
 	 * @return 成功次数
 	 */
-	int insert(E entity);
-	
+	public int insert(E entity);
+
 	/**
 	 * <h3>普通数据处理：从数据删除一个数据。</h3>
 	 * <p>功能约定为根据数据的主键ID从数据表中删除。最终功能视具体的实现而定。</p>
 	 * @param id 数据的主键ID
 	 * @return 成功次数
 	 */
-	int delete(I key);
+	public int deleteById(I key);
+	
+	public int deleteByIdArray(I[] key);
 	
 	/**
 	 * <h3>普通数据处理：更新一个数据到数据库。</h3>
@@ -36,7 +38,11 @@ public interface BaseDao<E, I> {
 	 * @param record 一个数据
 	 * @return 成功次数
 	 */
-	int update(E record);
+	public int updateById(E record);
+	
+	public int subjoinById(E e);
+
+	public int mergeById(E record);
 	
 	/**
 	 * <h3>普通数据处理：查询一个数据。</h3>
@@ -44,7 +50,9 @@ public interface BaseDao<E, I> {
 	 * @param id 数据的主键ID
 	 * @return 单个数据
 	 */
-	public E selectByKey(I key);
+	public E selectById(I key);
+	
+	public List<E> selectByIdArray(I[] key);
 	
 	/**
 	 * <h3>普通数据处理：按条件查询所有数据。</h3>
@@ -54,5 +62,9 @@ public interface BaseDao<E, I> {
 	 */
 	public List<E> selectByParameters(Object params);
 	
-	public List<E> selectByParameters(Object params, Page page);
+	public List<E> selectByPage(Object params, Page page);
+	
+	public int count();
+	
+	public int countByParameters(Object params);
 }

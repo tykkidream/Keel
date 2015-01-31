@@ -36,7 +36,7 @@ public class SimpleDddController<E,I extends BaseID<?>> extends AbstractControll
 
 	@Override
 	public List<E> search(Map<String, Object> params, Page page) {
-		return getBaseApplication().search(params, page);
+		return getBaseApplication().search(page);
 	}
 
 	@Override

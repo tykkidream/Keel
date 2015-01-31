@@ -13,64 +13,64 @@ public class SimpleDaoCasecade <T extends BaseModelCasecade<?, I>,  I extends Se
 
 	@Override
 	public T selectConnectLeaf(I id) {
-		return selectOne(this.mapperNamespace + ".selectConnectLeafByID", id);
+		return getSqlSession().selectOne(this.mapperNamespace + ".selectConnectLeaf", id);
 	}
 
 	@Override
 	public T selectConnectLeafByLeaf(I id) {
-		return selectOne(this.mapperNamespace + ".selectConnectLeafByLeaf", id);
+		return getSqlSession().selectOne(this.mapperNamespace + ".selectConnectLeafByLeaf", id);
 	}
 
 	@Override
 	public List<T> selectConnectLeafByParameters(Object params) {
-		return selectList(this.mapperNamespace + ".selectConnectLeafByParameters", params);
+		return getSqlSession().selectList(this.mapperNamespace + ".selectConnectLeafByParameters", params);
 	}
 
 	@Override
-	public List<T> selectConnectLeafByParameters(Object params, RowBounds bounds) {
-		return selectList(this.mapperNamespace + ".selectConnectLeafByParameters", params, bounds);
+	public List<T> selectConnectLeafByPage(Object params, RowBounds bounds) {
+		return getSqlSession().selectList(this.mapperNamespace + ".selectConnectLeafByPage", params, bounds);
 	}
 	
 	@Override
 	public T selectConnectRoot(I id) {
-		return selectOne(this.mapperNamespace + ".selectConnectRootByID", id);
+		return getSqlSession().selectOne(this.mapperNamespace + ".selectConnectRoot", id);
 	}
 
 	@Override
 	public T selectConnectRootByRoot(I id) {
-		return selectOne(this.mapperNamespace + ".selectConnectRootByRoot", id);
+		return getSqlSession().selectOne(this.mapperNamespace + ".selectConnectRootByRoot", id);
 	}
 
 	@Override
 	public List<T> selectConnectRootByParameters(Object params) {
-		return selectList(this.mapperNamespace + ".selectConnectRootByParameters", params);
+		return getSqlSession().selectList(this.mapperNamespace + ".selectConnectRootByParameters", params);
 	}
 
 
 	@Override
-	public List<T> selectConnectRootByParameters(Object params, RowBounds bounds) {
-		return selectList(this.mapperNamespace + ".selectConnectRootByParameters", params, bounds);
+	public List<T> selectConnectRootByRowBounds(Object params, RowBounds bounds) {
+		return getSqlSession().selectList(this.mapperNamespace + ".selectConnectRootByRowBounds", params, bounds);
 	}
 
 	@Override
-	public List<T> selectConnectLeafByParameters(Object params, Page page) {
+	public List<T> selectConnectLeafByPage(Object params, Page page) {
 		RowBounds rb = null;
 		if (page instanceof RowBounds) {
 			rb = (RowBounds)page;
 		} else {
 			rb = new PagingBounds(page.getPageIndex(), page.getPageSize());
 		}
-		return selectConnectLeafByParameters(params,rb);
+		return selectConnectLeafByPage(params,rb);
 	}
 
 	@Override
-	public List<T> selectConnectRootByParameters(Object params, Page page) {
+	public List<T> selectConnectRootByPage(Object params, Page page) {
 		RowBounds rb = null;
 		if (page instanceof RowBounds) {
 			rb = (RowBounds)page;
 		} else {
 			rb = new PagingBounds(page.getPageIndex(), page.getPageSize());
 		}
-		return selectConnectRootByParameters(params,rb);
+		return selectConnectRootByRowBounds(params,rb);
 	}
 }

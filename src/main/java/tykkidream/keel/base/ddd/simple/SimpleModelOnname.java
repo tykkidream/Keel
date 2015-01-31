@@ -1,45 +1,42 @@
-package tykkidream.keel.base.ddd;
+package tykkidream.keel.base.ddd.simple;
+
+import java.io.Serializable;
 
 import tykkidream.keel.base.tta.BaseModel;
 
-public class SimpleModelOnname<E extends SimpleModelOnname<?, I>, I extends BaseID<?>> implements BaseModel<E, I>{
+public class SimpleModelOnname<E extends SimpleModelOnname<?, I>, I  extends Serializable>
+	implements BaseModel<E, I>{
 
 	private static final long serialVersionUID = -7225934699073832603L;
-	
-	protected E This = null;
 	
 	protected I id = null;
 	
 	protected String name = null;
-
-	@SuppressWarnings("unchecked")
-	public SimpleModelOnname(){
-		This = (E) this;
-	}
+	
+	public SimpleModelOnname(){}
 	
 	public SimpleModelOnname(I id){
-		this();
 		setId(id);
 	}
 
 	@Override
 	public void setId(I id) {
-		This.id = id;
+		this.id = id;
 	}
 
 	@Override
 	public I getId() {
-		return This.id;
+		return this.id;
 	}
 
 	@Override
 	public String getName() {
-		return This.name;
+		return this.name;
 	}
 
 	@Override
 	public void setName(String name) {
-		This.name = name;
+		this.name = name;
 	}
 
 	@Override

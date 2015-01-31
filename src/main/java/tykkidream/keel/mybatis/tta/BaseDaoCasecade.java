@@ -6,8 +6,8 @@ import org.apache.ibatis.session.RowBounds;
 
 public interface BaseDaoCasecade<T, I> extends BaseDao<T, I>, tykkidream.keel.base.tta.BaseDaoCasecade<T, I> {
 
-	List<T> selectConnectRootByParameters(Object params, RowBounds bounds);
+	List<T> selectConnectRootByRowBounds(Object params, RowBounds bounds);
 
-	List<T> selectConnectLeafByParameters(Object params, RowBounds bounds);
+	List<T> selectConnectLeafByPage(Object params, RowBounds bounds);
 	
 }

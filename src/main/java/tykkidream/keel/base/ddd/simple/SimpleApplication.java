@@ -1,9 +1,11 @@
-package tykkidream.keel.base.ddd;
+package tykkidream.keel.base.ddd.simple;
 
 import java.util.List;
-import java.util.Map;
 
 import tykkidream.keel.base.Page;
+import tykkidream.keel.base.ddd.BaseApplication;
+import tykkidream.keel.base.ddd.BaseID;
+import tykkidream.keel.base.ddd.BaseRepository;
 
 public class SimpleApplication<T, I extends BaseID<?>> implements BaseApplication<T, I> {
 	
@@ -19,12 +21,12 @@ public class SimpleApplication<T, I extends BaseID<?>> implements BaseApplicatio
 	
 	@Override
 	public int save(T t) {
-		return getBaseRepository().store(t);
+		return getBaseRepository().save(t);
 	}
 
 	@Override
 	public int save(List<T> ts) {
-		return getBaseRepository().store(ts);
+		return getBaseRepository().save(ts);
 	}
 
 	@Override
@@ -33,7 +35,7 @@ public class SimpleApplication<T, I extends BaseID<?>> implements BaseApplicatio
 	}
 
 	@Override
-	public int delete(List<T> is) {
+	public int delete(List<I> is) {
 		return getBaseRepository().remove(is);
 	}
 
@@ -43,8 +45,8 @@ public class SimpleApplication<T, I extends BaseID<?>> implements BaseApplicatio
 	}
 
 	@Override
-	public List<T> search(Map<String, Object> params, Page page) {
-		return getBaseRepository().find(params, page);
+	public List<T> search(Page page) {
+		return getBaseRepository().find(page);
 	}
 
 	@Override
@@ -58,13 +60,8 @@ public class SimpleApplication<T, I extends BaseID<?>> implements BaseApplicatio
 	}
 
 	@Override
-	public List<T> search(Map<String, Object> params) {
-		return getBaseRepository().find(params);
-	}
-
-	@Override
-	public int count() {
-		return getBaseRepository().count();
+	public int size() {
+		return getBaseRepository().size();
 	}
 
 }

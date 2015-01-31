@@ -1,4 +1,7 @@
-package tykkidream.keel.base.ddd;
+package tykkidream.keel.base.ddd.exception;
+
+import tykkidream.keel.base.ddd.simple.SimpleRepository;
+
 
 public class NullRepositorDelegateException extends RuntimeException {
 

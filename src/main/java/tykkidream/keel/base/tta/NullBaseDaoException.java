@@ -1,6 +1,6 @@
 package tykkidream.keel.base.tta;
 
-import tykkidream.keel.base.ddd.SimpleRepositoryDaoAdapter;
+import tykkidream.keel.base.ddd.simple.SimpleRepositoryDao;
 
 public class NullBaseDaoException extends RuntimeException {
 
@@ -14,11 +14,11 @@ public class NullBaseDaoException extends RuntimeException {
 		super(s);
 	}
 	
-	public NullBaseDaoException(SimpleRepositoryDaoAdapter<?, ?, ?> rese) {
+	public NullBaseDaoException(SimpleRepositoryDao<?, ?, ?,?,?> rese) {
 		super(exceptionMessage(rese));
 	}
 	
-	private static String exceptionMessage(SimpleRepositoryDaoAdapter<?, ?, ?> rese) {
+	private static String exceptionMessage(SimpleRepositoryDao<?, ?, ?,?,?> rese) {
 		String s = null;
 		if (null != rese) {
 			s = "BaseRepositoryAndBaseServiceAdapter（" + rese.toString() +"）内部 的 service 为 null 。请使用 setBaseService(BaseService)为其设置。";

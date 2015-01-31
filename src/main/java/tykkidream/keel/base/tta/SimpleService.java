@@ -55,7 +55,7 @@ public class SimpleService<E extends BaseModel<E, I>, D extends BaseDao<E, I>, I
 
 	@Override
 	public int modify(E record) {
-		int num = getBaseDao().update(record);
+		int num = getBaseDao().updateById(record);
 		return num;
 	}
 
@@ -65,7 +65,7 @@ public class SimpleService<E extends BaseModel<E, I>, D extends BaseDao<E, I>, I
 		if(record == null  || record.size() > 0){
 			for (Iterator<E> iterator = record.iterator(); iterator.hasNext();) {
 				E t = iterator.next();
-				num += getBaseDao().update(t);
+				num += getBaseDao().updateById(t);
 			}
 		}
 		return num;
@@ -73,7 +73,7 @@ public class SimpleService<E extends BaseModel<E, I>, D extends BaseDao<E, I>, I
 
 	@Override
 	public int delete(I id) {
-		return getBaseDao().delete(id);
+		return getBaseDao().deleteById(id);
 	}
 
 	@Override
@@ -95,7 +95,7 @@ public class SimpleService<E extends BaseModel<E, I>, D extends BaseDao<E, I>, I
 
 	@Override
 	public E query(I id) {
-		E obj = getBaseDao().selectByKey(id);
+		E obj = getBaseDao().selectById(id);
 		return obj;
 	}
 
@@ -118,7 +118,7 @@ public class SimpleService<E extends BaseModel<E, I>, D extends BaseDao<E, I>, I
 			if (entity.getId() == null) {
 				num = getBaseDao().insert(entity);
 			} else {
-				num = getBaseDao().update(entity);
+				num = getBaseDao().updateById(entity);
 			}
 		}
 		return num;
@@ -143,7 +143,7 @@ public class SimpleService<E extends BaseModel<E, I>, D extends BaseDao<E, I>, I
 			
 			for (int i = 0; i < up.size(); i++) {
 				E obj = up.get(i);
-				num += getBaseDao().update(obj);
+				num += getBaseDao().updateById(obj);
 			}
 		}
 		return num;

@@ -1,11 +1,13 @@
-package tykkidream.keel.base.ddd;
+package tykkidream.keel.base.ddd.simple;
 
 import java.util.List;
-import java.util.Map;
 
 import tykkidream.keel.base.Page;
+import tykkidream.keel.base.ddd.BaseID;
+import tykkidream.keel.base.ddd.BaseRepository;
+import tykkidream.keel.base.ddd.exception.NullRepositorDelegateException;
 
-public class SimpleRepository<T,I extends BaseID<?>> implements BaseRepository<T, I> {
+public abstract class SimpleRepository<T,I extends BaseID<?>> implements BaseRepository<T, I> {
 	
 	private BaseRepository<T,I> delegate;
 	
@@ -26,13 +28,13 @@ public class SimpleRepository<T,I extends BaseID<?>> implements BaseRepository<T
 	}
 
 	@Override
-	public int store(T t) {
-		return delegate().store(t);
+	public int save(T t) {
+		return delegate().save(t);
 	}
 
 	@Override
-	public int store(List<T> t) {
-		return delegate().store(t);
+	public int save(List<T> t) {
+		return delegate().save(t);
 	}
 
 	@Override
@@ -41,7 +43,7 @@ public class SimpleRepository<T,I extends BaseID<?>> implements BaseRepository<T
 	}
 
 	@Override
-	public int remove(List<T> is) {
+	public int remove(List<I> is) {
 		return delegate().remove(is);
 	}
 
@@ -54,20 +56,15 @@ public class SimpleRepository<T,I extends BaseID<?>> implements BaseRepository<T
 	public T find(I y) {
 		return  delegate().find(y);
 	}
-
-	@Override
-	public List<T> find(Map<String, Object> params) {
-		return delegate().find(params);
-	}
 	
 	@Override
-	public List<T> find(Map<String, Object> params, Page page) {
-		return delegate().find(params, page);
+	public List<T> find(Page page) {
+		return delegate().find( page);
 	}
 
 	@Override
-	public int count() {
-		return delegate().count();
+	public int size() {
+		return delegate().size();
 	}
 
 }

@@ -27,7 +27,7 @@ public interface BaseDaoCasecade<T, I> extends BaseDao<T, I> {
 	 */
 	public List<T> selectConnectLeafByParameters(Object params);
 	
-	public List<T> selectConnectLeafByParameters(Object params,Page page);
+	public List<T> selectConnectLeafByPage(Object params,Page page);
 	
 	/**
 	 * <h3>向下级联数据处理：查询一个数据。</h3>
@@ -51,5 +51,5 @@ public interface BaseDaoCasecade<T, I> extends BaseDao<T, I> {
 	 */
 	public List<T> selectConnectRootByParameters(Object params);
 	
-	public List<T> selectConnectRootByParameters(Object params, Page page);
+	public List<T> selectConnectRootByPage(Object params, Page page);
 }

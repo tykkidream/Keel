@@ -1,8 +1,10 @@
-package tykkidream.keel.base.ddd;
+package tykkidream.keel.base.ddd.simple;
+
+import java.io.Serializable;
 
 import tykkidream.keel.base.tta.BaseModel;
 
-public class SimpleModelUnname<E extends SimpleModelUnname<?, I>, I extends BaseID<?>> implements BaseModel<E, I>{
+public class SimpleModelUnname<E extends SimpleModelUnname<?, I>, I  extends Serializable> implements BaseModel<E, I>{
 
 	private static final long serialVersionUID = -7225934699073832603L;
 	

@@ -35,156 +35,99 @@ public class SimpleDao<T extends BaseModel<?, I>, I extends Serializable> extend
 	}
 	
 	@Override
-	protected void finalize() throws Throwable {
-		super.finalize();
-		if(this.getSqlSession() != null){
-			this.getSqlSession().commit();
-			this.getSqlSession().clearCache();
-			this.getSqlSession().close();
-		}
-	}
-	
-	/**
-	 * 通用的插入数据方法。
-	 * @param sqlId MyBatis的插入SQL语句ID
-	 * @param record 含有数据的对象
-	 * @return 受影响的行数
-	 */
-	protected int insert(String sqlId, T record) {
-		return getSqlSession().insert(sqlId, record);
+	public I generateKey() {
+		return getSqlSession().selectOne(this.mapperNamespace + ".generateKey");
 	}
 	
 	@Override
 	public int insert(T record) {
-		return insert(this.mapperNamespace + ".insert",record);
+		return getSqlSession().insert(this.mapperNamespace + ".insert",record);
 	}
 
 	@Override
 	public int insertSelective(T record) {
-		return insert(this.mapperNamespace + ".insertSelective",record);
-	}
-	
-	/**
-	 * 通用的根据主键删除数据方法。
-	 * @param sqlId MyBatis的删除SQL语句ID
-	 * @param id 主键
-	 * @return 受影响的行数
-	 */
-	protected int delete(String sqlId, I id) {
-		return getSqlSession().delete(sqlId, id);
+		return getSqlSession().insert(this.mapperNamespace + ".insertSelective",record);
 	}
 	
 	@Override
-	public int delete(I id) {
-		return getSqlSession().delete(mapperNamespace + ".delete", id);
-	}
-	
-	public int update(String sqlId,T record) {
-		return getSqlSession().update(sqlId, record);
-	}	
-
-	@Override
-	public int update(T record) {
-		return update(mapperNamespace + ".updateByID", record);
+	public int deleteById(I id) {
+		return getSqlSession().delete(mapperNamespace + ".deleteById", id);
 	}
 
 	@Override
-	public int updateSelective(T record) {
-		return update(mapperNamespace + ".updateByIDSelective", record);
-	}
-
-	public T selectOne(String sqlId, I id) {
-		try {
-			return getSqlSession().selectOne(sqlId, id);
-		} catch (Exception ex) {
-			ex.printStackTrace();
-		}
-		return null;
-	}
-	
-	public List<T> selectList(String sqlId, Object params) {
-		return getSqlSession().selectList(sqlId, params);
-	}
-	
-	public List<T> selectList(String sqlId, Object params, RowBounds bounds) {
-		PagingBounds pb = null;
-		
-		if (bounds instanceof PagingBounds) {
-			pb = (PagingBounds)bounds;
-		} else {
-			pb = new PagingBounds(bounds.getOffset() / bounds.getLimit() + 1, bounds.getLimit());
-		}
-		
-		return getSqlSession().selectList(sqlId, params, pb);
+	public int updateById(T record) {
+		return getSqlSession().update(mapperNamespace + ".updateById", record);
 	}
 
 	@Override
-	public T selectByKey(I id) {
-		return selectOne(this.mapperNamespace + ".selectByKey", id);
+	public int updateSelectiveById(T record) {
+		return getSqlSession().update(mapperNamespace + ".updateSelectiveById", record);
+	}
+
+	@Override
+	public T selectById(I id) {
+		return getSqlSession().selectOne(this.mapperNamespace + ".selectById", id);
 	}
 
 	@Override
 	public List<T> selectByParameters(Object params) {
-		return selectList(this.mapperNamespace + ".selectByParameters", params);
+		return getSqlSession().selectList(this.mapperNamespace + ".selectByParameters", params);
 	}
 	
-	public List<T> selectByParameters(Object params, PagingBounds bounds) {
-		return selectList(this.mapperNamespace + ".selectByParameters", params, bounds);
+	public List<T> selectByPage(Object params, PagingBounds bounds) {
+		return getSqlSession().selectList(this.mapperNamespace + ".selectByPage", params, bounds);
 	}
 
 	@Override
-	public List<T> selectByParameters(Object params, RowBounds page) {
+	public List<T> selectByPage(Object params, RowBounds page) {
 		PagingBounds bounds = null;
 		if (page instanceof PagingBounds) {
 			bounds = (PagingBounds)page;
 		} else {
 			bounds = new PagingBounds(page.getOffset()/page.getLimit(), page.getLimit());
 		}
-		return selectByParameters(params, bounds);
+		return selectByPage(params, bounds);
 	}
 	
 
 	@Override
-	public List<T> selectByParameters(Object params, Page page) {
+	public List<T> selectByPage(Object params, Page page) {
 		PagingBounds bounds = null;
 		if (page instanceof PagingBounds) {
 			bounds = (PagingBounds)page;
 		} else {
 			bounds = new PagingBounds(page.getPageIndex(), page.getPageSize());
 		}
-		return selectByParameters(params, bounds);
-	}
-
-
-	@Override
-	public T selectFullByKey(I id) {
-		return selectOne(this.mapperNamespace + ".selectFullByKey", id);
+		return selectByPage(params, bounds);
 	}
 
 	@Override
-	public List<T> selectFullByParameters(Object params) {
-		return selectList(this.mapperNamespace + ".selectFullByParameters", params);
+	public List<T> selectByIdArray(I[] key) {
+		return getSqlSession().selectOne(this.mapperNamespace + ".selectByIdArray", key);
+	}
+	@Override
+	public int count() {
+		return getSqlSession().selectOne(this.mapperNamespace + ".count");
 	}
 	
-	public List<T> selectFullByParameters(Object params, PagingBounds page) {
-		return selectList(this.mapperNamespace + ".selectFullByParameters", params, page);
+	@Override
+	public int countByParameters(Object params) {
+		return getSqlSession().selectOne(this.mapperNamespace + ".countByParameters", params);
 	}
 
 	@Override
-	public List<T> selectFullByParameters(Object params, RowBounds page) {
-		PagingBounds bounds = null;
-		if (page instanceof PagingBounds) {
-			bounds = (PagingBounds)page;
-		} else {
-			bounds = new PagingBounds(page.getOffset()/page.getLimit(), page.getLimit());
-		}
-		return selectFullByParameters(params, bounds);
+	public int deleteByIdArray(I[] key) {
+		return getSqlSession().delete(this.mapperNamespace + ".deleteByIdArray", key);
 	}
 
-	
 	@Override
-	public I generateKey() {
-		return getSqlSession().selectOne(this.mapperNamespace + ".generateKey");
+	public int subjoinById(T e) {
+		return getSqlSession().update(this.mapperNamespace + ".subjoinById", e);
+	}
+
+	@Override
+	public int mergeById(T record) {
+		return getSqlSession().update(this.mapperNamespace + ".mergeById", record);
 	}
 
 }
