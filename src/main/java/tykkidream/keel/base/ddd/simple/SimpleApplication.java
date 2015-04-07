@@ -7,15 +7,15 @@ import tykkidream.keel.base.ddd.BaseApplication;
 import tykkidream.keel.base.ddd.BaseID;
 import tykkidream.keel.base.ddd.BaseRepository;
 
-public class SimpleApplication<T, I extends BaseID<?>> implements BaseApplication<T, I> {
+public class SimpleApplication<T, I extends BaseID<?>, R extends BaseRepository<T,I>> implements BaseApplication<T, I> {
 	
-	protected BaseRepository<T,I> baseRepository = null;
+	protected R baseRepository = null;
 
-	public BaseRepository<T, I> getBaseRepository() {
+	public R getBaseRepository() {
 		return baseRepository;
 	}
 
-	public void setBaseRepository(BaseRepository<T, I> baseRepository) {
+	public void setBaseRepository(R baseRepository) {
 		this.baseRepository = baseRepository;
 	}
 	

@@ -8,30 +8,32 @@ public class SimpleIDLong  extends SimpleID<Long>{
 
 	public static final SimpleIDLong NULL = new SimpleNullLongID();
 	
+	protected Long value = null;
+	
 	public SimpleIDLong() {
 	}
 	
 	public SimpleIDLong(Long value){
-		this.id = value;
+		this.value = value;
 	}
 
 	@Override
-	public Long getId() {
-		return this.id;
+	public Long getValue() {
+		return this.value;
 	}
 
 	@Override
-	public void setId(Long id) {
-		if (null == this.id) {
-			this.id = id;
+	public void setValue(Long value) {
+		if (null == this.value) {
+			this.value = value;
 		}
 	}
 	
 	private static class SimpleNullLongID extends SimpleIDLong implements NullObject{
 		private static final long serialVersionUID = -8631104908514165521L;
 		@Override
-		public Long getId() {return null;}
+		public Long getValue() {return null;}
 		@Override
-		public void setId(Long id) {}
+		public void setValue(Long id) {}
     }
 }

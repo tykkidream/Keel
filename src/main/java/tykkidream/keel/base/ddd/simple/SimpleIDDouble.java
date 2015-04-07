@@ -7,22 +7,24 @@ public class SimpleIDDouble extends SimpleID<Double>{
 	
 	public static final SimpleIDDouble NULL = new SimpleNullDoubleID();
 	
+	protected Double value = null;
+	
 	public SimpleIDDouble() {
 	}
 	
 	public SimpleIDDouble(Double value){
-		this.id = value;
+		this.value = value;
 	}
 
 	@Override
-	public Double getId() {
-		return this.id;
+	public Double getValue() {
+		return this.value;
 	}
 
 	@Override
-	public void setId(Double id) {
-		if (null == this.id) {
-			this.id = id;
+	public void setValue(Double value) {
+		if (null == this.value) {
+			this.value = value;
 		}
 	}
 	
@@ -30,8 +32,8 @@ public class SimpleIDDouble extends SimpleID<Double>{
 			private static final long serialVersionUID = -7760882619888424264L;
 
 			@Override
-			public Double getId() {return null;}
+			public Double getValue() {return null;}
 			@Override
-			public void setId(Double value) {}
+			public void setValue(Double value) {}
 	    }
 }

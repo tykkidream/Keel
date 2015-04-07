@@ -6,22 +6,24 @@ public class SimpleIDString extends SimpleID<String> {
 	
 	public static final SimpleIDString NULL = new SimpleNullStringID();
 
+	protected String value = null;
+	
 	public SimpleIDString() {
 	}
 
 	public SimpleIDString(String value) {
-		this.id = value;
+		this.value = value;
 	}
 
 	@Override
-	public String getId() {
-		return this.id;
+	public String getValue() {
+		return this.value;
 	}
 
 	@Override
-	public void setId(String id) {
-		if (null == this.id) {
-			this.id = id;
+	public void setValue(String value) {
+		if (null == this.value) {
+			this.value = value;
 		}
 	}
 
@@ -29,12 +31,12 @@ public class SimpleIDString extends SimpleID<String> {
 		private static final long serialVersionUID = 6374867016965795814L;
 
 		@Override
-		public String getId() {
+		public String getValue() {
 			return null;
 		}
 
 		@Override
-		public void setId(String id) {
+		public void setValue(String id) {
 		}
 	}
 }

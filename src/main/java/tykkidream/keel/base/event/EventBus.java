@@ -1,32 +1,14 @@
 package tykkidream.keel.base.event;
 
-import tykkidream.keel.base.pattern.NullObject;
+import tykkidream.keel.base.event.bus.NullEventBuss;
 
-public abstract class EventBus {
-	public abstract <Ev extends Event> boolean publish(Ev event);
-
-	public abstract boolean subscriber(EventListener listener);
+public interface EventBus {
 	
-	public abstract boolean unsubscriber(EventListener listener);
+	<Ev extends Event> boolean publish(Ev event);
+
+	 boolean subscriber(EventListener listener);
 	
-	public static final EventBus NULL = new _NullEventBusNull_();
-			
-	private static class _NullEventBusNull_ extends EventBus implements NullObject{
+	boolean unsubscriber(EventListener listener);
 
-		@Override
-		public <Ev extends Event> boolean publish(Ev event) {
-			return false;
-		}
-
-		@Override
-		public boolean subscriber(EventListener listener) {
-			return false;
-		}
-
-		@Override
-		public boolean unsubscriber(EventListener listener) {
-			return false;
-		}
-		
-	}
+	static final EventBus NULL = new NullEventBuss();
 }

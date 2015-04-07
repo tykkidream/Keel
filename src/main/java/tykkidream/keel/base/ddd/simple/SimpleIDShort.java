@@ -5,22 +5,24 @@ public class SimpleIDShort extends SimpleID<Short> {
 	
 	public static final SimpleIDShort NULL = new  SimpleNullShortID();
 	
+	protected Short value = null;
+	
 	public SimpleIDShort() {
 	}
 	
 	public SimpleIDShort(Short value){
-		this.id = value;
+		this.value = value;
 	}
 
 	@Override
-	public Short getId() {
-		return this.id;
+	public Short getValue() {
+		return this.value;
 	}
 
 	@Override
-	public void setId(Short id) {
-		if (null == this.id) {
-			this.id = id;
+	public void setValue(Short value) {
+		if (null == this.value) {
+			this.value = value;
 		}
 	}
 
@@ -28,12 +30,12 @@ public class SimpleIDShort extends SimpleID<Short> {
 		private static final long serialVersionUID = -3863926568451378589L;
 
 		@Override
-		public Short getId() {
+		public Short getValue() {
 			return null;
 		}
 
 		@Override
-		public void setId(Short id) {
+		public void setValue(Short id) {
 		}
 	}
 }

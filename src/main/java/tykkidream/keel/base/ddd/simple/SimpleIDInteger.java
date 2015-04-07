@@ -6,30 +6,32 @@ public class SimpleIDInteger extends SimpleID<Integer>{
 	
 	public static final SimpleIDInteger NULL = new SimpleNullIntegerID();
 	
+	protected Integer value = null;
+	
 	public SimpleIDInteger() {
 	}
 	
 	public SimpleIDInteger(Integer value){
-		this.id = value;
+		this.value = value;
 	}
 
 	@Override
-	public Integer getId() {
-		return this.id;
+	public Integer getValue() {
+		return this.value;
 	}
 
 	@Override
-	public void setId(Integer id) {
-		if (null == this.id) {
-			this.id = id;
+	public void setValue(Integer value) {
+		if (null == this.value) {
+			this.value = value;
 		}
 	}
 
 	private static class SimpleNullIntegerID extends SimpleIDInteger{
 			private static final long serialVersionUID = -4346991621220110288L;
 			@Override
-			public Integer getId() {return null;}
+			public Integer getValue() {return null;}
 			@Override
-			public void setId(Integer id) {}
+			public void setValue(Integer id) {}
 	    }
 }

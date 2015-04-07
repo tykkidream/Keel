@@ -7,30 +7,32 @@ public class SimpleIDFloat extends SimpleID<Float>{
 	
 	public static final SimpleIDFloat NULL = new SimpleNullFloatID();
 	
+	protected Float value = null;
+	
 	public SimpleIDFloat() {
 	}
 	
 	public SimpleIDFloat(Float value){
-		this.id = value;
+		this.value = value;
 	}
 
 	@Override
-	public Float getId() {
-		return this.id;
+	public Float getValue() {
+		return this.value;
 	}
 
 	@Override
-	public void setId(Float id) {
-		if (null == this.id) {
-			this.id = id;
+	public void setValue(Float value) {
+		if (null == this.value) {
+			this.value = value;
 		}
 	}
 	
     private static class SimpleNullFloatID extends SimpleIDFloat{
 		private static final long serialVersionUID = -3299651332004901163L;
 		@Override
-		public Float getId() {return null;}
+		public Float getValue() {return null;}
 		@Override
-		public void setId(Float id) {}
+		public void setValue(Float id) {}
     }
 }

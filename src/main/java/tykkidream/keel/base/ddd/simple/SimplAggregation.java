@@ -7,6 +7,8 @@ import tykkidream.keel.base.event.EventBus;
 
 public class SimplAggregation<ID  extends Serializable> extends SimpleEntity<ID> implements BaseAggregation<ID> {
 
+	private static final long serialVersionUID = -1453986342615679795L;
+	
 	private EventBus eventBus = EventBus.NULL;
 	
 	public EventBus getEventBus() {

@@ -1,9 +1,15 @@
-package tykkidream.keel.base.event;
+package tykkidream.keel.base.event.bus;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Queue;
+import java.util.concurrent.ConcurrentLinkedQueue;
 
-public class ThreadEventBus extends EventBus {
+import tykkidream.keel.base.event.Event;
+import tykkidream.keel.base.event.EventListener;
+import tykkidream.keel.base.event.EventSubscriber;
+
+public class ThreadEventBus extends AbstractEventBus {
 	private static final ThreadLocal<List<EventSubscriber>> subscribersVariable = new ThreadLocal<List<EventSubscriber>>(){
 		protected List<EventSubscriber> initialValue() {
 			return new ArrayList<EventSubscriber>();
@@ -14,6 +20,8 @@ public class ThreadEventBus extends EventBus {
 			return Boolean.FALSE;
 		};
 	};
+	
+	private Queue<Event> eventQueue = new ConcurrentLinkedQueue<Event>();
 
 	public static ThreadEventBus instance() {
 		ThreadEventBus bus = new ThreadEventBus();
@@ -36,6 +44,10 @@ public class ThreadEventBus extends EventBus {
 							subscribeList.handleEvent(event);
 						}
 					}
+					
+					if(this.eventQueue.size() > 0){
+						
+					}
 				}
 
 				return true;
@@ -44,6 +56,8 @@ public class ThreadEventBus extends EventBus {
 			} finally {
 				publishingOff();
 			}
+		} else {
+			this.eventQueue.add(event);
 		}
 		return false;
 	}

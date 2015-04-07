@@ -1,6 +1,9 @@
-package tykkidream.keel.base.event;
+package tykkidream.keel.base.event.bus;
 
-public class SessionEventBus extends EventBus{
+import tykkidream.keel.base.event.Event;
+import tykkidream.keel.base.event.EventListener;
+
+public class SessionEventBus extends AbstractEventBus{
 
 	@Override
 	public <Ev extends Event> boolean publish(Ev event) {

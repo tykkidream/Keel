@@ -22,29 +22,20 @@ public abstract class SimpleID<I> implements BaseID<I> {
 	public static final SimpleIDString NULL_STRING = SimpleIDString.NULL;
 	public static final SimpleIDCharacter NULL_CHARACTER = SimpleIDCharacter.NULL;
 	
-	protected I id = null;
-	
 	public SimpleID() {
-		
 	}
 
-	public SimpleID(I id) {
-		setId(id);
+	public SimpleID(I value) {
+		setValue(value);
 	}
 
 	public I value() {
-		return getId();
+		return getValue();
 	}
 
-	public I getId() {
-		return id;
-	}
+	public abstract I getValue();
 
-	public void setId(I id) {
-		if (null == this.id) {
-			this.id = id;
-		}
-	}
+	public abstract void setValue(I id);
 	
 	@Override
 	@SuppressWarnings("unchecked")
@@ -56,7 +47,7 @@ public abstract class SimpleID<I> implements BaseID<I> {
 	};
 	 
     public boolean equals(SimpleID<I> obj) {
-    	if (null != obj && this.getId().equals(obj.getId())) {
+    	if (null != obj && this.value().equals(obj.value())) {
 			return true;
 		}
     	return false;
