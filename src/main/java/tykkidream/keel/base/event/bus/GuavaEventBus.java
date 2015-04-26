@@ -16,6 +16,12 @@ public class GuavaEventBus extends AbstractEventBus{
 		this.eventBus = eventBus;
 	}
 	
+	public GuavaEventBus(){
+		super();
+		EventBus bus = new EventBus();
+		this.setEventBus(bus);
+	}
+	
 	public GuavaEventBus(EventBus eventBus){
 		super();
 		this.setEventBus(eventBus);
